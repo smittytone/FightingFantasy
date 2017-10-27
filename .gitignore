@@ -3,3 +3,5 @@ FightingFantasy/Assets.xcassets/*
 
 
 .DS_Store
+
+*.entitlements
