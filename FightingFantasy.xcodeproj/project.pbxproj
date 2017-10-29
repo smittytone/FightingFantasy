@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BF193381FA6641A00337EE8 /* FFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF193371FA6641A00337EE8 /* FFViewController.swift */; };
+		3BF1933B1FA66A2300337EE8 /* FFCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF193391FA66A2300337EE8 /* FFCollectionViewItem.swift */; };
+		3BF1933C1FA66A2300337EE8 /* FFCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1933A1FA66A2300337EE8 /* FFCollectionViewItem.xib */; };
+		3BF1933E1FA67F0F00337EE8 /* FFIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1933D1FA67F0F00337EE8 /* FFIconButton.swift */; };
 		3BFE93041FA29615003DF79F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE93031FA29615003DF79F /* AppDelegate.swift */; };
 		3BFE93061FA29615003DF79F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE93051FA29615003DF79F /* Assets.xcassets */; };
 		3BFE93091FA29615003DF79F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE93071FA29615003DF79F /* MainMenu.xib */; };
@@ -14,8 +18,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BF193371FA6641A00337EE8 /* FFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFViewController.swift; sourceTree = "<group>"; };
+		3BF193391FA66A2300337EE8 /* FFCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFCollectionViewItem.swift; sourceTree = "<group>"; };
+		3BF1933A1FA66A2300337EE8 /* FFCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FFCollectionViewItem.xib; sourceTree = "<group>"; };
+		3BF1933D1FA67F0F00337EE8 /* FFIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFIconButton.swift; sourceTree = "<group>"; };
 		3BFE93001FA29615003DF79F /* FightingFantasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightingFantasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BFE93031FA29615003DF79F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3BFE93031FA29615003DF79F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		3BFE93051FA29615003DF79F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BFE93081FA29615003DF79F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3BFE930A1FA29615003DF79F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,8 +63,12 @@
 			children = (
 				3BFE93031FA29615003DF79F /* AppDelegate.swift */,
 				3BFE93111FA29A8D003DF79F /* FFPlayer.swift */,
+				3BF1933D1FA67F0F00337EE8 /* FFIconButton.swift */,
+				3BF193371FA6641A00337EE8 /* FFViewController.swift */,
+				3BF193391FA66A2300337EE8 /* FFCollectionViewItem.swift */,
 				3BFE93051FA29615003DF79F /* Assets.xcassets */,
 				3BFE93071FA29615003DF79F /* MainMenu.xib */,
+				3BF1933A1FA66A2300337EE8 /* FFCollectionViewItem.xib */,
 				3BFE930A1FA29615003DF79F /* Info.plist */,
 				3BFE930B1FA29615003DF79F /* FightingFantasy.entitlements */,
 			);
@@ -127,6 +139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BF1933C1FA66A2300337EE8 /* FFCollectionViewItem.xib in Resources */,
 				3BFE93061FA29615003DF79F /* Assets.xcassets in Resources */,
 				3BFE93091FA29615003DF79F /* MainMenu.xib in Resources */,
 			);
@@ -140,7 +153,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BFE93121FA29A8D003DF79F /* FFPlayer.swift in Sources */,
+				3BF193381FA6641A00337EE8 /* FFViewController.swift in Sources */,
+				3BF1933E1FA67F0F00337EE8 /* FFIconButton.swift in Sources */,
 				3BFE93041FA29615003DF79F /* AppDelegate.swift in Sources */,
+				3BF1933B1FA66A2300337EE8 /* FFCollectionViewItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
