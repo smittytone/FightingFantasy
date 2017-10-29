@@ -42,7 +42,7 @@ let kPotionFortune = 2
 @NSApplicationMain
 
 class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTableViewDataSource,
-                    NSTextFieldDelegate {
+                    NSTextFieldDelegate, NSPopoverDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
@@ -110,6 +110,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var packTable: NSTableView!
     @IBOutlet weak var addItemField: NSTextField!
 
+    @IBOutlet weak var iconPopoverController: FFViewController!
+    @IBOutlet weak var iconButton: FFIconButton!
+
     // MARK: Magic Tab Items
 
     @IBOutlet weak var creatureCopyField: NSTextField!
@@ -166,11 +169,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     var combatLuckOutcome: Int = 0
     var combatLuckCheck: Bool = false
     var dice: [NSImage] = []
+    var icons: [NSImage] = []
     var rollCount: Int = -1
     var packAddFlag: Bool = false
 
     var savePanel: NSSavePanel? = nil
     var savePath: String = ""
+
+    var iconPopover: NSPopover? = nil
 
     // MARK: App Lifecycle Functions
 
@@ -190,6 +196,39 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("six"))
         dice.append(image!)
 
+        image = NSImage.init(named: NSImage.Name("icon_lantern"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_sword"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_armour"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_gem"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_rope"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_stick"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_skull"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_axe"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_shield"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_helm"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_scroll"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_book"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_chalice"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_bottle"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_food"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_ring"))
+        icons.append(image!)
+
         // Set up pack table view
         packTable.target = self
         //packTable.doubleAction = #selector(tableViewDoubleClick(_:))
@@ -200,6 +239,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Set up the UI
         initUI()
 
+        // Notifications
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(setButton), name: NSNotification.Name(rawValue: "select.image"), object: nil)
+
         // Are we starting a new game?
         if !gameInProgress { showPlayerCreate() }
     }
@@ -208,6 +251,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Insert code here to tear down your application
     }
 
+    @objc func setButton(_ note: Notification) {
+
+        let obj = note.object
+        if obj != nil {
+            let item = obj as! FFCollectionViewItem
+            iconButton.image = icons[item.index]
+            iconButton.index = item.index
+        }
+    }
 
     func initUI() {
 
@@ -258,6 +310,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         combatReadoutOne.stringValue = ""
         combatReadoutTwo.stringValue = ""
+        combatReadoutThree.stringValue = ""
     }
 
     func initUITests() {
@@ -766,6 +819,25 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
+    @IBAction func showIcons(_ sender: Any) {
+
+        makeIconMatrix()
+
+        if let asender = (sender as? FFIconButton) {
+            iconPopover!.show(relativeTo: asender.bounds, of: asender, preferredEdge: NSRectEdge.maxY)
+        }
+    }
+
+    func makeIconMatrix() {
+
+        if iconPopover == nil {
+            iconPopover = NSPopover.init()
+            iconPopover!.contentViewController = iconPopoverController
+            iconPopover!.delegate = self
+            iconPopover!.behavior = NSPopover.Behavior.transient
+        }
+    }
+
     // MARK: Pack Tab Functions
 
     @IBAction func addPackItem(_ sender: Any) {
@@ -775,6 +847,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if item.characters.count == 0 { item = "New pack item" }
 
             zplayer.pack.append(item)
+            zplayer.packIcon.append(iconButton.index)
 
             packTable.reloadData()
             packTable.needsDisplay = true
@@ -790,6 +863,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if let zplayer = player {
             zplayer.pack.remove(at: zplayer.packSelectedItem)
+            zplayer.packIcon.remove(at: zplayer.packSelectedItem)
 
             packTable.reloadData()
             packTable.needsDisplay = true
@@ -814,6 +888,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
                 cell.textField?.stringValue = zplayer.pack[row]
 
+                /*
                 let cls = zplayer.pack[row].lowercased()
                 var range = cls.range(of: "sword")
 
@@ -842,6 +917,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                     let image: NSImage? = NSImage.init(named: NSImage.Name("icon_armour"))
                     cell.imageView?.image = image ?? nil
                 }
+                 */
+
+                var rrow = row
+
+                repeat {
+                    if rrow > 2 { rrow = rrow - 3 }
+                } while rrow > 2
+
+                cell.imageView?.image = icons[zplayer.packIcon[row]]
 
                 return cell
             }
@@ -1072,6 +1156,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if let panel = savePanel {
                 panel.nameFieldLabel = "Character name"
                 panel.isExtensionHidden = true
+                panel.allowedFileTypes = ["ffc"]
                 panel.beginSheetModal(for: window, completionHandler: { (response) in
 
                     var path: String = ""
@@ -1420,6 +1505,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.pack.append("Lantern")
             player!.pack.append("Sword")
             player!.pack.append("Leather armour")
+            player!.packIcon.append(0)
+            player!.packIcon.append(1)
+            player!.packIcon.append(2)
         }
 
         updateStatsSteppers()

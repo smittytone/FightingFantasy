@@ -31,6 +31,7 @@ class FFPlayer: NSObject, NSCoding {
     var drinks: Int = 2
 
     var pack: [String] = []
+    var packIcon: [Int] = []
     var packSelectedItem: Int = 0
     var citadelSpellMatrix: [Int] = []
     var modMatrix: [Int] = []
