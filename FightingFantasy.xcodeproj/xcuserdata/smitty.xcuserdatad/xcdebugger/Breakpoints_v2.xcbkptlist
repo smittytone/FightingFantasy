@@ -10,44 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FightingFantasy/AppDelegate.swift"
-            timestampString = "531009513.333242"
+            timestampString = "531047316.863011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "848"
-            endingLineNumber = "848"
-            landmarkName = "addPackItem(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FightingFantasy/AppDelegate.swift"
-            timestampString = "531009513.333407"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "865"
-            endingLineNumber = "865"
-            landmarkName = "usePackItem(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FightingFantasy/AppDelegate.swift"
-            timestampString = "531009513.333494"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "928"
-            endingLineNumber = "928"
-            landmarkName = "tableView(_:viewFor:row:)"
+            startingLineNumber = "1139"
+            endingLineNumber = "1139"
+            landmarkName = "reanimate(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
