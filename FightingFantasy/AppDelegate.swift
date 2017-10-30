@@ -46,12 +46,16 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                     NSTextFieldDelegate, NSPopoverDelegate {
 
     @IBOutlet weak var window: NSWindow!
-    @IBOutlet weak var deathWindow: NSWindow!
-    @IBOutlet weak var deathImageView: NSImageView!
-    @IBOutlet weak var reanimateButton: NSButton!
     @IBOutlet weak var tabs: NSTabView!
     @IBOutlet weak var magicTab: NSTabViewItem!
 
+    @IBOutlet weak var deathWindow: NSWindow!
+    @IBOutlet weak var deathImageView: NSImageView!
+    @IBOutlet weak var reanimateButton: NSButton!
+
+    @IBOutlet weak var helpWindow: NSWindow!
+    @IBOutlet weak var helpTextView: NSTextView!
+    
     // MARK: Stats Tab Items
 
     @IBOutlet weak var statsTabView: NSView!
@@ -181,6 +185,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     let onlyIntFormatter: FFTextFieldFormatter = FFTextFieldFormatter()
 
+    var statsTabImage: NSImageView? = nil
+
     // MARK: App Lifecycle Functions
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -251,11 +257,131 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !gameInProgress { showPlayerCreate() }
     }
 
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+
+        self.player = NSKeyedUnarchiver.unarchiveObject(withFile: filename) as? FFPlayer
+
+        if let zplayer = self.player {
+            initUI()
+
+            // Update the Citadel of Chaos magic spell matrix
+            if zplayer.gamekind == kGameCitadel {
+                creatureCopyField.stringValue = "\(zplayer.citadelSpellMatrix[0])"
+                espField.stringValue = "\(zplayer.citadelSpellMatrix[1])"
+                fireField.stringValue = "\(zplayer.citadelSpellMatrix[2])"
+                illusionField.stringValue = "\(zplayer.citadelSpellMatrix[3])"
+                levitationField.stringValue = "\(zplayer.citadelSpellMatrix[4])"
+                luckField.stringValue = "\(zplayer.citadelSpellMatrix[5])"
+                shieldingField.stringValue = "\(zplayer.citadelSpellMatrix[6])"
+                skillField.stringValue = "\(zplayer.citadelSpellMatrix[7])"
+                staminaField.stringValue = "\(zplayer.citadelSpellMatrix[8])"
+                strengthField.stringValue = "\(zplayer.citadelSpellMatrix[9])"
+                weaknessField.stringValue = "\(zplayer.citadelSpellMatrix[10])"
+            }
+
+            // Update the Temple of Terror magic spell readout
+            if zplayer.gamekind == kGameTempleTerror {
+                spellOnePopup.selectItem(at: zplayer.templeSpellMatrix[0])
+                spellTwoPopup.selectItem(at: zplayer.templeSpellMatrix[1])
+                spellThreePopup.selectItem(at: zplayer.templeSpellMatrix[2])
+                spellFourPopup.selectItem(at: zplayer.templeSpellMatrix[3])
+            }
+
+            // Handle tab hiding/unhiding
+            if zplayer.gamekind == kGameTempleTerror || zplayer.gamekind == kGameCitadel {
+                // Add back the Magic tab if necessary
+                if !tabs.tabViewItems.contains(magicTab) {
+                    tabs.insertTabViewItem(heldTabs["magictab"]!, at: 2)
+                }
+            } else {
+                // Remove the Magic tab
+                heldTabs["magictab"] = magicTab!
+                if tabs.tabViewItems.contains(magicTab) { tabs.removeTabViewItem(magicTab) }
+            }
+
+            // Handle game-specific stats boxes
+            hellBox.isHidden = zplayer.gamekind == kGameHouseHell ? false : true
+            citadelBox.isHidden = zplayer.gamekind == kGameCitadel ? false : true
+
+            // Handle game-specific images
+            if statsTabImage != nil {
+                statsTabImage?.removeFromSuperview()
+                statsTabImage = nil
+            }
+
+            if zplayer.gamekind == kGameHouseHell {
+                let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 102))
+                image.image = NSImage.init(named: NSImage.Name("hoh"))
+                statsTabView.addSubview(image)
+                statsTabImage = image
+            }
+
+            if zplayer.gamekind == kGameCitadel {
+                let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 14, 258, 102))
+                image.image = NSImage.init(named: NSImage.Name("coc"))
+                statsTabView.addSubview(image)
+                statsTabImage = image
+            }
+
+            // Update the modifiers
+            testLuckMod.selectItem(at: zplayer.modMatrix[0])
+            testSkillMod.selectItem(at: zplayer.modMatrix[1])
+            playerMod.selectItem(at: zplayer.modMatrix[2])
+            monsterMod.selectItem(at: zplayer.modMatrix[3])
+
+            gameInProgress = true
+            firstRun = true
+            updateStats()
+
+            return true
+        } else {
+            return false
+        }
+    }
+
     func applicationWillTerminate(_ aNotification: Notification) {
 
 		// Insert code here to tear down your application
     }
 
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+
+        if gameInProgress && needToSave && player != nil {
+            // Haven't saved previous (non-dead) character so should give opportunity to save
+            let alert = NSAlert.init()
+            alert.messageText = "You have a game in progress with unsaved changes"
+            alert.informativeText = "If you quit now, unsaved changes will be lost"
+            alert.addButton(withTitle: "Cancel")
+            alert.addButton(withTitle: "Quit")
+            alert.beginSheetModal(for: window, completionHandler: { (response) in
+                if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                    self.savePlayer(self)
+                } else {
+                    NSApp.reply(toApplicationShouldTerminate: true)
+                }
+            })
+
+            return NSApplication.TerminateReply.terminateLater
+        }
+
+        return NSApplication.TerminateReply.terminateNow
+    }
+
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
+
+    /*
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+
+        // Deal with the Save Character menu, which should be disabled if there are
+        // no changes to save (all other menus operate either way)
+        if menuItem.title == "Save Character" { return needToSave }
+
+        return super.validateMenuItem(menuItem)
+    }
+     */
+    
     func initUI() {
 
         // Set the UI to its default state
@@ -266,7 +392,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         initUIPack()
         initUIMagic()
 
+        // Clear the 'need to save' indicator
         window.isDocumentEdited = false
+
+        // Add back the Magic Tab if necessary (only if we call this after at least one game)
+        if !tabs.tabViewItems.contains(magicTab) {
+            tabs.insertTabViewItem(heldTabs["magictab"]!, at: tabs.tabViewItems.count)
+        }
     }
 
     func initUIstats() {
@@ -285,9 +417,32 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Hide the game-specific panels
         hellBox.isHidden = true
         citadelBox.isHidden = true
+
+        // Remove any images
+        if statsTabImage != nil {
+            statsTabImage!.removeFromSuperview()
+            statsTabImage = nil
+        }
     }
 
     func initUICombat() {
+
+        monsterOneStamField.stringValue = ""
+        monsterOneSkillField.stringValue = ""
+        monsterTwoStamField.stringValue = ""
+        monsterTwoSkillField.stringValue = ""
+        monsterThreeStamField.stringValue = ""
+        monsterThreeSkillField.stringValue = ""
+
+        monsterOneStamField.formatter = onlyIntFormatter
+        monsterOneSkillField.formatter = onlyIntFormatter
+        monsterTwoStamField.formatter = onlyIntFormatter
+        monsterTwoSkillField.formatter = onlyIntFormatter
+        monsterThreeStamField.formatter = onlyIntFormatter
+        monsterThreeSkillField.formatter = onlyIntFormatter
+
+        playerMod.selectItem(at: 3)
+        monsterMod.selectItem(at: 3)
 
         combatReadoutOne.stringValue = ""
         combatReadoutTwo.stringValue = ""
@@ -299,19 +454,50 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         testSkillValue.stringValue = ""
         testLuckValue.stringValue = ""
 
-        dieOne.image = dice[Int(arc4random() % 6)]
-        dieTwo.image = dice[Int(arc4random() % 6)]
+        dieOne.image = dice[Int(arc4random_uniform(6))]
+        dieTwo.image = dice[Int(arc4random_uniform(6))]
     }
 
     func initUIPack() {
 
+        addItemField.stringValue = ""
+        iconButton.image = icons[1]
         packTable.reloadData()
         packTable.needsDisplay = true
     }
 
     func initUIMagic() {
 
+        creatureCopyField.stringValue = ""
+        espField.stringValue = ""
+        fireField.stringValue = ""
+        illusionField.stringValue = ""
+        levitationField.stringValue = ""
+        luckField.stringValue = ""
+        shieldingField.stringValue = ""
+        skillField.stringValue = ""
+        staminaField.stringValue = ""
+        strengthField.stringValue = ""
+        weaknessField.stringValue = ""
+
+        creatureCopyField.formatter = onlyIntFormatter
+        espField.formatter = onlyIntFormatter
+        fireField.formatter = onlyIntFormatter
+        illusionField.formatter = onlyIntFormatter
+        levitationField.formatter = onlyIntFormatter
+        luckField.formatter = onlyIntFormatter
+        shieldingField.formatter = onlyIntFormatter
+        skillField.formatter = onlyIntFormatter
+        staminaField.formatter = onlyIntFormatter
+        strengthField.formatter = onlyIntFormatter
+        weaknessField.formatter = onlyIntFormatter
+
         magicSpellsValue.stringValue = "0"
+
+        spellOnePopup.selectItem(at: 0)
+        spellTwoPopup.selectItem(at: 0)
+        spellThreePopup.selectItem(at: 0)
+        spellFourPopup.selectItem(at: 0)
     }
 
     func updateStats() {
@@ -388,7 +574,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 if zplayer.fear >= zplayer.maxFear {
                     // Death by insanity
                     zplayer.isDead = true
-                    // playerMad()
+                    playerMad()
                     return
                 }
             }
@@ -761,7 +947,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-    @IBAction combatLuckRoll(_ sender: Any) {
+    @IBAction func combatLuckRoll(_ sender: Any) {
 
         if combatLuckCheck || player == nil {
             // Player has already Tested Luck this combat round, or the creature(s) is dead
@@ -780,10 +966,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if combatLuckOutcome == 1 {
             // The player previously hit the monster... try to increase damage
-            if successful {
+            if success {
                 switch (combatLuckMonster) {
                     case 1:
-                    a = monsterOneStam.integerValue - 2
+                    a = monsterOneStamField.integerValue - 2
+
                     if a <= 0 {
                         a = 0
                         combatReadoutTwo.stringValue = "A lucky strike... you kill the beast"
@@ -791,10 +978,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                         combatReadoutTwo.stringValue = "A lucky strike... you hit it harder than you thought"
                     }
 
-                    monsterOneStam.stringValue = "\(a)"
+                    monsterOneStamField.stringValue = "\(a)"
 
                     case 2:
-                    a = monsterTwoStam.integerValue - 2
+                    a = monsterTwoStamField.integerValue - 2
+
                     if a <= 0 {
                         a = 0
                         combatReadoutTwo.stringValue = "A lucky strike... you kill the beast"
@@ -802,10 +990,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                         combatReadoutTwo.stringValue = "A lucky strike... you hit it harder than you thought"
                     }
 
-                    monsterTwoStam.stringValue = "\(a)"
+                    monsterTwoStamField.stringValue = "\(a)"
 
                     default:
-                    a = monsterThreeStam.integerValue - 2
+                    a = monsterThreeStamField.integerValue - 2
+
                     if a <= 0 {
                         a = 0
                         combatReadoutTwo.stringValue = "A lucky strike... you kill the beast"
@@ -813,52 +1002,35 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                         combatReadoutTwo.stringValue = "A lucky strike... you hit it harder than you thought"
                     }
 
-                    monsterThreeStam.stringValue = "\(a)"
-    }
-    }
-    else
-    {
-    switch (combatLuckMonster)
-    {
-    case 1:
-    a = ([monsterOneStam intValue] + 1);
-    [monsterOneStam setIntValue:a];
-    [combatReadoutLineTwo setStringValue:@"Unlucky... you didn't hurt it as much as you thought"];
-    break;
+                    monsterThreeStamField.stringValue = "\(a)"
+                }
+            } else {
+                combatReadoutTwo.stringValue = "Unlucky... you didn't hurt it as much as you thought"
+                switch (combatLuckMonster) {
+                    case 1:
+                    monsterOneStamField.stringValue = "\(monsterOneStamField.integerValue + 1)"
+                    case 2:
+                    monsterTwoStamField.stringValue = "\(monsterTwoStamField.integerValue + 1)"
+                    default:
+                    monsterThreeStamField.stringValue = "\(monsterThreeStamField.integerValue + 1)"
+                }
+            }
+        }
 
-    case 2:
-    a = ([monsterTwoStam intValue] + 1);
-    [monsterTwoStam setIntValue:a];
-    [combatReadoutLineTwo setStringValue:@"Unlucky... you didn't hurt it as much as you thought"];
-    break;
+        if combatLuckOutcome == 2 {
+            // The monster hit the character... try to reduce strength of blow
+            if success {
+                player!.stamina = player!.stamina + 1
+                combatReadoutTwo.stringValue = "Good luck... that was only a glancing blow"
+            } else {
+                player!.stamina = player!.stamina - 1
+                combatReadoutTwo.stringValue = "Unlucky... its attack did extra damage"
+            }
+        }
 
-    case 3:
-    a = ([monsterThreeStam intValue] + 1);
-    [monsterThreeStam setIntValue:a];
-    [combatReadoutLineTwo setStringValue:@"Unlucky... you didn't hurt it as much as you thought"];
-    break;
-    }
-    }
-    }
+        updateStats()
 
-    if (combatLuckOutcome == 2)
-    {
-    // The monster hit the character... try to reduce strength of blow
-
-    if (successful == YES)
-    {
-    [theCharacter setStam:([theCharacter getStam] + 1)];
-    [combatReadoutLineTwo setStringValue:@"Good luck... that was only a glancing blow"];
-    }
-    else
-    {
-    [theCharacter setStam:([theCharacter getStam] - 1)];
-    [combatReadoutLineTwo setStringValue:@"Unlucky... it's attack did extra damage"];
-    }
-    }
-
-    [self updateStats];
-    [combatReadoutLineThree setStringValue:[NSString stringWithFormat:@"Your Stamina is %u. Your Luck is %u", [theCharacter getStam], [theCharacter getLuck]]];
+        combatReadoutThree.stringValue = "Your Stamina is \(player!.stamina). Your Luck is \(player!.luck)"
     }
 
     // MARK: Test Tab Functions
@@ -1057,7 +1229,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if creatureCopyCell.state == NSControl.StateValue.on {
             if creatureCopyField.integerValue > 0 {
                 success = true
-                player!.magic = player!.magic - 1
                 creatureCopyField.stringValue = "\(creatureCopyField.integerValue - 1)"
             }
         }
@@ -1065,7 +1236,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if espCell.state == NSControl.StateValue.on {
             if espField.integerValue > 0 {
                 success = true
-                player!.magic = player!.magic - 1
                 espField.stringValue = "\(espField.integerValue - 1)"
             }
         }
@@ -1073,7 +1243,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if fireCell.state == NSControl.StateValue.on {
             if fireField.integerValue > 0 {
                 success = true
-                player!.magic = player!.magic - 1
                 fireField.stringValue = "\(fireField.integerValue - 1)"
             }
         }
@@ -1081,7 +1250,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if illusionCell.state == NSControl.StateValue.on {
             if illusionField.integerValue > 0 {
                 success = true
-                player!.magic = player!.magic - 1
                 illusionField.stringValue = "\(illusionField.integerValue - 1)"
             }
         }
@@ -1089,7 +1257,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if levitationCell.state == NSControl.StateValue.on {
             if levitationField.integerValue > 0 {
                 success = true
-                player!.magic = player!.magic - 1
                 levitationField.stringValue = "\(levitationField.integerValue - 1)"
             }
         }
@@ -1098,7 +1265,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if luckField.integerValue > 0 {
                 success = true
                 player!.luck = player!.luck + (player!.initialLuck / 2)
-                player!.magic = player!.magic - 1
                 luckField.stringValue = "\(luckField.integerValue - 1)"
             }
         }
@@ -1106,7 +1272,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if shieldingCell.state == NSControl.StateValue.on {
             if shieldingField.integerValue > 0 {
                 success = true
-                player!.magic = player!.magic - 1
                 shieldingField.stringValue = "\(shieldingField.integerValue - 1)"
             }
         }
@@ -1115,7 +1280,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if skillField.integerValue > 0 {
                 success = true
                 player!.skill = player!.skill + (player!.initialSkill / 2)
-                player!.magic = player!.magic - 1
                 skillField.stringValue = "\(skillField.integerValue - 1)"
             }
         }
@@ -1124,7 +1288,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if staminaField.integerValue > 0 {
                 success = true
                 player!.stamina = player!.stamina + (player!.initialStamina / 2)
-                player!.magic = player!.magic - 1
                 staminaField.stringValue = "\(staminaField.integerValue - 1)"
             }
         }
@@ -1132,7 +1295,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if strengthCell.state == NSControl.StateValue.on {
             if strengthField.integerValue > 0 {
                 success = true
-                player!.magic = player!.magic - 1
                 strengthField.stringValue = "\(strengthField.integerValue - 1)"
             }
         }
@@ -1140,12 +1302,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if weaknessCell.state == NSControl.StateValue.on {
             if weaknessField.integerValue > 0 {
                 success = true
-                player!.magic = player!.magic - 1
                 weaknessField.stringValue = "\(weaknessField.integerValue - 1)"
             }
         }
 
-        if (success) {
+        if success {
+            player!.magic = player!.magic - 1
             needToSave = true
             showAlert("You cast the spell...", "The gamebook will tell you the outcome of your success", true)
         } else {
@@ -1208,7 +1370,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     func playerMad() {
 
         // Perform the death-by-madness routine
-        let image = NSImage.init(named: NSImage.Name("madness_banner")) {
+        let image = NSImage.init(named: NSImage.Name("madness_banner"))
         if image != nil { showDeathWindow(image!) }
     }
 
@@ -1414,12 +1576,39 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                         if self.tabs.tabViewItems.contains(self.magicTab) { self.tabs.removeTabViewItem(self.magicTab) }
                     }
 
+                    // Handle game-specific stats boxes
+                    self.hellBox.isHidden = zplayer.gamekind == kGameHouseHell ? false : true
+                    self.citadelBox.isHidden = zplayer.gamekind == kGameCitadel ? false : true
+
+                    // Handle game-specific images
+                    if self.statsTabImage != nil {
+                        self.statsTabImage?.removeFromSuperview()
+                        self.statsTabImage = nil
+                    }
+
+                    if zplayer.gamekind == kGameHouseHell {
+                        let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 102))
+                        image.image = NSImage.init(named: NSImage.Name("hoh"))
+                        self.statsTabView.addSubview(image)
+                        self.statsTabImage = image
+                    }
+
+                    if zplayer.gamekind == kGameCitadel {
+                        let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 14, 258, 102))
+                        image.image = NSImage.init(named: NSImage.Name("coc"))
+                        self.statsTabView.addSubview(image)
+                        self.statsTabImage = image
+                    }
+
                     // Update the modifiers
                     self.testLuckMod.selectItem(at: zplayer.modMatrix[0])
                     self.testSkillMod.selectItem(at: zplayer.modMatrix[1])
                     self.playerMod.selectItem(at: zplayer.modMatrix[2])
                     self.monsterMod.selectItem(at: zplayer.modMatrix[3])
 
+                    self.savePath = path
+
+                    self.gameInProgress = true
                     self.updateStats()
                 }
             }
@@ -1484,19 +1673,19 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 	func showPlayerCreate() {
 
 		// Initialise the New Player UI
-        	startSkillField.stringValue = "0"
-        	startStaminaField.stringValue = "0"
-        	startLuckField.stringValue = "0"
+        startSkillField.stringValue = "0"
+        startStaminaField.stringValue = "0"
+        startLuckField.stringValue = "0"
 		startGamePopup.selectItem(at: 0)
 		startFoodField.stringValue = ""
 		startGoldField.stringValue = ""
 		startPotionPopup.selectItem(at: 0)
 
-        	// Present the New Player sheet
+        // Present the New Player sheet
         // NOTE There's no completion handler used here, as we send the buttons' actions
         // to functions within this App Delegate (see below)
-        	window.beginSheet(createSheet, completionHandler: nil)
-    	}
+        window.beginSheet(createSheet, completionHandler: nil)
+	}
 
     @IBAction func rollStats(sender: Any) {
 
@@ -1557,8 +1746,16 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if tabs.tabViewItems.contains(magicTab) { tabs.removeTabViewItem(magicTab) }
         } else {
             // Add back the Magic tab on the end if necessary
-            if !tabs.tabViewItems.contains(magicTab) { tabs.insertTabViewItem(heldTabs["magictab"]!, at: tabs.count) }
+            if !tabs.tabViewItems.contains(magicTab) { tabs.insertTabViewItem(heldTabs["magictab"]!, at: tabs.tabViewItems.count) }
         }
+
+        if statsTabImage != nil {
+            statsTabImage!.removeFromSuperview()
+            statsTabImage = nil
+        }
+
+        citadelBox.isHidden = true
+        hellBox.isHidden = true
 
         if gameType == kGameCitadel {
             player!.magic = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 8
@@ -1570,9 +1767,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             citadelBox.isHidden = false
 
             // Place an image in the gap to the left
-            let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 10, 267, 106))
-            image.image = NSImage.init(named: NSImage.Name("coc_stats"))
+            let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 14, 258, 102))
+            image.image = NSImage.init(named: NSImage.Name("coc"))
             statsTabView.addSubview(image)
+            statsTabImage = image
 
             magicSpellsValue.stringValue = "\(player!.magic)"
         }
@@ -1580,7 +1778,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameType == kGameHouseHell {
             player!.skill = player!.skill - 3
             player!.initialSkill = player!.skill + 3
-            player!.maxFear = Int(arc4random() % 6) + 7
+            player!.maxFear = Int(arc4random_uniform(6)) + 7
             player!.fear = 0
             player!.potion = kPotionNone
             player!.drinks = 0
@@ -1590,9 +1788,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             hellBox.isHidden = false
 
             // Place an image in the gap to the left
-            let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 96))
-            image.image = NSImage.init(named: NSImage.Name("hell"))
+            let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 102))
+            image.image = NSImage.init(named: NSImage.Name("hoh"))
             statsTabView.addSubview(image)
+            statsTabImage = image
         }
 
         if gameType == kGameCavernsSnow {
@@ -1667,6 +1866,22 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Close the sheet
         window.endSheet(createSheet)
+    }
+
+    // MARK: Help Sheet Functions
+
+    @IBAction func showHelp(_ sender: Any) {
+
+        let helpString = "Fighting Fantasy brings you all you need to play your Fighting Fantasy adventures: dice, an adventure sheet and monster encounter records.\n\nThe Status tab shows your character's current state of health, allows you to eat provisions and drink the magic potion with which you start the game. It also helps you keep track of the gold pieces you find and spend during your adventure.\n\nSome Fighting Fantasy games add other attributes and these are recorded here too.\n\nThe Combat tab helps you fight the creatures of the underworld. You can fight up to three adversaries, one at a time or all together. Enter each opponents' Skill and Stamina scores, then check the Combat box of the one you're going to fight. Check more than one monster to fight multiple opponents simultaneously. When you're fighting more than one monster at a time, chose the one you want to try and strike by clicking its Target button. Hit Strike! to attack the creature.\n\nYou can also Test your Luck to alter the outcome of the battle.\n\nThe Magic tab keeps track of your Citadel of Chaos spells. First, enter the number of times you can cast your selected spells. During the game, select a spell and click Cast.\n\nIt also provides space to record the spells you have chosen in Temple of Terror.\n\nThe Tests tab lets you Test you Luck and Try your Skill as dictated by the gamebook entry you're reading. It also provides a handy pair of virtual dice to roll.\n\nThe Backpack tab helps you keep tracks of your possessions. Select an item and click the Use Item button to use it in the game. When you find a new object you wish to keep, type in a description of the object and click on the Add Item button to put it in your backpack.\n\nTo create a new character at the start of the adventure, select New Character from the File menu. Click Roll to determine your character's initial Skill, Stamina and Luck scores, then select which Magic Potion you wish to take with you, if the gamebook allows you to do so. Similarly, enter any Provisions you have at the start of your quest, along with your Gold Pieces.\n\nChoose the name of the game you'll be playing. If your gamebook isn't listed, choose Standard Game.\n\nGood Luck!"
+        helpTextView.isEditable = true
+        helpTextView.insertText(helpString, replacementRange: NSMakeRange(helpTextView.string.characters.count, 0))
+        helpTextView.isEditable = false
+        window.beginSheet(helpWindow, completionHandler: nil)
+    }
+
+    @IBAction func closeHelp(_ sender: Any) {
+
+        window.endSheet(helpWindow)
     }
 }
 
