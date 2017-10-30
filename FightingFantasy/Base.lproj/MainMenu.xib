@@ -1503,8 +1503,8 @@ DQ
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xnz-my-kPJ">
                                             <rect key="frame" x="54" y="4" width="225" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="AZ3-BF-7s6"/>
-                                                <constraint firstAttribute="width" constant="225" id="bCr-bL-M4J"/>
+                                                <constraint firstAttribute="width" constant="225" id="0nU-be-GeL"/>
+                                                <constraint firstAttribute="height" constant="21" id="cQC-Gy-4OD"/>
                                             </constraints>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" placeholderString="Enter a new item for your pack" drawsBackground="YES" id="3SU-Yx-zc2">
                                                 <font key="font" metaFont="system"/>
@@ -1549,8 +1549,8 @@ CA
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0PC-rd-aSC">
                                             <rect key="frame" x="279" y="3" width="25" height="23"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="Vf1-Mw-54S"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="tSn-AD-Erq"/>
+                                                <constraint firstAttribute="width" constant="25" id="Ph9-dq-8gO"/>
+                                                <constraint firstAttribute="height" constant="21" id="yhF-hG-xU3"/>
                                             </constraints>
                                             <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wja-wR-vzC">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1562,18 +1562,17 @@ CA
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Xnz-my-kPJ" firstAttribute="leading" secondItem="2WF-Fg-JpX" secondAttribute="trailing" constant="8" id="8MM-rv-rJ6"/>
                                         <constraint firstItem="7rv-Xf-HR0" firstAttribute="top" secondItem="dfy-Ic-wQW" secondAttribute="top" constant="3" id="8gh-OP-EDd"/>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0PC-rd-aSC" secondAttribute="trailing" constant="20" symbolic="YES" id="8x6-WO-Z1v"/>
                                         <constraint firstAttribute="bottom" secondItem="2WF-Fg-JpX" secondAttribute="bottom" constant="4" id="9hq-gn-UdY"/>
                                         <constraint firstItem="MxC-mJ-hIQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dfy-Ic-wQW" secondAttribute="leading" constant="20" symbolic="YES" id="APS-DR-wYM"/>
                                         <constraint firstItem="7rv-Xf-HR0" firstAttribute="leading" secondItem="dfy-Ic-wQW" secondAttribute="leading" constant="17" id="GbT-X7-Ejc"/>
-                                        <constraint firstItem="0PC-rd-aSC" firstAttribute="leading" secondItem="Xnz-my-kPJ" secondAttribute="trailing" id="Lce-Wm-Acs"/>
                                         <constraint firstAttribute="trailing" secondItem="7rv-Xf-HR0" secondAttribute="trailing" constant="17" id="U8Q-K0-7ZK"/>
-                                        <constraint firstAttribute="bottom" secondItem="0PC-rd-aSC" secondAttribute="bottom" constant="4" id="eyA-6i-FpV"/>
+                                        <constraint firstItem="0PC-rd-aSC" firstAttribute="leading" secondItem="Xnz-my-kPJ" secondAttribute="trailing" id="fjL-I0-DbY"/>
+                                        <constraint firstItem="Xnz-my-kPJ" firstAttribute="leading" secondItem="2WF-Fg-JpX" secondAttribute="trailing" constant="8" id="hFl-Wi-Q2G"/>
                                         <constraint firstItem="2WF-Fg-JpX" firstAttribute="leading" secondItem="dfy-Ic-wQW" secondAttribute="leading" constant="17" id="q6T-CU-V53"/>
                                         <constraint firstAttribute="trailing" secondItem="MxC-mJ-hIQ" secondAttribute="trailing" constant="17" id="rg1-Sa-AFK"/>
-                                        <constraint firstAttribute="bottom" secondItem="Xnz-my-kPJ" secondAttribute="bottom" constant="4" id="uVb-Fj-rrx"/>
+                                        <constraint firstAttribute="bottom" secondItem="0PC-rd-aSC" secondAttribute="bottom" constant="4" id="vgi-Ok-THC"/>
+                                        <constraint firstAttribute="bottom" secondItem="Xnz-my-kPJ" secondAttribute="bottom" constant="4" id="xcI-6q-hdT"/>
                                         <constraint firstAttribute="bottom" secondItem="MxC-mJ-hIQ" secondAttribute="bottom" constant="4" id="xdL-nH-CLf"/>
                                     </constraints>
                                 </view>
@@ -2144,7 +2143,7 @@ CA
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="rollStatsWithSender:" target="Voe-Tx-rLC" id="abG-ob-fko"/>
+                                        <action selector="rollStats:" target="Voe-Tx-rLC" id="NxV-qo-s5b"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -2389,7 +2388,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="setPlayerWithSender:" target="Voe-Tx-rLC" id="zRr-YT-haq"/>
+                            <action selector="setPlayer:" target="Voe-Tx-rLC" id="AZ2-6s-Gyl"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WuC-KL-gXi">
@@ -2406,7 +2405,7 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="cancelSheetWithSender:" target="Voe-Tx-rLC" id="hMa-ei-3DS"/>
+                            <action selector="cancelSheet:" target="Voe-Tx-rLC" id="Ykx-0c-Wa0"/>
                         </connections>
                     </button>
                 </subviews>
@@ -2552,14 +2551,14 @@ DQ
             </connections>
         </popover>
         <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="B4c-2k-Wvc">
-            <rect key="frame" x="0.0" y="0.0" width="278" height="144"/>
+            <rect key="frame" x="0.0" y="0.0" width="278" height="140"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
-                <rect key="frame" x="1" y="1" width="276" height="142"/>
+                <rect key="frame" x="1" y="1" width="276" height="138"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
-                        <rect key="frame" x="0.0" y="0.0" width="276" height="142"/>
+                        <rect key="frame" x="0.0" y="0.0" width="276" height="138"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="rN9-mo-Xtc">
                             <size key="itemSize" width="32" height="32"/>
@@ -2581,7 +2580,7 @@ DQ
                 <rect key="frame" x="234" y="1" width="15" height="143"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
-            <point key="canvasLocation" x="307" y="556"/>
+            <point key="canvasLocation" x="575" y="785"/>
         </scrollView>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SxQ-xQ-kTY">
             <windowStyleMask key="styleMask" titled="YES"/>

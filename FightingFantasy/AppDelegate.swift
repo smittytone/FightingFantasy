@@ -212,19 +212,29 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_armour"))
         icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_gem"))
-        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_rope"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_stick"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_skull"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_tooth"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_axe"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_bow"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_quiver"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_dagger"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_spear"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_shield"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_helm"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_chainmail"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_scroll"))
         icons.append(image!)
@@ -232,11 +242,19 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_chalice"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_gem"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_ring"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_crown"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_coins"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_bottle"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_food"))
         icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_ring"))
+        image = NSImage.init(named: NSImage.Name("icon_tankard"))
         icons.append(image!)
 
         // Set up pack table view
@@ -245,6 +263,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Select the first tab
         tabs.selectFirstTabViewItem(self)
+        window.center()
 
         // Set up the UI
         initUI()
@@ -1681,13 +1700,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 		startGoldField.stringValue = ""
 		startPotionPopup.selectItem(at: 0)
 
+        rollStats(self)
+
         // Present the New Player sheet
         // NOTE There's no completion handler used here, as we send the buttons' actions
         // to functions within this App Delegate (see below)
         window.beginSheet(createSheet, completionHandler: nil)
 	}
 
-    @IBAction func rollStats(sender: Any) {
+    @IBAction func rollStats(_ sender: Any) {
 
         // Roll basic stats when the player clicks 'Roll'
         var roll: Int = Int(arc4random_uniform(6)) + 7
@@ -1700,13 +1721,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         startLuckField.stringValue = "\(roll)"
     }
 
-    @IBAction func cancelSheet(sender: Any) {
+    @IBAction func cancelSheet(_ sender: Any) {
 
         // Just hide the New Player UI without doing anything else
         window.endSheet(createSheet)
     }
 
-    @IBAction func setPlayer(sender: Any) {
+    @IBAction func setPlayer(_ sender: Any) {
 
         // Initialise the game itself
         needToSave = true
@@ -1872,9 +1893,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func showHelp(_ sender: Any) {
 
-        let helpString = "Fighting Fantasy brings you all you need to play your Fighting Fantasy adventures: dice, an adventure sheet and monster encounter records.\n\nThe Status tab shows your character's current state of health, allows you to eat provisions and drink the magic potion with which you start the game. It also helps you keep track of the gold pieces you find and spend during your adventure.\n\nSome Fighting Fantasy games add other attributes and these are recorded here too.\n\nThe Combat tab helps you fight the creatures of the underworld. You can fight up to three adversaries, one at a time or all together. Enter each opponents' Skill and Stamina scores, then check the Combat box of the one you're going to fight. Check more than one monster to fight multiple opponents simultaneously. When you're fighting more than one monster at a time, chose the one you want to try and strike by clicking its Target button. Hit Strike! to attack the creature.\n\nYou can also Test your Luck to alter the outcome of the battle.\n\nThe Magic tab keeps track of your Citadel of Chaos spells. First, enter the number of times you can cast your selected spells. During the game, select a spell and click Cast.\n\nIt also provides space to record the spells you have chosen in Temple of Terror.\n\nThe Tests tab lets you Test you Luck and Try your Skill as dictated by the gamebook entry you're reading. It also provides a handy pair of virtual dice to roll.\n\nThe Backpack tab helps you keep tracks of your possessions. Select an item and click the Use Item button to use it in the game. When you find a new object you wish to keep, type in a description of the object and click on the Add Item button to put it in your backpack.\n\nTo create a new character at the start of the adventure, select New Character from the File menu. Click Roll to determine your character's initial Skill, Stamina and Luck scores, then select which Magic Potion you wish to take with you, if the gamebook allows you to do so. Similarly, enter any Provisions you have at the start of your quest, along with your Gold Pieces.\n\nChoose the name of the game you'll be playing. If your gamebook isn't listed, choose Standard Game.\n\nGood Luck!"
+        let helpString = "\nFighting Fantasy brings you all you need to play your Fighting Fantasy adventures: dice, an adventure sheet and monster encounter records.\n\nThe Status tab shows your character's current state of health, allows you to eat provisions and drink the magic potion with which you start the game. It also helps you keep track of the gold pieces you find and spend during your adventure.\n\nSome Fighting Fantasy games add other attributes and these are recorded here too.\n\nThe Combat tab helps you fight the creatures of the underworld. You can fight up to three adversaries, one at a time or all together. Enter each opponents' Skill and Stamina scores, then check the Combat box of the one you're going to fight. Check more than one monster to fight multiple opponents simultaneously. When you're fighting more than one monster at a time, chose the one you want to try and strike by clicking its Target button. Hit Strike! to attack the creature.\n\nYou can also Test your Luck to alter the outcome of the battle.\n\nThe Magic tab keeps track of your Citadel of Chaos spells. First, enter the number of times you can cast your selected spells. During the game, select a spell and click Cast.\n\nIt also provides space to record the spells you have chosen in Temple of Terror.\n\nThe Tests tab lets you Test you Luck and Try your Skill as dictated by the gamebook entry you're reading. It also provides a handy pair of virtual dice to roll.\n\nThe Backpack tab helps you keep tracks of your possessions. Select an item and click the Use Item button to use it in the game. When you find a new object you wish to keep, type in a description of the object and click on the Add Item button to put it in your backpack.\n\nTo create a new character at the start of the adventure, select New Character from the File menu. Click Roll to determine your character's initial Skill, Stamina and Luck scores, then select which Magic Potion you wish to take with you, if the gamebook allows you to do so. Similarly, enter any Provisions you have at the start of your quest, along with your Gold Pieces.\n\nChoose the name of the game you'll be playing. If your gamebook isn't listed, choose Standard Game.\n\nGood Luck!"
         helpTextView.isEditable = true
         helpTextView.insertText(helpString, replacementRange: NSMakeRange(helpTextView.string.characters.count, 0))
+        helpTextView.scrollToBeginningOfDocument(self)
         helpTextView.isEditable = false
         window.beginSheet(helpWindow, completionHandler: nil)
     }

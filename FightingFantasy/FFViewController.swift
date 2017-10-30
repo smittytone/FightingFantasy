@@ -11,6 +11,7 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
     @IBOutlet weak var collectionView: NSCollectionView!
 
     var icons: [NSImage] = []
+    var tooltips: [String] = []
     var count: Int = 0
 
     override func viewDidLoad() {
@@ -27,19 +28,29 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_armour"))
         icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_gem"))
-        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_rope"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_stick"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_skull"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_tooth"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_axe"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_bow"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_quiver"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_dagger"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_spear"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_shield"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_helm"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_chainmail"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_scroll"))
         icons.append(image!)
@@ -47,12 +58,46 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_chalice"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_gem"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_ring"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_crown"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_coins"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_bottle"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_food"))
         icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_ring"))
+        image = NSImage.init(named: NSImage.Name("icon_tankard"))
         icons.append(image!)
+
+        tooltips.append("Lantern")
+        tooltips.append("Sword")
+        tooltips.append("Leather Armour")
+        tooltips.append("Rope")
+        tooltips.append("Stick")
+        tooltips.append("Skull")
+        tooltips.append("Tooth")
+        tooltips.append("Axe")
+        tooltips.append("Bow")
+        tooltips.append("Arrows")
+        tooltips.append("Dagger")
+        tooltips.append("Spear")
+        tooltips.append("Shield")
+        tooltips.append("Helm")
+        tooltips.append("Chainail Armour")
+        tooltips.append("Scroll")
+        tooltips.append("Book of Spells")
+        tooltips.append("Golden Chalice")
+        tooltips.append("Rare Gem")
+        tooltips.append("Ring of Power")
+        tooltips.append("Regal Crown")
+        tooltips.append("Hoard of Coins")
+        tooltips.append("Grog Bottle")
+        tooltips.append("Meat")
+        tooltips.append("Tankard of Ale")
     }
 
     func configureCollectionView() {
@@ -80,6 +125,7 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         guard let collectionViewItem = item as? FFCollectionViewItem else { return item }
         collectionViewItem.image = icons[count]
         collectionViewItem.index = count
+        collectionViewItem.view.toolTip = tooltips[count]
         count = count + 1
         if count == icons.count { count = 0 }
         return item

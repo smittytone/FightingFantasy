@@ -28,7 +28,7 @@ class FFCollectionViewItem: NSCollectionViewItem {
         super.viewDidLoad()
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.white.cgColor
-        view.layer?.borderColor = NSColor.blue.cgColor
+        view.layer?.borderColor = NSColor.init(red: 0.6, green: 0.1, blue: 0.0, alpha: 1.0).cgColor
         view.layer?.borderWidth = 0.0
     }
 
