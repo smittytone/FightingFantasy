@@ -70,7 +70,8 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return 32
+        // Just return the number of icons we have
+        return icons.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
