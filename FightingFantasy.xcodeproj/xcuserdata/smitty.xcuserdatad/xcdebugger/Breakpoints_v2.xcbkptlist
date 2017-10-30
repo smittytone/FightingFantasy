@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FightingFantasy/AppDelegate.swift"
-            timestampString = "531047316.863011"
+            timestampString = "531057712.315727"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1139"
-            endingLineNumber = "1139"
+            startingLineNumber = "1128"
+            endingLineNumber = "1128"
             landmarkName = "reanimate(_:)"
             landmarkType = "7">
          </BreakpointContent>
