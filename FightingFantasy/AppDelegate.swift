@@ -45,6 +45,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                     NSTextFieldDelegate, NSPopoverDelegate {
 
     @IBOutlet weak var window: NSWindow!
+    @IBOutlet weak var deathWindow: NSWindow!
+    @IBOutlet weak var deathImageView: NSImageView!
+    @IBOutlet weak var reanimateButton: NSButton!
 
     @IBOutlet weak var tabs: NSTabView!
     @IBOutlet weak var magicTab: NSTabViewItem!
@@ -264,23 +267,25 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     func initUI() {
 
         // Set the UI to its default state
-
-        // Disable elements by game type
-        citadelBox.isHidden = true
-        hellBox.isHidden = true
-
-        // Now work through each of the tabs
+        // Work through each of the tabs
         initUIstats()
         initUICombat()
         initUITests()
+        initUIPack()
         initUIMagic()
+
+        window.isDocumentEdited = false
     }
 
     func initUIstats() {
 
-        // Update the stats readouts
-        updateStatsSteppers()
-        updateStats()
+        skillValue.stringValue = ""
+        luckValue.stringValue = ""
+        staminaValue.stringValue = ""
+
+        goldAmountField.stringValue = ""
+        foodAmountField.stringValue = ""
+        potionTypeLabel.stringValue = "None"
 
         // Hide the game-specific panels
         hellBox.isHidden = true
@@ -315,12 +320,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func initUITests() {
 
-        // NOTE skill and luck readouts set by updateStats()
+        testSkillValue.stringValue = ""
+        testLuckValue.stringValue = ""
 
         dieOne.image = dice[Int(arc4random() % 6)]
         dieTwo.image = dice[Int(arc4random() % 6)]
     }
 
+    func initUIPack() {
+
+        packTable.reloadData()
+        packTable.needsDisplay = true
+    }
 
     func initUIMagic() {
 
@@ -386,14 +397,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             // This section is run when any stat changes, so centralise death checks here
             // FirstRun is sampled so we don't present the death box before a character's been rolled or loaded
 
-            if zplayer.stamina < 1 && !firstRun {
+            if zplayer.stamina < 1 {
                 // Death by weakness
-
-                //[deathBox showWindow:self];
-
                 zplayer.isDead = true
-                needToSave = false
-                firstRun = true
+                playerDead()
                 return
             }
 
@@ -402,10 +409,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 if zplayer.fear >= zplayer.maxFear && !firstRun {
                     // Death by insanity
                     //[madBox showWindow:self];
-
                     zplayer.isDead = true
-                    needToSave = false
-                    firstRun = true
                     return
                 }
             }
@@ -1112,7 +1116,53 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     // MARK: Player Management Functions
 
     func playerDead() {
+
         // Perform the death routine
+        /*
+        if let image = NSImage.init(named: NSImage.Name("death_banner")) {
+            deathImageView.image? = image
+        }
+        */
+
+        // We give the player one chance to reanimate - and they have had it
+        // so hide the reanimte button
+        reanimateButton.isEnabled = firstRun ? true : false
+        reanimateButton.isHidden = firstRun ? false : true
+
+        window.beginSheet(deathWindow, completionHandler:  { (response) in
+
+        })
+    }
+
+    @IBAction func reanimate(_ sender: Any) {
+
+        window.endSheet(deathWindow)
+
+        if let zplayer = player {
+            zplayer.isDead = false
+            gameInProgress = true
+            needToSave = true
+            firstRun = false
+
+            zplayer.skill = player!.initialSkill > 11 ? player!.initialSkill - 6 : 6
+            zplayer.stamina = 6
+
+            updateStats()
+            updateStatsSteppers()
+        }
+    }
+
+    @IBAction func quitter(_ sender: Any) {
+
+        // Player calls it quits
+        window.endSheet(deathWindow)
+
+        gameInProgress = false
+        needToSave = false
+        firstRun = false
+        player = nil
+
+        initUI()
     }
 
     @IBAction func showAbout(_ sender: Any) {
@@ -1375,7 +1425,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Initialise the game
         needToSave = true
-        firstRun = false
+        firstRun = true
         gameInProgress = true
 
         // Create a new player instance

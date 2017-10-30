@@ -24,6 +24,8 @@
                 <outlet property="createSheet" destination="1En-y4-rah" id="u1F-at-JRr"/>
                 <outlet property="creatureCopyCell" destination="9Zn-hI-oio" id="XSM-S0-udw"/>
                 <outlet property="creatureCopyField" destination="XhU-ve-3KG" id="shx-Eh-x1d"/>
+                <outlet property="deathImageView" destination="muD-2Z-cEt" id="iwU-gX-0id"/>
+                <outlet property="deathWindow" destination="SxQ-xQ-kTY" id="XUk-YA-wZR"/>
                 <outlet property="dieOne" destination="K99-iF-ssl" id="vOa-6T-9QX"/>
                 <outlet property="dieTwo" destination="L6U-UH-HCe" id="ONi-Sb-joa"/>
                 <outlet property="espCell" destination="dcB-f7-rfa" id="D2w-Rw-nJj"/>
@@ -69,6 +71,7 @@
                 <outlet property="packTable" destination="6yi-V8-ZeC" id="AAR-7y-CbO"/>
                 <outlet property="playerMod" destination="rXu-FF-lJM" id="vqv-Rm-mGR"/>
                 <outlet property="potionTypeLabel" destination="EBu-Bb-Tt3" id="jZF-mA-ytb"/>
+                <outlet property="reanimateButton" destination="whk-AA-YUd" id="76N-Lr-cSy"/>
                 <outlet property="shieldingCell" destination="U5s-ts-eyv" id="8uC-w4-p1O"/>
                 <outlet property="shieldingField" destination="7l3-Fx-Ue8" id="s9g-Sn-uzr"/>
                 <outlet property="skillCell" destination="Q1n-Jv-3vg" id="1XP-AD-XkE"/>
@@ -1418,7 +1421,7 @@ DQ
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
@@ -2029,6 +2032,8 @@ CA
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="460" height="588"/>
+            <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="dVq-pw-4cK">
                 <rect key="frame" x="0.0" y="0.0" width="460" height="588"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2427,6 +2432,8 @@ Gw
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="190"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="460" height="190"/>
+            <value key="maxSize" type="size" width="460" height="190"/>
             <view key="contentView" id="2fw-op-TCp">
                 <rect key="frame" x="0.0" y="0.0" width="460" height="190"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2576,11 +2583,62 @@ DQ
             </scroller>
             <point key="canvasLocation" x="307" y="556"/>
         </scrollView>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SxQ-xQ-kTY">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="131" y="158" width="460" height="588"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="460" height="588"/>
+            <value key="maxSize" type="size" width="460" height="588"/>
+            <view key="contentView" id="AZq-7e-vdl">
+                <rect key="frame" x="0.0" y="0.0" width="460" height="588"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="muD-2Z-cEt">
+                        <rect key="frame" x="0.0" y="0.0" width="460" height="588"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="death_banner" id="CRk-va-6Nd"/>
+                    </imageView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whk-AA-YUd">
+                        <rect key="frame" x="14" y="46" width="432" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Reanimate Me, Oh Gods!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yIl-vE-41u">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="reanimate:" target="Voe-Tx-rLC" id="IKE-Rb-IsS"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D0h-QP-zld">
+                        <rect key="frame" x="14" y="13" width="432" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="I Welcome My Fate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ALr-fK-xzk">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="quitter:" target="Voe-Tx-rLC" id="am1-3X-tmf"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="muD-2Z-cEt" secondAttribute="bottom" id="YaA-Ff-tRe"/>
+                    <constraint firstItem="muD-2Z-cEt" firstAttribute="leading" secondItem="AZq-7e-vdl" secondAttribute="leading" id="ZcB-U7-m6b"/>
+                    <constraint firstItem="muD-2Z-cEt" firstAttribute="top" secondItem="AZq-7e-vdl" secondAttribute="top" id="ZpF-yC-Duf"/>
+                    <constraint firstAttribute="trailing" secondItem="muD-2Z-cEt" secondAttribute="trailing" id="hdS-Kd-FAW"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="172" y="-67"/>
+        </window>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSBookmarksTemplate" width="17" height="18"/>
+        <image name="death_banner" width="460" height="588"/>
         <image name="scroll" width="311" height="77"/>
     </resources>
 </document>
