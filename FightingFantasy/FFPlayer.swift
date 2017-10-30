@@ -30,7 +30,7 @@ class FFPlayer: NSObject, NSCoding {
     var potion: Int = -1
     var drinks: Int = 2
 
-    var pack: [String] = []
+    var pack: [[String:Any]] = []
     var packIcon: [Int] = []
     var packSelectedItem: Int = 0
     var citadelSpellMatrix: [Int] = []
@@ -62,10 +62,11 @@ class FFPlayer: NSObject, NSCoding {
     // MARK: NSCoding Functions
 
     func encode(with aCoder: NSCoder) {
+        // Called to archive the properties of the player instance
         aCoder.encode(pack, forKey:"ff.pack")
         aCoder.encode(citadelSpellMatrix, forKey:"ff.cspellmatrix")
-        aCoder.encode(modMatrix, forKey: "ff.modmatrix")
         aCoder.encode(templeSpellMatrix, forKey: "ff.tspellmatrix")
+        aCoder.encode(modMatrix, forKey: "ff.modmatrix")
         aCoder.encode(gameName, forKey: "ff.gamename")
         aCoder.encode(NSNumber(value: gamekind), forKey: "ff.gamekind")
         aCoder.encode(NSNumber(value: skill), forKey: "ff.skill")
@@ -85,16 +86,15 @@ class FFPlayer: NSObject, NSCoding {
     }
 
     required init(coder aDecoder: NSCoder) {
-        self.pack = aDecoder.decodeObject(forKey: "ff.pack") as! [String]
+        // Called to de-archive the properties of the player instance
+        self.pack = aDecoder.decodeObject(forKey: "ff.pack") as! [[String:Any]]
 
         var csm = aDecoder.decodeObject(forKey: "ff.cspellmatrix") as! [NSNumber]
         for i in 0...10 { citadelSpellMatrix.append(csm[i].intValue) }
-
-        csm = aDecoder.decodeObject(forKey: "ff.modmatrix") as! [NSNumber]
-        for i in 0...3 { modMatrix.append(csm[i].intValue) }
-
         csm = aDecoder.decodeObject(forKey: "ff.tspellmatrix") as! [NSNumber]
         for i in 0...3 { templeSpellMatrix.append(csm[i].intValue) }
+        csm = aDecoder.decodeObject(forKey: "ff.modmatrix") as! [NSNumber]
+        for i in 0...3 { modMatrix.append(csm[i].intValue) }
 
         self.gameName = aDecoder.decodeObject(forKey: "ff.gamename") as! String
         self.gamekind = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
