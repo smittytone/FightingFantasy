@@ -6,12 +6,10 @@ FightingFantasy/Assets.xcassets/*
 *.entitlements
 
 # Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Build generated
-build/
-DerivedData/
+build/*
+DerivedData/*
 
 ## Various settings
 *.pbxuser
@@ -22,7 +20,7 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
+xcuserdata/*
 
 ## Other
 *.moved-aside
@@ -39,10 +37,4 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
 .build/
