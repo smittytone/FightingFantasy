@@ -64,6 +64,7 @@ class FFPlayer: NSObject, NSCoding {
         aCoder.encode(templeSpellMatrix, forKey: "ff.tspellmatrix")
         aCoder.encode(modMatrix, forKey: "ff.modmatrix")
         aCoder.encode(gameName, forKey: "ff.gamename")
+        aCoder.encode(name, forKey: "ff.name")
         aCoder.encode(NSNumber(value: gamekind), forKey: "ff.gamekind")
         aCoder.encode(NSNumber(value: skill), forKey: "ff.skill")
         aCoder.encode(NSNumber(value: initialSkill), forKey: "ff.iskill")
@@ -94,6 +95,7 @@ class FFPlayer: NSObject, NSCoding {
         for i in 0...3 { modMatrix.append(csm[i].intValue) }
 
         self.gameName = aDecoder.decodeObject(forKey: "ff.gamename") as! String
+        self.name = aDecoder.decodeObject(forKey: "ff.name") as! String
         self.gamekind = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
         self.skill = (aDecoder.decodeObject(forKey: "ff.skill") as! NSNumber).intValue
         self.initialSkill = (aDecoder.decodeObject(forKey: "ff.iskill") as! NSNumber).intValue
