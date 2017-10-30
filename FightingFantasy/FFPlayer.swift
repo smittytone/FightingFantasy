@@ -17,13 +17,9 @@ class FFPlayer: NSObject, NSCoding {
     var luck: Int = 0
     var initialLuck: Int = 0
     var fear: Int = 0
-    var maxFear: Int = 12
+    var maxFear: Int = 0
     var magic: Int = 0
-
-    var maxSkill: Int = 12
-    var maxStamina: Int = 24
-    var maxLuck: Int = 12
-    var maxMagic: Int = 18
+    var initialMagic: Int = 0
 
     var provisions: Int = 10
     var gold: Int = 20
@@ -78,6 +74,7 @@ class FFPlayer: NSObject, NSCoding {
         aCoder.encode(NSNumber(value: fear), forKey: "ff.fear")
         aCoder.encode(NSNumber(value: maxFear), forKey: "ff.mfear")
         aCoder.encode(NSNumber(value: magic), forKey: "ff.magic")
+        aCoder.encode(NSNumber(value: initialMagic), forKey: "ff.imagic")
         aCoder.encode(NSNumber(value: provisions), forKey: "ff.provisions")
         aCoder.encode(NSNumber(value: gold), forKey: "ff.gold")
         aCoder.encode(NSNumber(value: potion), forKey: "ff.potion")
@@ -107,6 +104,7 @@ class FFPlayer: NSObject, NSCoding {
         self.fear = (aDecoder.decodeObject(forKey: "ff.fear") as! NSNumber).intValue
         self.maxFear = (aDecoder.decodeObject(forKey: "ff.mfear") as! NSNumber).intValue
         self.magic = (aDecoder.decodeObject(forKey: "ff.magic") as! NSNumber).intValue
+        self.initialMagic = (aDecoder.decodeObject(forKey: "ff.imagic") as! NSNumber).intValue
         self.provisions = (aDecoder.decodeObject(forKey: "ff.provisions") as! NSNumber).intValue
         self.gold = (aDecoder.decodeObject(forKey: "ff.gold") as! NSNumber).intValue
         self.potion = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue

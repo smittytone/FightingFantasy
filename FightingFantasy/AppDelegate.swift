@@ -287,25 +287,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         citadelBox.isHidden = true
     }
 
-    func updateStatsSteppers() {
-
-        // Set the steppers' maximum values to the character's
-        // expected values
-        if player != nil {
-            skillStepper.maxValue = Double(player!.maxSkill)
-            skillStepper.integerValue = player!.skill
-
-            staminaStepper.maxValue = Double(player!.maxStamina)
-            staminaStepper.integerValue = player!.stamina
-
-            luckStepper.maxValue = Double(player!.maxLuck)
-            luckStepper.integerValue = player!.luck
-
-            fearStepper.maxValue = Double(player!.maxFear)
-            fearStepper.integerValue = player!.fear
-        }
-    }
-
     func initUICombat() {
 
         combatReadoutOne.stringValue = ""
@@ -335,26 +316,32 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func updateStats() {
 
+        // Called regularly to update the UI with the player's current stats
+        // As such, it's also where we check for death or madness
         var colour: NSColor = NSColor.black
+
+        // Set up a centred text for stats displayed using NSAtttributedStrings
+        // ie. Luck and Stamina
         let tps = NSMutableParagraphStyle()
         tps.alignment = .center
 
         if let zplayer = player {
-
-            // Status tab
+            // Stats Tab
             skillValue.stringValue = "\(zplayer.skill)"
+            testSkillValue.stringValue = "\(zplayer.skill)"
 
-            if zplayer.luck < 1 { zplayer.luck = 0 }
+            // Ensure Luck readout goes red below a score of 5
             colour = zplayer.luck < 5 ? NSColor.red : NSColor.black
             var astring = NSAttributedString.init(string: "\(zplayer.luck)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
             luckValue.attributedStringValue = astring
             testLuckValue.attributedStringValue = astring
 
-
+            // Ensure Stamina readout goes red below a score of 5
             colour = zplayer.stamina < 5 ? NSColor.red : NSColor.black
             astring = NSAttributedString.init(string: "\(zplayer.stamina)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
             staminaValue.attributedStringValue = astring
 
+            // Ensure Fear readout goes red 4 below maxFear
             colour = zplayer.fear > zplayer.maxFear - 5 ? NSColor.red : NSColor.black
             astring = NSAttributedString.init(string: "\(zplayer.fear)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
             fearValue.attributedStringValue = astring
@@ -379,18 +366,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             ps = ps + (zplayer.drinks > 0 ? " x \(zplayer.drinks)" : "")
             potionTypeLabel.stringValue = ps
 
-            // Test tab
-            testSkillValue.stringValue = "\(zplayer.skill)"
-            
             // Pack tab
             packTable.reloadData()
             packTable.needsDisplay = true
 
             // Magic tab
-            magicSpellsValue.stringValue = "\(zplayer.magic)"
+            // magicSpellsValue.stringValue = "\(zplayer.magic)"
 
-            // This section is run when any stat changes, so centralise death checks here
-            // FirstRun is sampled so we don't present the death box before a character's been rolled or loaded
+            // This section is run when any stat changes, so centralise death
+            // and madness checks here.
 
             if zplayer.stamina < 1 {
                 // Death by weakness
@@ -401,15 +385,16 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             if zplayer.gamekind == kGameHouseHell {
                 // Are we playing House of Hell? If not we don't need the following check
-                if zplayer.fear >= zplayer.maxFear && !firstRun {
+                if zplayer.fear >= zplayer.maxFear {
                     // Death by insanity
-                    //[madBox showWindow:self];
                     zplayer.isDead = true
+                    // playerMad()
                     return
                 }
             }
         }
 
+        // Mark the window's red close button if the are changes to save
         window.isDocumentEdited = needToSave
     }
 
@@ -420,14 +405,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !gameInProgress || player == nil { return }
 
         if let stepper = (sender as? NSStepper) {
-
             let stepperValue = stepper.integerValue
-            player!.skill = stepperValue
+            var psk = player!.skill + stepperValue
 
-            if player!.skill > player!.maxSkill { player!.skill = player!.maxSkill }
-            if player!.skill < 0 { player!.skill = 0 }
+            if psk > player!.initialSkill { psk = player!.initialSkill }
+            if psk < 0 { psk = 0 }
 
-            needToSave = true
+            if (psk != player!.skill) {
+                needToSave = true
+                player!.skill = psk
+            }
+
+            stepper.integerValue = 0
             updateStats()
         }
     }
@@ -437,14 +426,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !gameInProgress || player == nil { return }
 
         if let stepper = (sender as? NSStepper) {
-
             let stepperValue = stepper.integerValue
-            player!.stamina = stepperValue
+            var pst = player!.stamina + stepperValue
 
-            if player!.stamina > player!.maxStamina { player!.stamina = player!.maxStamina }
-            if player!.stamina < 0 { player!.stamina = 0 }
+            if pst > player!.initialStamina { pst = player!.initialStamina }
+            if pst < 0 { pst = 0 }
 
-            needToSave = true
+            if (pst != player!.stamina) {
+                needToSave = true
+                player!.stamina = pst
+            }
+
+            stepper.integerValue = 0
             updateStats()
         }
     }
@@ -456,12 +449,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if let stepper = (sender as? NSStepper) {
 
             let stepperValue = stepper.integerValue
-            player!.luck = stepperValue
+            var psl = player!.luck + stepperValue
 
-            if player!.luck > player!.maxLuck { player!.luck = player!.maxLuck }
-            if player!.luck < 0 { player!.luck = 0 }
+            if psl > player!.initialLuck { psl = player!.initialLuck }
+            if psl < 0 { psl = 0 }
 
-            needToSave = true
+            if (psl != player!.luck) {
+                needToSave = true
+                player!.luck = psl
+            }
+
+            stepper.integerValue = 0
             updateStats()
         }
     }
@@ -476,7 +474,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                     player!.provisions = player!.provisions - 1
                     foodAmountField.stringValue = "\(player!.provisions)"
                     player!.stamina = player!.stamina + 4
-                    if player!.stamina > player!.maxStamina { player!.stamina = player!.maxStamina }
+                    if player!.stamina > player!.initialStamina { player!.stamina = player!.initialStamina }
 
                     needToSave = true
                     updateStats()
@@ -553,14 +551,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !gameInProgress || player == nil { return }
 
         if let stepper = (sender as? NSStepper) {
-
             let stepperValue = stepper.integerValue
-            player!.fear = stepperValue
+            var psf = player!.fear + stepperValue
 
-            if player!.fear > player!.maxFear { player!.fear = player!.maxFear }
-            if player!.fear < 0 { player!.fear = 0 }
+            if psf > player!.maxFear { psf = player!.maxFear }
+            if psf < 0 { psf = 0 }
 
-            needToSave = true
+            if (psf != player!.fear) {
+                needToSave = true
+                player!.fear = psf
+            }
+
+            stepper.integerValue = 0
             updateStats()
         }
     }
@@ -586,6 +588,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func strike(_ sender: Any) {
 
+        // Can't strike if we're not playing a game
         if !gameInProgress { return }
 
         // Clear the result readout
@@ -594,7 +597,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Some housekeeping: if any monster's Stamina is zero, they can't be a target or in the fight
         // We have to apply this in case the user changes it mid-fight
-
         if monsterOneStamField.integerValue < 1 {
             monsterOneTargetCheck.state = NSControl.StateValue.off
             monsterOneCombatCheck.state = NSControl.StateValue.off
@@ -608,10 +610,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if monsterThreeStamField.integerValue < 1 {
             monsterThreeTargetCheck.state = NSControl.StateValue.off
             monsterThreeCombatCheck.state = NSControl.StateValue.off
-            }
+        }
 
         // Roll the character's Attack Strength
-        var playerAttackStrength : Int = player!.skill + Int(arc4random() % 6 + arc4random() % 6) + 2
+        var playerAttackStrength : Int = player!.skill + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
 
         // Add in modifier
         playerAttackStrength = playerAttackStrength + 6 - playerMod.indexOfSelectedItem
@@ -631,13 +633,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         switch (target) {
         case 1:
-            monsterAttackStrength = monsterOneSkillField.integerValue + Int(arc4random() % 6) + Int(arc4random() % 6) + 2
+            monsterAttackStrength = monsterOneSkillField.integerValue + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
             monsterStrength = monsterOneStamField.integerValue
         case 2:
-            monsterAttackStrength = monsterTwoSkillField.integerValue + Int(arc4random() % 6) + Int(arc4random() % 6) + 2
+            monsterAttackStrength = monsterTwoSkillField.integerValue + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
             monsterStrength = monsterTwoStamField.integerValue
         case 3:
-            monsterAttackStrength = monsterThreeSkillField.integerValue + Int(arc4random() % 6) + Int(arc4random() % 6) + 2
+            monsterAttackStrength = monsterThreeSkillField.integerValue + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
             monsterStrength = monsterThreeStamField.integerValue
         default:
             combatReadoutTwo.stringValue = "You didn't select a target..."
@@ -659,16 +661,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if playerAttackStrength > monsterAttackStrength {
                 monsterStrength = monsterStrength - 2
                 combatReadoutOne.stringValue = "Your weapon strikes home..."
-                roll = Int(arc4random() % 6) + 1
+                roll = Int(arc4random_uniform(6)) + 1
                 combatLuckOutcome = 1
-            } else if (monsterAttackStrength > playerAttackStrength)
-            {
+            } else if monsterAttackStrength > playerAttackStrength {
                 player!.stamina = player!.stamina - 2
                 combatReadoutOne.stringValue = "The creature strikes you..."
                 combatLuckOutcome = 2
                 needToSave = true
             } else {
-                roll = Int(arc4random() % 6) + 1
+                roll = Int(arc4random_uniform(6)) + 1
                 combatReadoutOne.stringValue = (roll % 2 == 0) ? "You parry the blow..." : "The creature dodges your attack..."
             }
 
@@ -676,7 +677,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             // If character's already dead, it only wastes CPU cycles, result's the same
             if monsterOneCombatCheck.state == NSControl.StateValue.on && target != 1 {
                 // Monster One's in the game but not the target
-                monsterAttackStrength = monsterOneSkillField.integerValue + Int(arc4random() % 6) + Int(arc4random() % 6) + 2
+                monsterAttackStrength = monsterOneSkillField.integerValue + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
 
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
@@ -687,7 +688,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             if monsterTwoCombatCheck.state == NSControl.StateValue.on && target != 2 {
                 // Monster Two's in the game but not the target
-                monsterAttackStrength = monsterTwoSkillField.integerValue + Int(arc4random() % 6) + Int(arc4random() % 6) + 2
+                monsterAttackStrength = monsterTwoSkillField.integerValue + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
 
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
@@ -698,7 +699,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             if monsterThreeCombatCheck.state == NSControl.StateValue.on && target != 3 {
                 // Monster Three's in the game but not the target
-                monsterAttackStrength = monsterThreeSkillField.integerValue + Int(arc4random() % 6) + Int(arc4random() % 6) + 2
+                monsterAttackStrength = monsterThreeSkillField.integerValue + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
 
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
@@ -746,7 +747,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 monsterThreeStamField.stringValue = "\(monsterStrength)"
             }
 
-            // Clear the Luck check flag if the player
+            // Clear the Luck check flag if the player tested their luck
             combatLuckCheck = false
 
             // Update the stats - this checks for player death
@@ -760,13 +761,113 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
+    @IBAction combatLuckRoll(_ sender: Any) {
+
+        if combatLuckCheck || player == nil {
+            // Player has already Tested Luck this combat round, or the creature(s) is dead
+            return
+        }
+
+        var success: Bool = false
+        var a: Int = 0
+        var roll = Int(arc4random_uniform(6)) + 1
+        roll = roll + 3 - testLuckMod.indexOfSelectedItem
+
+        // For the Luck roll, we do this separately to avoid having multiple versions of the same test code
+        success = roll <= player!.luck ? true : false
+        player!.luck = player!.luck - 1
+        needToSave = true
+
+        if combatLuckOutcome == 1 {
+            // The player previously hit the monster... try to increase damage
+            if successful {
+                switch (combatLuckMonster) {
+                    case 1:
+                    a = monsterOneStam.integerValue - 2
+                    if a <= 0 {
+                        a = 0
+                        combatReadoutTwo.stringValue = "A lucky strike... you kill the beast"
+                    } else {
+                        combatReadoutTwo.stringValue = "A lucky strike... you hit it harder than you thought"
+                    }
+
+                    monsterOneStam.stringValue = "\(a)"
+
+                    case 2:
+                    a = monsterTwoStam.integerValue - 2
+                    if a <= 0 {
+                        a = 0
+                        combatReadoutTwo.stringValue = "A lucky strike... you kill the beast"
+                    } else {
+                        combatReadoutTwo.stringValue = "A lucky strike... you hit it harder than you thought"
+                    }
+
+                    monsterTwoStam.stringValue = "\(a)"
+
+                    default:
+                    a = monsterThreeStam.integerValue - 2
+                    if a <= 0 {
+                        a = 0
+                        combatReadoutTwo.stringValue = "A lucky strike... you kill the beast"
+                    } else {
+                        combatReadoutTwo.stringValue = "A lucky strike... you hit it harder than you thought"
+                    }
+
+                    monsterThreeStam.stringValue = "\(a)"
+    }
+    }
+    else
+    {
+    switch (combatLuckMonster)
+    {
+    case 1:
+    a = ([monsterOneStam intValue] + 1);
+    [monsterOneStam setIntValue:a];
+    [combatReadoutLineTwo setStringValue:@"Unlucky... you didn't hurt it as much as you thought"];
+    break;
+
+    case 2:
+    a = ([monsterTwoStam intValue] + 1);
+    [monsterTwoStam setIntValue:a];
+    [combatReadoutLineTwo setStringValue:@"Unlucky... you didn't hurt it as much as you thought"];
+    break;
+
+    case 3:
+    a = ([monsterThreeStam intValue] + 1);
+    [monsterThreeStam setIntValue:a];
+    [combatReadoutLineTwo setStringValue:@"Unlucky... you didn't hurt it as much as you thought"];
+    break;
+    }
+    }
+    }
+
+    if (combatLuckOutcome == 2)
+    {
+    // The monster hit the character... try to reduce strength of blow
+
+    if (successful == YES)
+    {
+    [theCharacter setStam:([theCharacter getStam] + 1)];
+    [combatReadoutLineTwo setStringValue:@"Good luck... that was only a glancing blow"];
+    }
+    else
+    {
+    [theCharacter setStam:([theCharacter getStam] - 1)];
+    [combatReadoutLineTwo setStringValue:@"Unlucky... it's attack did extra damage"];
+    }
+    }
+
+    [self updateStats];
+    [combatReadoutLineThree setStringValue:[NSString stringWithFormat:@"Your Stamina is %u. Your Luck is %u", [theCharacter getStam], [theCharacter getLuck]]];
+    }
+
     // MARK: Test Tab Functions
 
     @IBAction func testLuck(_ sender: Any) {
 
         if !gameInProgress || player == nil { return }
 
-        var roll: Int = Int(arc4random() % 6 + arc4random() % 6) + 2
+        var roll: Int = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
         roll = roll + 3 - testLuckMod.indexOfSelectedItem
         player!.luck = player!.luck - 1
         needToSave = true
@@ -777,7 +878,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
-        var roll: Int = Int(arc4random() % 6 + arc4random() % 6) + 2
+        var roll: Int = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
         roll = roll + 3 - testSkillMod.indexOfSelectedItem
         needToSave = true
         showAlert((roll <= player!.skill ? "You were skilfull..." : "You fumble the test..."), "", true)
@@ -789,10 +890,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if asender == self {
                 // We are here through a timer call
                 if rollCount > 0 {
-                    var roll: Int = Int(arc4random() % 6)
+                    var roll: Int = Int(arc4random_uniform(6))
                     dieOne.image = dice[roll]
 
-                    roll = Int(arc4random() % 6)
+                    roll = Int(arc4random_uniform(6))
                     dieTwo.image = dice[roll]
 
                     rollCount = rollCount - 1
@@ -818,8 +919,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
+    // MARK: Pack Tab Functions
+
     @IBAction func showIcons(_ sender: Any) {
 
+        // The player has clicked on the icon button
         makeIconMatrix()
 
         if let asender = (sender as? FFIconButton) {
@@ -829,6 +933,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func makeIconMatrix() {
 
+        // Assemble the popover if it hasn't been assembled yet
         if iconPopover == nil {
             iconPopover = NSPopover.init()
             iconPopover!.contentViewController = iconPopoverController
@@ -836,8 +941,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             iconPopover!.behavior = NSPopover.Behavior.transient
         }
     }
-
-    // MARK: Pack Tab Functions
 
     @IBAction func addPackItem(_ sender: Any) {
 
@@ -899,27 +1002,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func numberOfRows(in tableView: NSTableView) -> Int {
 
+        // If there is a valid player object, return its pack count, otherwise zero
         return (player != nil ? player!.pack.count : 0)
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
         if let zplayer = player {
-
             if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "packcell"), owner: nil) as? NSTableCellView {
-
-				let dict = zplayer.pack[row]
-				cell.textField?.stringValue = dict["name"] as! String
-
-                var rrow = row
-
-                repeat {
-                    if rrow > 2 { rrow = rrow - 3 }
-                } while rrow > 2
-
-				let n = dict["icon"] as! NSNumber
-				cell.imageView?.image = icons[n.intValue]
-
+                let dict = zplayer.pack[row]
+                cell.textField?.stringValue = dict["name"] as! String
+                let n = dict["icon"] as! NSNumber
+                cell.imageView?.image = icons[n.intValue]
                 return cell
             }
         }
@@ -1107,24 +1201,33 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     func playerDead() {
 
         // Perform the death routine
-        /*
-        if let image = NSImage.init(named: NSImage.Name("death_banner")) {
-            deathImageView.image? = image
-        }
-        */
+        let image = NSImage.init(named: NSImage.Name("death_banner"))
+        if image != nil { showDeathWindow(image!) }
+    }
+
+    func playerMad() {
+
+        // Perform the death-by-madness routine
+        let image = NSImage.init(named: NSImage.Name("madness_banner")) {
+        if image != nil { showDeathWindow(image!) }
+    }
+
+    func showDeathWindow(_ image: NSImage) {
+
+        // Perform the death routine
+        deathImageView.image = image
 
         // We give the player one chance to reanimate - and they have had it
         // so hide the reanimte button
         reanimateButton.isEnabled = firstRun ? true : false
         reanimateButton.isHidden = firstRun ? false : true
 
-        window.beginSheet(deathWindow, completionHandler:  { (response) in
-
-        })
+        window.beginSheet(deathWindow, completionHandler:  { (response) in })
     }
 
     @IBAction func reanimate(_ sender: Any) {
 
+        // Player chooses to try again on reduced stats
         window.endSheet(deathWindow)
 
         if let zplayer = player {
@@ -1137,7 +1240,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             zplayer.stamina = 6
 
             updateStats()
-            updateStatsSteppers()
         }
     }
 
@@ -1319,7 +1421,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                     self.monsterMod.selectItem(at: zplayer.modMatrix[3])
 
                     self.updateStats()
-                    self.updateStatsSteppers()
                 }
             }
         })
@@ -1444,24 +1545,24 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         let gameType: Int = startGamePopup.indexOfSelectedItem
         player!.gamekind = gameType
-        if gameType == kGameWarlock || gameType == kGameDeathtrap || gameType == kGameCityThieves || gameType == kGameForestDoom {
-            if gameType == kGameWarlock { player!.gameName = "The Warlock of Firetop Mountain" }
-            if gameType == kGameDeathtrap { player!.gameName = "Deathtrap Dungeon" }
-            if gameType == kGameCityThieves { player!.gameName = "City of Thieves" }
-            if gameType == kGameForestDoom { player!.gameName = "Forest of Doom" }
-        }
+
+        if gameType == kGameWarlock { player!.gameName = "The Warlock of Firetop Mountain" }
+        if gameType == kGameDeathtrap { player!.gameName = "Deathtrap Dungeon" }
+        if gameType == kGameCityThieves { player!.gameName = "City of Thieves" }
+        if gameType == kGameForestDoom { player!.gameName = "Forest of Doom" }
 
         if gameType != kGameCitadel && gameType != kGameTempleTerror {
             // Remove the Magic tab for all but Citadel of Chaos and Temple of Terror
             heldTabs["magictab"] = magicTab!
             if tabs.tabViewItems.contains(magicTab) { tabs.removeTabViewItem(magicTab) }
         } else {
-            // Add back the Magic tab if necessary
-            if !tabs.tabViewItems.contains(magicTab) { tabs.insertTabViewItem(heldTabs["magictab"]!, at: 2) }
+            // Add back the Magic tab on the end if necessary
+            if !tabs.tabViewItems.contains(magicTab) { tabs.insertTabViewItem(heldTabs["magictab"]!, at: tabs.count) }
         }
 
         if gameType == kGameCitadel {
-            player!.magic = Int(arc4random() % 6 + arc4random() % 6) + 8
+            player!.magic = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 8
+            player!.initialMagic = player!.magic
             player!.potion = kPotionNone
             player!.drinks = 0
             player!.gold = 0
@@ -1506,7 +1607,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.gold = 0
             player!.provisions = 0
             player!.gameName = "Return to Firetop Mountain"
-
         }
 
         if gameType == kGameTempleTerror {
@@ -1559,10 +1659,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 			player!.pack.append(dict)
         }
 
-        updateStatsSteppers()
+        // Update the UI with the new stats
         updateStats()
 
+        // Update the window with the game name
         window.title = "Fighting Fantasy - " + player!.gameName
+
+        // Close the sheet
         window.endSheet(createSheet)
     }
 }
