@@ -18,7 +18,7 @@
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AwB-MH-jTC">
                     <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
-                    <imageCell key="cell" alignment="left" imageScaling="proportionallyDown" id="Zbl-fZ-zol"/>
+                    <imageCell key="cell" alignment="left" id="Zbl-fZ-zol"/>
                 </imageView>
             </subviews>
             <constraints>

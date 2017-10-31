@@ -228,6 +228,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_dagger"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_mace"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_spear"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_shield"))
@@ -240,6 +242,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_book"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_potion"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_chalice"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_gem"))
@@ -250,11 +254,19 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_coins"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_key"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_chest"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_bottle"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_food"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_tankard"))
+        icons.append(image!)
+
+        // This should always come last
+        image = NSImage.init(named: NSImage.Name("icon_generic"))
         icons.append(image!)
 
         // Set up pack table view
