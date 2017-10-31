@@ -449,7 +449,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="480" height="600"/>
             <value key="maxSize" type="size" width="480" height="600"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
@@ -837,7 +837,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4jn-db-hCt">
-                                                        <rect key="frame" x="20" y="70" width="369" height="5"/>
+                                                        <rect key="frame" x="20" y="70" width="369" height="4"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     </box>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GRy-Rq-FS5">
@@ -1426,7 +1426,7 @@ DQ
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
@@ -2035,7 +2035,7 @@ CA
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="dVq-pw-4cK">
@@ -2435,7 +2435,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="312"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="460" height="312"/>
             <value key="maxSize" type="size" width="460" height="312"/>
             <view key="contentView" id="2fw-op-TCp">
@@ -2551,14 +2551,14 @@ DQ
             </connections>
         </popover>
         <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="B4c-2k-Wvc">
-            <rect key="frame" x="0.0" y="0.0" width="278" height="140"/>
+            <rect key="frame" x="0.0" y="0.0" width="278" height="174"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
-                <rect key="frame" x="1" y="1" width="276" height="138"/>
+                <rect key="frame" x="1" y="1" width="276" height="172"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
-                        <rect key="frame" x="0.0" y="0.0" width="276" height="138"/>
+                        <rect key="frame" x="0.0" y="0.0" width="276" height="172"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="rN9-mo-Xtc">
                             <size key="itemSize" width="32" height="32"/>
@@ -2580,13 +2580,13 @@ DQ
                 <rect key="frame" x="234" y="1" width="15" height="143"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
-            <point key="canvasLocation" x="575" y="785"/>
+            <point key="canvasLocation" x="575" y="803"/>
         </scrollView>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SxQ-xQ-kTY">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="AZq-7e-vdl">
@@ -2636,7 +2636,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="Ill-a5-dM0">
@@ -2664,7 +2664,7 @@ DQ
                         <rect key="frame" x="-1" y="61" width="462" height="528"/>
                         <clipView key="contentView" id="bhV-tb-b2H">
                             <rect key="frame" x="1" y="1" width="445" height="526"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" quoteSubstitution="YES" dashSubstitution="YES" id="J9v-3s-gTH">
                                     <rect key="frame" x="0.0" y="-1" width="445" height="526"/>
