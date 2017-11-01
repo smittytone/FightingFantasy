@@ -5,6 +5,9 @@ FightingFantasy/Assets.xcassets/*
 
 *.entitlements
 
+FightingFantasy.xcodeproj/*
+FightingFantasy.xcworkspace/*
+
 # Xcode
 
 ## Build generated
