@@ -18,9 +18,12 @@ let kGameDeathtrap = 3
 let kGameCityThieves = 4
 let kGameHouseHell = 5
 let kGameCavernsSnow = 6
-let kGameReturnFiretop = 7
-let kGameTempleTerror = 8
-let kGameEyeDragon = 9
+let kGameIslandLizard = 6
+let kGameReturnFiretop = 8
+let kGameTempleTerror = 9
+let kGameEyeDragon = 10
+let kGameTrialChampions = 11
+let kGamePortPeril = 12
 let kGameSorceryWizard = 20
 let kGameSorceryFighter = 21
 
@@ -166,6 +169,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 	var needToSave: Bool = false
     var gameInProgress: Bool = false
     var firstRun: Bool = true
+    var doubleClickFileLoad: Bool = false
 
 	var combatLuckMonster: Int = 0
     var combatLuckOutcome: Int = 0
@@ -189,7 +193,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     // MARK: App Lifecycle Functions
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationWillFinishLaunching(_ notification: Notification) {
+
+        // Load up the images here so that they're present if the user double clicks on
+        // a .ffc file - which will be loaded BEFORE applicationDidFinishLoading() is called
 
         // Load dice images into an array for easy access later
         var image: NSImage? = NSImage.init(named: NSImage.Name("one"))
@@ -205,8 +212,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("six"))
         dice.append(image!)
 
-         // Load pack item icons into an array for easy access later
-		image = NSImage.init(named: NSImage.Name("icon_lantern"))
+        // Load pack item icons into an array for easy access later
+        image = NSImage.init(named: NSImage.Name("icon_lantern"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_sword"))
         icons.append(image!)
@@ -290,6 +297,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // This should always come last
         image = NSImage.init(named: NSImage.Name("icon_generic"))
         icons.append(image!)
+    }
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Set up pack table view
         //packTable.target = self
@@ -299,8 +309,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         tabs.selectFirstTabViewItem(self)
         window.center()
 
-        // Set up the UI
-        initUI()
+        // Set up the UI - if we haven't already done so by double-clicking on a .ffc file
+        if !doubleClickFileLoad { initUI() }
 
         // Set up notifications - used when the player selects a pack icon from the popover
         let nc = NotificationCenter.default
@@ -316,7 +326,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if let zplayer = self.player {
             initUI()
-
+            doubleClickFileLoad = true
+            
             // Update the Citadel of Chaos magic spell matrix
             if zplayer.gamekind == kGameCitadel {
                 creatureCopyField.stringValue = "\(zplayer.citadelSpellMatrix[0])"
@@ -1787,7 +1798,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Note that all of these 'non-default' game types do not use potions, so
         // remove them if the user has selected one
 
-        let gameType: Int = startGamePopup.indexOfSelectedItem
+        var gameType: Int = startGamePopup.indexOfSelectedItem
+        if gameType > kGamePortPeril { gameType = gameType + 6 }
         player!.gamekind = gameType
 
         if gameType == kGameWarlock { player!.gameName = "The Warlock of Firetop Mountain" }
@@ -1873,8 +1885,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameType == kGameEyeDragon {
             player!.potion = kPotionNone
             player!.drinks = 0
-            player!.gold = 10
+            player!.provisions = 10
+            player!.gold = 0
             player!.gameName = "Eye of the Dragon"
+        }
+
+        if gameType == kGameTrialChampions {
+            player!.potion = kPotionNone
+            player!.drinks = 0
+            player!.provisions = 0
+            player!.gold = 0
+            player!.gameName = "Trial of Champions"
+        }
+
+        if gameType == kGamePortPeril {
+            player!.provisions = 10
+            player!.gold = 0
+            player!.gameName = "Port of Peril"
         }
 
         // Sorcery! games - always the last two in the menu

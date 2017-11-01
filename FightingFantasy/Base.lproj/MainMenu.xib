@@ -449,7 +449,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="480" height="600"/>
             <value key="maxSize" type="size" width="480" height="600"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
@@ -837,7 +837,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4jn-db-hCt">
-                                                        <rect key="frame" x="20" y="70" width="369" height="4"/>
+                                                        <rect key="frame" x="20" y="70" width="369" height="5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     </box>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GRy-Rq-FS5">
@@ -2035,7 +2035,7 @@ CA
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="dVq-pw-4cK">
@@ -2223,10 +2223,26 @@ CA
                                                 <menuItem title="Island of the Lizard King" id="HCc-Vi-v9H">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
-                                                <menuItem title="Sorcery! as a Fighter" id="W1k-W9-9qL">
+                                                <menuItem title="Return to Firetop Mountain" id="Ekx-oM-oAb">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
-                                                <menuItem title="Sorcery! as a Wizard" id="qjf-md-Mej">
+                                                <menuItem title="Temple of Terror" id="BSL-qH-kHn">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Eye of the Dragon" id="S4s-FZ-Qdf">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Trial of Champions" id="2xM-sq-mkJ">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Port of Peril" id="tc3-Vo-weZ">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="vCD-jN-gYb"/>
+                                                <menuItem title="Sorcery! series as a Fighter" id="W1k-W9-9qL">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Sorcery! series as a Wizard" id="qjf-md-Mej">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                             </items>
@@ -2434,16 +2450,16 @@ Gw
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="7K9-O1-nea">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="131" y="158" width="460" height="312"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-            <value key="minSize" type="size" width="460" height="312"/>
-            <value key="maxSize" type="size" width="460" height="312"/>
+            <rect key="contentRect" x="131" y="158" width="460" height="314"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="460" height="314"/>
+            <value key="maxSize" type="size" width="460" height="314"/>
             <view key="contentView" id="2fw-op-TCp">
-                <rect key="frame" x="0.0" y="0.0" width="460" height="312"/>
+                <rect key="frame" x="0.0" y="0.0" width="460" height="314"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dLZ-hf-Wjf">
-                        <rect key="frame" x="18" y="258" width="424" height="34"/>
+                        <rect key="frame" x="18" y="260" width="424" height="34"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="34" id="tSI-Vh-nsl"/>
                         </constraints>
@@ -2454,13 +2470,13 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-en-fTh">
-                        <rect key="frame" x="18" y="206" width="424" height="44"/>
+                        <rect key="frame" x="18" y="201" width="424" height="51"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="44" id="vcg-Mt-3Ea"/>
+                            <constraint firstAttribute="height" constant="51" id="vcg-Mt-3Ea"/>
                         </constraints>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="HcU-oX-S65">
                             <font key="font" metaFont="system"/>
-                            <string key="title">Written by Tony Smith in Swift 4 in Autumn 2017, converted from an Objective C version circa 2012 and a Real Basic version circa 2005.</string>
+                            <string key="title">Written by Tony Smith in Swift 4 in Autumn 2017, converted from an Objective C version circa 2012 and a Real Basic version circa 2003. Fighting Fantasy © Steve Jackson and Ian Livingstone</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -2483,7 +2499,7 @@ DQ
                         </connections>
                     </button>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N1D-YD-tOz">
-                        <rect key="frame" x="166" y="70" width="128" height="128"/>
+                        <rect key="frame" x="166" y="65" width="128" height="128"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="128" id="438-2x-Slt"/>
                             <constraint firstAttribute="height" constant="128" id="KpW-UT-if0"/>
@@ -2504,7 +2520,7 @@ DQ
                     <constraint firstItem="N1D-YD-tOz" firstAttribute="top" secondItem="Ls5-en-fTh" secondAttribute="bottom" constant="8" id="tZW-tE-poh"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="1308" y="-81"/>
+            <point key="canvasLocation" x="1308" y="-80"/>
         </window>
         <menuItem title="View" id="H8h-7b-M4v">
             <modifierMask key="keyEquivalentModifierMask"/>
@@ -2586,7 +2602,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="AZq-7e-vdl">
@@ -2636,7 +2652,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="Ill-a5-dM0">
