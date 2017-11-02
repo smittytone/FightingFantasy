@@ -1,14 +1,12 @@
 Art/*
+Art-Source/*
 FightingFantasy/Assets.xcassets/*
-
-.DS_Store
-
-*.entitlements
-
 FightingFantasy.xcodeproj/*
 FightingFantasy.xcworkspace/*
-*.xcodeproj/*
-*.xcworkspace/*
+*.entitlements
+*.pem
+
+.DS_Store
 
 # Xcode
 
