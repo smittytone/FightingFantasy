@@ -5,8 +5,8 @@ FightingFantasy/Assets.xcassets/*
 
 *.entitlements
 
-FightingFantasy.xcodeproj/*
-FightingFantasy.xcworkspace/*
+FightingFantasy.xcodeproj/
+FightingFantasy.xcworkspace/
 
 # Xcode
 
