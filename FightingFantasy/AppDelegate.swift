@@ -6,42 +6,6 @@
 
 import Cocoa
 
-// MARK: Constants
-
-// Game types
-
-let kGameNone = -1
-let kGameWarlock = 0
-let kGameCitadel = 1
-let kGameForestDoom = 2
-let kGameDeathtrap = 3
-let kGameCityThieves = 4
-let kGameHouseHell = 5
-let kGameCavernsSnow = 6
-let kGameIslandLizard = 6
-let kGameReturnFiretop = 8
-let kGameTempleTerror = 9
-let kGameEyeDragon = 10
-let kGameTrialChampions = 11
-let kGamePortPeril = 12
-let kGameSorceryWizard = 20
-let kGameSorceryFighter = 21
-
-// Colours for text
-
-let kTextColourBlack = 0
-let kTextColourRed = 1
-let kTextColourGrey = 2
-
-// Potions
-
-let kPotionNone = -1
-let kPotionDexterity = 0
-let kPotionStrength = 1
-let kPotionFortune = 2
-
-
-// MARK: Main Application Delegate
 
 @NSApplicationMain
 
@@ -839,7 +803,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBAction func strike(_ sender: Any) {
 
         // Can't strike if we're not playing a game
-        if !gameInProgress { return }
+        if !gameInProgress || player == nil { return }
 
         // Clear the result readout
         combatReadoutOne.stringValue = " "
@@ -863,7 +827,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
 
         // Roll the character's Attack Strength
-        var playerAttackStrength : Int = player!.skill + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
+        let playerRollOne = Int(arc4random_uniform(6))
+        let playerRollTwo = Int(arc4random_uniform(6))
+        var playerAttackStrength : Int = player!.skill + playerRollOne + playerRollTwo + 2
 
         // Add in modifier
         playerAttackStrength = playerAttackStrength + 6 - playerMod.indexOfSelectedItem
@@ -897,6 +863,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         monsterAttackStrength = monsterAttackStrength + 6 - monsterMod.indexOfSelectedItem
 
+        if player!.gamekind == kGameCreatureHavoc && playerRollOne == playerRollTwo {
+            // Matching rolls on Creature of Havoc automatically kill the opponent
+            playerAttackStrength = monsterAttackStrength + 1
+            monsterStrength = 0
+        }
+
         // Preserve the outcome of the round in case a Luck test is made
         // 1 indicates character victory - ie. Luck test to increase damage on monster
         // 2 indicated monster victory - ie. Luck test to reduce damage to character
@@ -909,12 +881,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             monsterTwoCombatCheck.state == NSControl.StateValue.on ||
             monsterThreeCombatCheck.state == NSControl.StateValue.on {
             if playerAttackStrength > monsterAttackStrength {
+                combatReadoutOne.stringValue = (player!.gamekind == kGameCreatureHavoc ? "Your claws strikes home..." : "Your weapon strikes home...")
                 monsterStrength = monsterStrength - 2
-                combatReadoutOne.stringValue = "Your weapon strikes home..."
-                roll = Int(arc4random_uniform(6)) + 1
                 combatLuckOutcome = 1
             } else if monsterAttackStrength > playerAttackStrength {
-                player!.stamina = player!.stamina - 2
+                player!.stamina = player!.stamina - (player!.gamekind == kGameCreatureHavoc ? 1 : 2)
                 combatReadoutOne.stringValue = "The creature strikes you..."
                 combatLuckOutcome = 2
                 needToSave = true
@@ -1183,8 +1154,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 		// The player has entered an item in the add pack field and click the '+' button
 
 		if let zplayer = player {
-			var itemName = addItemField.stringValue;
-            	if itemName.characters.count == 0 { itemName = "New pack item" }
+            var itemName: String = addItemField.stringValue;
+            	if itemName.count == 0 { itemName = "New pack item" }
 
 			let item: [String:Any] = [ "item" : itemName,
 								      "icon" : NSNumber.init(value: iconButton.index) ]
@@ -1415,7 +1386,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         let alert: NSAlert = NSAlert.init()
         alert.messageText = title
-        if message.characters.count > 0 { alert.informativeText = message }
+        if message.count > 0 { alert.informativeText = message }
 
         alert.beginSheetModal(for: window, completionHandler: { (modalResponse) in
             if update { self.updateStats() }
@@ -1497,7 +1468,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if player == nil || !needToSave { return }
         if player!.isDead { return }
 
-        if savePath.characters.count == 0 {
+        if savePath.count == 0 {
             // We have no save path for some reason, so force a Save As...
             savePlayerAs(self)
             return
@@ -1898,6 +1869,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.gameName = "Trial of Champions"
         }
 
+        if gameType == kGameCreatureHavoc {
+            player!.potion = kPotionNone
+            player!.drinks = 0
+            player!.provisions = 0
+            player!.gold = 0
+            player!.gameName = "Creature of Havoc"
+        }
+
         if gameType == kGamePortPeril {
             player!.provisions = 10
             player!.gold = 0
@@ -1928,7 +1907,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if player!.pack.count > 0 { player!.pack.removeAll() }
 
         // Only House of Hell starts you out with no kit
-        if gameType != kGameHouseHell {
+        if gameType != kGameHouseHell && gameType != kGameCreatureHavoc {
 			// Add items to the pack as dictionaries with the keys 'name' and 'icon'
 			// 'name' is the item as a string, 'icon' is the index of its icon in
 			// the 'icons' array of images. The index is stored here as an NSNumber
@@ -1936,7 +1915,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 			player!.pack.append(dict)
 			dict = [ "name" : "Sword", "icon" : NSNumber.init(value: 1) ]
 			player!.pack.append(dict)
-            	dict = [ "name" : "Leather armour", "icon" : NSNumber.init(value: 2) ]
+            dict = [ "name" : "Leather armour", "icon" : NSNumber.init(value: 2) ]
 			player!.pack.append(dict)
         }
 
@@ -1956,7 +1935,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         let helpString = "\nFighting Fantasy brings you all you need to play your Fighting Fantasy adventures: dice, an adventure sheet and monster encounter records.\n\nThe Status tab shows your character's current state of health, allows you to eat provisions and drink the magic potion with which you start the game. It also helps you keep track of the gold pieces you find and spend during your adventure.\n\nSome Fighting Fantasy games add other attributes and these are recorded here too.\n\nThe Combat tab helps you fight the creatures of the underworld. You can fight up to three adversaries, one at a time or all together. Enter each opponents' Skill and Stamina scores, then check the Combat box of the one you're going to fight. Check more than one monster to fight multiple opponents simultaneously. When you're fighting more than one monster at a time, chose the one you want to try and strike by clicking its Target button. Hit Strike! to attack the creature.\n\nYou can also Test your Luck to alter the outcome of the battle.\n\nThe Magic tab keeps track of your Citadel of Chaos spells. First, enter the number of times you can cast your selected spells. During the game, select a spell and click Cast.\n\nIt also provides space to record the spells you have chosen in Temple of Terror.\n\nThe Tests tab lets you Test you Luck and Try your Skill as dictated by the gamebook entry you're reading. It also provides a handy pair of virtual dice to roll.\n\nThe Backpack tab helps you keep tracks of your possessions. Select an item and click the Use Item button to use it in the game. When you find a new object you wish to keep, type in a description of the object and click on the Add Item button to put it in your backpack.\n\nTo create a new character at the start of the adventure, select New Character from the File menu. Click Roll to determine your character's initial Skill, Stamina and Luck scores, then select which Magic Potion you wish to take with you, if the gamebook allows you to do so. Similarly, enter any Provisions you have at the start of your quest, along with your Gold Pieces.\n\nChoose the name of the game you'll be playing. If your gamebook isn't listed, choose Standard Game.\n\nGood Luck!"
         helpTextView.isEditable = true
-        helpTextView.insertText(helpString, replacementRange: NSMakeRange(helpTextView.string.characters.count, 0))
+        helpTextView.insertText(helpString, replacementRange: NSMakeRange(helpTextView.string.count, 0))
         helpTextView.scrollToBeginningOfDocument(self)
         helpTextView.isEditable = false
         window.beginSheet(helpWindow, completionHandler: nil)
