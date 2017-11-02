@@ -84,16 +84,9 @@ class FFPlayer: NSObject, NSCoding {
     }
 
     required init(coder aDecoder: NSCoder) {
+
         // Called to de-archive the properties of the player instance
         self.pack = aDecoder.decodeObject(forKey: "ff.pack") as! [[String:Any]]
-
-        var csm = aDecoder.decodeObject(forKey: "ff.cspellmatrix") as! [NSNumber]
-        for i in 0...10 { citadelSpellMatrix.append(csm[i].intValue) }
-        csm = aDecoder.decodeObject(forKey: "ff.tspellmatrix") as! [NSNumber]
-        for i in 0...3 { templeSpellMatrix.append(csm[i].intValue) }
-        csm = aDecoder.decodeObject(forKey: "ff.modmatrix") as! [NSNumber]
-        for i in 0...3 { modMatrix.append(csm[i].intValue) }
-
         self.gameName = aDecoder.decodeObject(forKey: "ff.gamename") as! String
         self.name = aDecoder.decodeObject(forKey: "ff.name") as! String
         self.gamekind = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
@@ -112,5 +105,12 @@ class FFPlayer: NSObject, NSCoding {
         self.potion = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
         self.drinks = (aDecoder.decodeObject(forKey: "ff.drinks") as! NSNumber).intValue
         self.packSelectedItem = (aDecoder.decodeObject(forKey: "ff.psm") as! NSNumber).intValue
+
+        var csm = aDecoder.decodeObject(forKey: "ff.cspellmatrix") as! [NSNumber]
+        for i in 0...10 { citadelSpellMatrix.append(csm[i].intValue) }
+        csm = aDecoder.decodeObject(forKey: "ff.tspellmatrix") as! [NSNumber]
+        for i in 0...3 { templeSpellMatrix.append(csm[i].intValue) }
+        csm = aDecoder.decodeObject(forKey: "ff.modmatrix") as! [NSNumber]
+        for i in 0...3 { modMatrix.append(csm[i].intValue) }
     }
 }

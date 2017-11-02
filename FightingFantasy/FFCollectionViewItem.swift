@@ -9,9 +9,7 @@ import Cocoa
 class FFCollectionViewItem: NSCollectionViewItem {
 
     var index: Int = -1
-
     var image: NSImage? {
-
         didSet {
             guard isViewLoaded else { return }
 
