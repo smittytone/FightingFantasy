@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BB5B2601FABC81200D0B499 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5B25F1FABC81200D0B499 /* Constants.swift */; };
 		3BC840A61FA749F000691F92 /* FFTextFieldFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */; };
 		3BF193381FA6641A00337EE8 /* FFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF193371FA6641A00337EE8 /* FFViewController.swift */; };
 		3BF1933B1FA66A2300337EE8 /* FFCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF193391FA66A2300337EE8 /* FFCollectionViewItem.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BB5B25F1FABC81200D0B499 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTextFieldFormatter.swift; sourceTree = "<group>"; };
 		3BF193371FA6641A00337EE8 /* FFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFViewController.swift; sourceTree = "<group>"; };
 		3BF193391FA66A2300337EE8 /* FFCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFCollectionViewItem.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 		3BFE93021FA29615003DF79F /* FightingFantasy */ = {
 			isa = PBXGroup;
 			children = (
+				3BB5B25F1FABC81200D0B499 /* Constants.swift */,
 				3BFE93031FA29615003DF79F /* AppDelegate.swift */,
 				3BFE93111FA29A8D003DF79F /* FFPlayer.swift */,
 				3BF1933D1FA67F0F00337EE8 /* FFIconButton.swift */,
@@ -159,6 +162,7 @@
 				3BF193381FA6641A00337EE8 /* FFViewController.swift in Sources */,
 				3BF1933E1FA67F0F00337EE8 /* FFIconButton.swift in Sources */,
 				3BFE93041FA29615003DF79F /* AppDelegate.swift in Sources */,
+				3BB5B2601FABC81200D0B499 /* Constants.swift in Sources */,
 				3BC840A61FA749F000691F92 /* FFTextFieldFormatter.swift in Sources */,
 				3BF1933B1FA66A2300337EE8 /* FFCollectionViewItem.swift in Sources */,
 			);
@@ -293,6 +297,7 @@
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = FightingFantasy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.blackpyramid.FightingFantasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -308,6 +313,7 @@
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				INFOPLIST_FILE = FightingFantasy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.blackpyramid.FightingFantasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
