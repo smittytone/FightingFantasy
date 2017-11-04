@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,6 +18,9 @@
             <connections>
                 <outlet property="aboutSheet" destination="7K9-O1-nea" id="bJm-vs-Ejr"/>
                 <outlet property="addItemField" destination="Xnz-my-kPJ" id="eBp-9D-bQh"/>
+                <outlet property="bookmarkCurrentField" destination="pHp-XZ-b6f" id="53O-40-0KX"/>
+                <outlet property="bookmarkField" destination="bfu-GU-8wR" id="q37-TY-Ceq"/>
+                <outlet property="bookmarkWindow" destination="vgD-Ae-gzx" id="qXP-Cm-FbP"/>
                 <outlet property="citadelBox" destination="3Mt-NT-uJ5" id="azb-GC-kEb"/>
                 <outlet property="combatReadoutOne" destination="5dP-bZ-pLe" id="wj3-Zi-Qhg"/>
                 <outlet property="combatReadoutThree" destination="UJn-Oo-ayd" id="dwq-Rc-Lt0"/>
@@ -168,6 +172,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                            <menuItem title="View/Set Bookmark..." keyEquivalent="b" id="Ks3-16-IrQ">
+                                <connections>
+                                    <action selector="showBookmarker:" target="Voe-Tx-rLC" id="cm2-Sb-5xO"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="YSA-qF-aGk"/>
                             <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                 <connections>
                                     <action selector="closeCharacter:" target="Voe-Tx-rLC" id="rei-DE-3p2"/>
@@ -1426,7 +1436,7 @@ DQ
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
@@ -2574,7 +2584,7 @@ DQ
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
                 <rect key="frame" x="1" y="1" width="276" height="172"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
                         <rect key="frame" x="0.0" y="0.0" width="276" height="172"/>
@@ -2716,6 +2726,135 @@ DQ
                 </constraints>
             </view>
             <point key="canvasLocation" x="1368" y="113"/>
+        </window>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="vgD-Ae-gzx">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="131" y="158" width="460" height="201"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="460" height="201"/>
+            <value key="maxSize" type="size" width="460" height="201"/>
+            <view key="contentView" id="LGe-p2-Kxd">
+                <rect key="frame" x="0.0" y="0.0" width="460" height="201"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oSb-zr-JJl">
+                        <rect key="frame" x="18" y="164" width="424" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="EjL-Ln-1Ok"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="The game paragraph you have currently reached is..." id="DVA-7A-OUM">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pHp-XZ-b6f">
+                        <rect key="frame" x="18" y="112" width="424" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="WCd-Or-SPS"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="KbS-S0-YaL">
+                            <font key="font" metaFont="system" size="36"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Nos-SV-gyB">
+                        <rect key="frame" x="17" y="57" width="426" height="49"/>
+                        <view key="contentView" id="qHw-Bx-Crn">
+                            <rect key="frame" x="1" y="1" width="424" height="47"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xfi-ij-QGX">
+                                    <rect key="frame" x="12" y="16" width="221" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="217" id="BWe-8G-SbJ"/>
+                                        <constraint firstAttribute="height" constant="17" id="Xcz-zL-JHX"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Enter a new Paragraph Number:" id="e6x-hE-Z7D">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bfu-GU-8wR">
+                                    <rect key="frame" x="239" y="13" width="172" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="22" id="EuZ-Ca-dEB"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Paragraph Number" drawsBackground="YES" id="DdL-4N-kP0">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="xfi-ij-QGX" firstAttribute="top" secondItem="qHw-Bx-Crn" secondAttribute="top" constant="14" id="3Qf-xl-bu5"/>
+                                <constraint firstItem="bfu-GU-8wR" firstAttribute="top" secondItem="qHw-Bx-Crn" secondAttribute="top" constant="12" id="DW5-qb-MUi"/>
+                                <constraint firstItem="bfu-GU-8wR" firstAttribute="leading" secondItem="xfi-ij-QGX" secondAttribute="trailing" constant="8" id="IxE-Zn-qE7"/>
+                                <constraint firstAttribute="trailing" secondItem="bfu-GU-8wR" secondAttribute="trailing" constant="13" id="Lof-aC-2fe"/>
+                                <constraint firstItem="xfi-ij-QGX" firstAttribute="leading" secondItem="qHw-Bx-Crn" secondAttribute="leading" constant="14" id="Lxb-2O-S3v"/>
+                            </constraints>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="CaP-9k-Wjg"/>
+                        </constraints>
+                    </box>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KWB-bI-ry9">
+                        <rect key="frame" x="387" y="13" width="59" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="mRI-pv-eUG"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="47" id="tM7-yN-rRJ"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jpK-Dg-RLo">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="setBookmarker:" target="Voe-Tx-rLC" id="0MI-KQ-s6N"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nrl-wk-aBp">
+                        <rect key="frame" x="305" y="13" width="82" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="XV0-WC-gww"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="uKx-9F-ZjG"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yEi-6H-tNU">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelBookmarker:" target="Voe-Tx-rLC" id="gEB-KG-DDf"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Nrl-wk-aBp" secondAttribute="bottom" constant="20" id="89h-uP-QwK"/>
+                    <constraint firstAttribute="trailing" secondItem="Nos-SV-gyB" secondAttribute="trailing" constant="20" id="94j-IM-pwz"/>
+                    <constraint firstAttribute="trailing" secondItem="KWB-bI-ry9" secondAttribute="trailing" constant="20" id="RRY-Eh-AzN"/>
+                    <constraint firstItem="pHp-XZ-b6f" firstAttribute="leading" secondItem="LGe-p2-Kxd" secondAttribute="leading" constant="20" id="SLD-cO-ssQ"/>
+                    <constraint firstItem="oSb-zr-JJl" firstAttribute="top" secondItem="LGe-p2-Kxd" secondAttribute="top" constant="20" id="ang-Gw-Cu8"/>
+                    <constraint firstItem="Nrl-wk-aBp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LGe-p2-Kxd" secondAttribute="leading" constant="20" symbolic="YES" id="dPd-r5-CNM"/>
+                    <constraint firstItem="pHp-XZ-b6f" firstAttribute="top" secondItem="oSb-zr-JJl" secondAttribute="bottom" constant="8" id="eIJ-FR-4Jj"/>
+                    <constraint firstItem="Nos-SV-gyB" firstAttribute="top" secondItem="pHp-XZ-b6f" secondAttribute="bottom" constant="8" id="ef2-Qm-0l2"/>
+                    <constraint firstAttribute="bottom" secondItem="KWB-bI-ry9" secondAttribute="bottom" constant="20" id="g0j-ca-K2s"/>
+                    <constraint firstAttribute="trailing" secondItem="oSb-zr-JJl" secondAttribute="trailing" constant="20" id="i5N-lE-Fmi"/>
+                    <constraint firstItem="Nos-SV-gyB" firstAttribute="leading" secondItem="LGe-p2-Kxd" secondAttribute="leading" constant="20" id="ljs-SU-PSx"/>
+                    <constraint firstItem="oSb-zr-JJl" firstAttribute="leading" secondItem="LGe-p2-Kxd" secondAttribute="leading" constant="20" id="mOI-sb-jUc"/>
+                    <constraint firstItem="KWB-bI-ry9" firstAttribute="leading" secondItem="Nrl-wk-aBp" secondAttribute="trailing" constant="12" id="uhO-9s-l80"/>
+                    <constraint firstAttribute="trailing" secondItem="pHp-XZ-b6f" secondAttribute="trailing" constant="20" id="yT7-Q1-0ps"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="177" y="502.5"/>
         </window>
     </objects>
     <resources>
