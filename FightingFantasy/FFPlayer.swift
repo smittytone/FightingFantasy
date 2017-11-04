@@ -38,6 +38,7 @@ class FFPlayer: NSObject, NSCoding {
     var gamekind: Int = -1
 
     var isDead: Bool = false
+    var bookmark: Int = 1
 
     // MARK: Functions
 
@@ -80,6 +81,7 @@ class FFPlayer: NSObject, NSCoding {
         aCoder.encode(NSNumber(value: gold), forKey: "ff.gold")
         aCoder.encode(NSNumber(value: potion), forKey: "ff.potion")
         aCoder.encode(NSNumber(value: drinks), forKey: "ff.drinks")
+        aCoder.encode(NSNumber(value: bookmark), forKey: "ff.bookmark")
         aCoder.encode(NSNumber(value: packSelectedItem), forKey: "ff.psm")
     }
 
@@ -104,6 +106,7 @@ class FFPlayer: NSObject, NSCoding {
         self.gold = (aDecoder.decodeObject(forKey: "ff.gold") as! NSNumber).intValue
         self.potion = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
         self.drinks = (aDecoder.decodeObject(forKey: "ff.drinks") as! NSNumber).intValue
+        self.bookmark = (aDecoder.decodeObject(forKey: "ff.bookmark") as! NSNumber).intValue
         self.packSelectedItem = (aDecoder.decodeObject(forKey: "ff.psm") as! NSNumber).intValue
 
         var csm = aDecoder.decodeObject(forKey: "ff.cspellmatrix") as! [NSNumber]

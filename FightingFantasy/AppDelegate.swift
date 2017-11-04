@@ -16,6 +16,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var tabs: NSTabView!
     @IBOutlet weak var magicTab: NSTabViewItem!
 
+    @IBOutlet weak var bookmarkWindow: NSWindow!
+    @IBOutlet weak var bookmarkField: NSTextField!
+    @IBOutlet weak var bookmarkCurrentField: NSTextField!
+
     @IBOutlet weak var deathWindow: NSWindow!
     @IBOutlet weak var deathImageView: NSImageView!
     @IBOutlet weak var reanimateButton: NSButton!
@@ -396,6 +400,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+
         return true
     }
 
@@ -419,6 +424,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         initUITests()
         initUIPack()
         initUIMagic()
+
+        bookmarkField.formatter = onlyIntFormatter
 
         // Clear the 'need to save' indicator
         window.isDocumentEdited = false
@@ -542,7 +549,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if let zplayer = player {
             // Stats Tab
             skillValue.stringValue = "\(zplayer.skill)"
-            testSkillValue.stringValue = "\(zplayer.skill)"
+            testSkillValue.stringValue = zplayer.gamekind == kGameHouseHell ? "\(zplayer.initialSkill)" : "\(zplayer.skill)"
 
             // Ensure Luck readout goes red below a score of 5
             colour = zplayer.luck < 5 ? NSColor.red : NSColor.black
@@ -1088,7 +1095,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         var roll: Int = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
         roll = roll + 3 - testSkillMod.indexOfSelectedItem
         needToSave = true
-        showAlert((roll <= player!.skill ? "You were skilfull..." : "You fumble the test..."), "", true)
+
+        var sk = 0
+        if player!.gamekind == kGameHouseHell {
+            sk = player!.skill + 3
+            if sk > player!.initialSkill { sk = player!.initialSkill }
+        }
+
+        showAlert((roll <= sk ? "You were skilfull..." : "You fumble the test..."), "", true)
     }
 
     @IBAction func rollDice(_ sender: Any) {
@@ -1157,8 +1171,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             var itemName: String = addItemField.stringValue;
             	if itemName.count == 0 { itemName = "New pack item" }
 
-			let item: [String:Any] = [ "item" : itemName,
-								      "icon" : NSNumber.init(value: iconButton.index) ]
+			let item: [String:Any] = [ "name" : itemName,
+								       "icon" : NSNumber.init(value: iconButton.index) ]
 
             	zplayer.pack.append(item)
 
@@ -1393,7 +1407,42 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         })
     }
 
+    // MARK: Bookmarking
+
+    @IBAction func showBookmarker(_ sender: Any) {
+
+        if !gameInProgress || player == nil { return }
+
+        bookmarkCurrentField.stringValue = "\(player!.bookmark)"
+        bookmarkField.stringValue = ""
+
+        window.beginSheet(bookmarkWindow, completionHandler:  { (response) in })
+    }
+
+    @IBAction func cancelBookmarker(_ sender: Any) {
+
+        // Close the sheet
+        window.endSheet(bookmarkWindow)
+    }
+
+    @IBAction func setBookmarker(_ sender: Any) {
+
+        // Close the sheet
+        if let plr = player {
+            let stringValue = bookmarkField.stringValue
+            let value = stringValue.isEmpty ? plr.bookmark : Int(stringValue)!
+            if plr.bookmark != value {
+                plr.bookmark = value
+                needToSave = true
+                window.isDocumentEdited = true
+            }
+        }
+
+        window.endSheet(bookmarkWindow)
+    }
+
     // MARK: Player Management Functions
+    
 
     func playerDead() {
 
