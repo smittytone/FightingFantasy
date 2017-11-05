@@ -10,11 +10,10 @@ import Cocoa
 @NSApplicationMain
 
 class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTableViewDataSource,
-                    NSTextFieldDelegate, NSPopoverDelegate {
+                    NSTextFieldDelegate, NSPopoverDelegate, NSTabViewDelegate {
 
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var tabs: NSTabView!
-    @IBOutlet weak var magicTab: NSTabViewItem!
 
     @IBOutlet weak var bookmarkWindow: NSWindow!
     @IBOutlet weak var bookmarkField: NSTextField!
@@ -51,6 +50,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     // MARK: Combat Tab Items
 
+    @IBOutlet weak var combatTabItem: NSTabViewItem!
     @IBOutlet weak var monsterOneSkillField: NSTextField!
     @IBOutlet weak var monsterOneStamField: NSTextField!
     @IBOutlet weak var monsterOneTargetCheck: NSButton!
@@ -69,8 +69,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var combatReadoutTwo: NSTextField!
     @IBOutlet weak var combatReadoutThree: NSTextField!
 
-    // MARK: Test Tab Items
+    // MARK: Tests Tab Items
 
+    @IBOutlet weak var testsTabItem: NSTabViewItem!
     @IBOutlet weak var testSkillValue: NSTextField!
     @IBOutlet weak var testLuckValue: NSTextField!
     @IBOutlet weak var testSkillMod: NSPopUpButton!
@@ -87,6 +88,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     // MARK: Magic Tab Items
 
+    @IBOutlet weak var magicTabItem: NSTabViewItem!
     @IBOutlet weak var creatureCopyField: NSTextField!
     @IBOutlet weak var creatureCopyCell: NSButtonCell!
     @IBOutlet weak var espField: NSTextField!
@@ -217,6 +219,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_chainmail"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_boots"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_sword"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_scroll"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_book"))
@@ -224,6 +230,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_potion"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_herb"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_capsule"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_flute"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_hand"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_chalice"))
         icons.append(image!)
@@ -241,6 +253,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_amulet"))
         icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_orb"))
+        icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_bottle"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_food"))
@@ -248,6 +262,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_tankard"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_fruit"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_fungus"))
         icons.append(image!)
 
         // House of Hell specific icons
@@ -258,6 +274,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_box"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_flask"))
+        icons.append(image!)
+        image = NSImage.init(named: NSImage.Name("icon_robe"))
         icons.append(image!)
         image = NSImage.init(named: NSImage.Name("icon_duck"))
         icons.append(image!)
@@ -322,13 +340,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             // Handle tab hiding/unhiding
             if zplayer.gamekind == kGameTempleTerror || zplayer.gamekind == kGameCitadel {
                 // Add back the Magic tab if necessary
-                if !tabs.tabViewItems.contains(magicTab) {
-                    tabs.insertTabViewItem(heldTabs["magictab"]!, at: 2)
+                if !tabs.tabViewItems.contains(magicTabItem) {
+                    tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: 2)
                 }
             } else {
                 // Remove the Magic tab
-                heldTabs["magictab"] = magicTab!
-                if tabs.tabViewItems.contains(magicTab) { tabs.removeTabViewItem(magicTab) }
+                heldTabs["magicTabItem"] = magicTabItem!
+                if tabs.tabViewItems.contains(magicTabItem) { tabs.removeTabViewItem(magicTabItem) }
             }
 
             // Handle game-specific stats boxes
@@ -431,8 +449,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         window.isDocumentEdited = false
 
         // Add back the Magic Tab if necessary (only if we call this after at least one game)
-        if !tabs.tabViewItems.contains(magicTab) {
-            tabs.insertTabViewItem(heldTabs["magictab"]!, at: tabs.tabViewItems.count)
+        if !tabs.tabViewItems.contains(magicTabItem) {
+            tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: tabs.tabViewItems.count)
         }
     }
 
@@ -476,8 +494,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         monsterThreeStamField.formatter = onlyIntFormatter
         monsterThreeSkillField.formatter = onlyIntFormatter
 
-        playerMod.selectItem(at: 3)
-        monsterMod.selectItem(at: 3)
+        playerMod.selectItem(at: 6)
+        monsterMod.selectItem(at: 6)
 
         combatReadoutOne.stringValue = ""
         combatReadoutTwo.stringValue = ""
@@ -1651,13 +1669,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                     // Handle tab hiding/unhiding
                     if zplayer.gamekind == kGameTempleTerror || zplayer.gamekind == kGameCitadel {
                         // Add back the Magic tab if necessary
-                        if !self.tabs.tabViewItems.contains(self.magicTab) {
-                            self.tabs.insertTabViewItem(self.heldTabs["magictab"]!, at: 2)
+                        if !self.tabs.tabViewItems.contains(self.magicTabItem) {
+                            self.tabs.insertTabViewItem(self.heldTabs["magicTabItem"]!, at: 2)
                         }
                     } else {
                         // Remove the Magic tab
-                        self.heldTabs["magictab"] = self.magicTab!
-                        if self.tabs.tabViewItems.contains(self.magicTab) { self.tabs.removeTabViewItem(self.magicTab) }
+                        self.heldTabs["magicTabItem"] = self.magicTabItem!
+                        if self.tabs.tabViewItems.contains(self.magicTabItem) { self.tabs.removeTabViewItem(self.magicTabItem) }
                     }
 
                     // Handle game-specific stats boxes
@@ -1822,18 +1840,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameType > kGamePortPeril { gameType = gameType + 6 }
         player!.gamekind = gameType
 
+        // The following are 'standard' games with no special load-out
         if gameType == kGameWarlock { player!.gameName = "The Warlock of Firetop Mountain" }
         if gameType == kGameDeathtrap { player!.gameName = "Deathtrap Dungeon" }
         if gameType == kGameCityThieves { player!.gameName = "City of Thieves" }
-        if gameType == kGameForestDoom { player!.gameName = "Forest of Doom" }
 
         if gameType != kGameCitadel && gameType != kGameTempleTerror {
             // Remove the Magic tab for all but Citadel of Chaos and Temple of Terror
-            heldTabs["magictab"] = magicTab!
-            if tabs.tabViewItems.contains(magicTab) { tabs.removeTabViewItem(magicTab) }
+            heldTabs["magicTabItem"] = magicTabItem!
+            if tabs.tabViewItems.contains(magicTabItem) { tabs.removeTabViewItem(magicTabItem) }
         } else {
             // Add back the Magic tab on the end if necessary
-            if !tabs.tabViewItems.contains(magicTab) { tabs.insertTabViewItem(heldTabs["magictab"]!, at: tabs.tabViewItems.count) }
+            if !tabs.tabViewItems.contains(magicTabItem) { tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: tabs.tabViewItems.count) }
         }
 
         if statsTabImage != nil {
@@ -1860,6 +1878,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             statsTabImage = image
 
             magicSpellsValue.stringValue = "\(player!.magic)"
+        }
+
+        if gameType == kGameForestDoom {
+            player!.gold = 30
+            player!.gameName = "Forest of Doom"
         }
 
         if gameType == kGameHouseHell {
@@ -1993,6 +2016,27 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBAction func closeHelp(_ sender: Any) {
 
         window.endSheet(helpWindow)
+    }
+
+    // MARK: TabView Delegate Functions
+
+    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
+
+        if let tvi: NSTabViewItem = tabViewItem {
+            // Did the player select the combat tab?
+            if tvi == combatTabItem {
+                // The player is selecting the combat tab - if there's a game in progress,
+                // update the player's stats
+                if gameInProgress && player != nil {
+                    if player!.isDead { return }
+
+                    // Update the readouts before viewing the tab
+                    combatReadoutOne.stringValue = ""
+                    combatReadoutTwo.stringValue = ""
+                    combatReadoutThree.stringValue = "Your Stamina is \(player!.stamina). Your Luck is \(player!.luck)"
+                }
+            }
+        }
     }
 }
 
