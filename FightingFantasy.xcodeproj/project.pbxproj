@@ -28,7 +28,7 @@
 		3BF1933D1FA67F0F00337EE8 /* FFIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFIconButton.swift; sourceTree = "<group>"; };
 		3BFE93001FA29615003DF79F /* FightingFantasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightingFantasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFE93031FA29615003DF79F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
-		3BFE93051FA29615003DF79F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3BFE93051FA29615003DF79F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Dropbox/Programming/macOS/FightingFantasy/Assets.xcassets; sourceTree = "<group>"; };
 		3BFE93081FA29615003DF79F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3BFE930A1FA29615003DF79F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFE930B1FA29615003DF79F /* FightingFantasy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FightingFantasy.entitlements; sourceTree = "<group>"; };
