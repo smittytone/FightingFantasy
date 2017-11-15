@@ -17,6 +17,7 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="FightingFantasy" customModuleProvider="target">
             <connections>
                 <outlet property="aboutSheet" destination="7K9-O1-nea" id="bJm-vs-Ejr"/>
+                <outlet property="aboutVersonLabel" destination="CJb-Qj-9CH" id="Umz-Qn-YUp"/>
                 <outlet property="addItemField" destination="Xnz-my-kPJ" id="eBp-9D-bQh"/>
                 <outlet property="bookmarkCurrentField" destination="pHp-XZ-b6f" id="53O-40-0KX"/>
                 <outlet property="bookmarkField" destination="bfu-GU-8wR" id="q37-TY-Ceq"/>
@@ -100,7 +101,7 @@
                 <outlet property="startPotionPopup" destination="WLS-I8-kGs" id="5d5-F0-UeA"/>
                 <outlet property="startSkillField" destination="UGT-6k-osx" id="WQU-tA-hrU"/>
                 <outlet property="startStaminaField" destination="yvp-xW-ZwU" id="Ghd-I8-bbD"/>
-                <outlet property="statsTabView" destination="v2P-ge-Ohm" id="qbJ-cz-WfJ"/>
+                <outlet property="statsTabView" destination="2fw-op-TCp" id="7qL-SE-EmH"/>
                 <outlet property="strengthCell" destination="CK3-IO-mI4" id="OUN-R4-XbT"/>
                 <outlet property="strengthField" destination="OLd-js-0YE" id="7lU-yf-nkM"/>
                 <outlet property="tabs" destination="Kjf-7T-SpF" id="ChG-wv-8wG"/>
@@ -2404,7 +2405,7 @@ CA
                                     </textFieldCell>
                                 </textField>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fKU-yv-SmM">
-                                    <rect key="frame" x="163" y="8" width="100" height="32"/>
+                                    <rect key="frame" x="162" y="8" width="100" height="32"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="keM-xV-avI"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="51" id="wmr-tb-05J"/>
@@ -2724,16 +2725,16 @@ Gw
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="7K9-O1-nea">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="131" y="158" width="460" height="314"/>
+            <rect key="contentRect" x="131" y="158" width="460" height="346"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <value key="minSize" type="size" width="460" height="314"/>
-            <value key="maxSize" type="size" width="460" height="314"/>
+            <value key="minSize" type="size" width="460" height="346"/>
+            <value key="maxSize" type="size" width="460" height="346"/>
             <view key="contentView" id="2fw-op-TCp">
-                <rect key="frame" x="0.0" y="0.0" width="460" height="314"/>
+                <rect key="frame" x="0.0" y="0.0" width="460" height="346"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dLZ-hf-Wjf">
-                        <rect key="frame" x="18" y="260" width="424" height="34"/>
+                        <rect key="frame" x="18" y="292" width="424" height="34"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="34" id="tSI-Vh-nsl"/>
                         </constraints>
@@ -2744,13 +2745,24 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-en-fTh">
-                        <rect key="frame" x="18" y="201" width="424" height="51"/>
+                        <rect key="frame" x="18" y="208" width="424" height="51"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="51" id="vcg-Mt-3Ea"/>
+                            <constraint firstAttribute="height" constant="51" id="Aa6-Ge-UnY"/>
                         </constraints>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="HcU-oX-S65">
                             <font key="font" metaFont="system"/>
                             <string key="title">Written by Tony Smith in Swift 4 in Autumn 2017, converted from an Objective C version circa 2012 and a Real Basic version circa 2003. Fighting Fantasy © Steve Jackson and Ian Livingstone</string>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="CJb-Qj-9CH">
+                        <rect key="frame" x="18" y="267" width="424" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="Lll-13-4ph"/>
+                        </constraints>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Version 3.0.x" id="gjY-jK-2fz">
+                            <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -2773,28 +2785,31 @@ DQ
                         </connections>
                     </button>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N1D-YD-tOz">
-                        <rect key="frame" x="166" y="65" width="128" height="128"/>
+                        <rect key="frame" x="166" y="72" width="128" height="128"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="128" id="438-2x-Slt"/>
-                            <constraint firstAttribute="height" constant="128" id="KpW-UT-if0"/>
+                            <constraint firstAttribute="height" constant="128" id="FOw-TA-IVt"/>
+                            <constraint firstAttribute="width" constant="128" id="T3H-aR-Syj"/>
                         </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ff_logo" id="Prj-Ph-Fi7"/>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="Ls5-en-fTh" secondAttribute="trailing" constant="20" id="2aN-Mt-WxF"/>
-                    <constraint firstItem="N1D-YD-tOz" firstAttribute="centerX" secondItem="2fw-op-TCp" secondAttribute="centerX" id="7Pb-e9-aIg"/>
+                    <constraint firstAttribute="trailing" secondItem="Ls5-en-fTh" secondAttribute="trailing" constant="20" id="0Xa-AE-9of"/>
+                    <constraint firstItem="Ls5-en-fTh" firstAttribute="leading" secondItem="2fw-op-TCp" secondAttribute="leading" constant="20" id="5iy-k9-wgi"/>
                     <constraint firstItem="dLZ-hf-Wjf" firstAttribute="top" secondItem="2fw-op-TCp" secondAttribute="top" constant="20" id="C3n-6l-bT2"/>
+                    <constraint firstAttribute="trailing" secondItem="CJb-Qj-9CH" secondAttribute="trailing" constant="20" id="DD5-fa-mZ4"/>
+                    <constraint firstItem="Ls5-en-fTh" firstAttribute="top" secondItem="CJb-Qj-9CH" secondAttribute="bottom" constant="8" id="DWE-VW-kD7"/>
+                    <constraint firstItem="CJb-Qj-9CH" firstAttribute="top" secondItem="dLZ-hf-Wjf" secondAttribute="bottom" constant="8" id="KWE-90-814"/>
                     <constraint firstItem="dLZ-hf-Wjf" firstAttribute="leading" secondItem="2fw-op-TCp" secondAttribute="leading" constant="20" id="Lxh-dC-yS7"/>
                     <constraint firstAttribute="trailing" secondItem="dLZ-hf-Wjf" secondAttribute="trailing" constant="20" id="QCD-Bs-EbK"/>
-                    <constraint firstItem="Ls5-en-fTh" firstAttribute="leading" secondItem="2fw-op-TCp" secondAttribute="leading" constant="20" id="dWv-sZ-gX3"/>
                     <constraint firstAttribute="bottom" secondItem="jFw-g4-LYQ" secondAttribute="bottom" constant="20" id="drg-P4-aNv"/>
-                    <constraint firstItem="Ls5-en-fTh" firstAttribute="top" secondItem="dLZ-hf-Wjf" secondAttribute="bottom" constant="8" id="i6r-2z-Tfk"/>
                     <constraint firstItem="jFw-g4-LYQ" firstAttribute="centerX" secondItem="2fw-op-TCp" secondAttribute="centerX" id="kmv-e1-olN"/>
-                    <constraint firstItem="N1D-YD-tOz" firstAttribute="top" secondItem="Ls5-en-fTh" secondAttribute="bottom" constant="8" id="tZW-tE-poh"/>
+                    <constraint firstItem="N1D-YD-tOz" firstAttribute="top" secondItem="Ls5-en-fTh" secondAttribute="bottom" constant="8" id="rQr-8Q-hhK"/>
+                    <constraint firstItem="CJb-Qj-9CH" firstAttribute="leading" secondItem="2fw-op-TCp" secondAttribute="leading" constant="20" id="z2T-Wy-VAm"/>
+                    <constraint firstItem="N1D-YD-tOz" firstAttribute="centerX" secondItem="2fw-op-TCp" secondAttribute="centerX" id="z8Z-R7-KSO"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="1308" y="-80"/>
+            <point key="canvasLocation" x="1308" y="-64"/>
         </window>
         <menuItem title="View" id="H8h-7b-M4v">
             <modifierMask key="keyEquivalentModifierMask"/>

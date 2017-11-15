@@ -131,7 +131,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var startPotionPopup: NSPopUpButton!
     
     @IBOutlet weak var aboutSheet: NSWindow!
-
+    @IBOutlet weak var aboutVersonLabel: NSTextField!
+    
     // MARK: Globals
 
     var player: FFPlayer?
@@ -1521,10 +1522,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     }
 
     @IBAction func showAbout(_ sender: Any) {
+
+        let v:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        aboutVersonLabel.stringValue = "v" + v
         window.beginSheet(aboutSheet, completionHandler:nil)
     }
 
     @IBAction func closeAbout(_ sender: Any) {
+
         window.endSheet(aboutSheet)
     }
 
