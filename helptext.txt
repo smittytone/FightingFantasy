@@ -19,4 +19,6 @@ The Magic Tab also provides space to record the spells you have chosen in Temple
 
 To create a new character at the start of the adventure, select New Character from the File menu. Stats are rolled for you, but you can click Roll Again to re-roll your character's initial Skill, Stamina and Luck scores. Select the name of the gamebook you are player. Select which Magic Potion you wish to take with you, if the gamebook allows you to do so. Similarly, enter any Provisions you have at the start of your quest, along with your Gold Pieces.
 
+To record your location during the game, select Set Bookmark from the File menu. Enter the paragraph you've reached. A bookmark will appear above the main window to show you that you have a bookmark saved. You can double-click this bookmark indicator to hide it, or show it again.
+
 Good Luck!

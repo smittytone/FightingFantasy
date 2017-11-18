@@ -586,7 +586,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="116" id="OqM-IL-h1M"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Potions and Provisions" translatesAutoresizingMaskIntoConstraints="NO" id="IR3-Zo-ek2">
                                             <rect key="frame" x="6" y="291" width="422" height="110"/>
@@ -678,7 +677,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="106" id="eEq-Jf-M20"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Treasure" translatesAutoresizingMaskIntoConstraints="NO" id="62R-mc-QJC">
                                             <rect key="frame" x="6" y="207" width="422" height="80"/>
@@ -729,7 +727,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="76" id="enL-vM-in1"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-8F-VmQ">
                                             <rect key="frame" x="9" y="138" width="416" height="65"/>
@@ -803,7 +800,6 @@
                                                 <constraint firstAttribute="height" constant="116" id="ppH-Go-Q8o"/>
                                                 <constraint firstAttribute="width" constant="261" id="tpy-Um-01s"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Citadel of Chaos" translatesAutoresizingMaskIntoConstraints="NO" id="3Mt-NT-uJ5">
                                             <rect key="frame" x="6" y="10" width="146" height="120"/>
@@ -840,7 +836,6 @@
                                                 <constraint firstAttribute="width" constant="140" id="ZQv-VQ-XVz"/>
                                                 <constraint firstAttribute="height" constant="116" id="nS5-eZ-qm2"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -1158,7 +1153,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="215" id="ENV-Fu-dUx"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Bonuses and Penalties" translatesAutoresizingMaskIntoConstraints="NO" id="exA-ee-WUr">
                                             <rect key="frame" x="6" y="198" width="422" height="104"/>
@@ -1301,7 +1295,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="9a8-HJ-utU"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5dP-bZ-pLe">
                                             <rect key="frame" x="7" y="174" width="420" height="17"/>
@@ -1647,7 +1640,7 @@ DQ
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
@@ -2080,7 +2073,6 @@ CA
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="394" id="gCh-ka-a03"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box autoresizesSubviews="NO" borderType="line" title="Temple of Terror Magic Spells" translatesAutoresizingMaskIntoConstraints="NO" id="IcQ-oc-eKj">
                                             <rect key="frame" x="6" y="10" width="422" height="113"/>
@@ -2260,7 +2252,6 @@ CA
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="109" id="1LJ-57-vJ8"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -2435,7 +2426,6 @@ CA
                         <constraints>
                             <constraint firstAttribute="height" constant="123" id="9a9-IW-Vki"/>
                         </constraints>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="WB1-pY-oMa">
                         <rect key="frame" x="17" y="204" width="426" height="126"/>
@@ -2545,7 +2535,6 @@ CA
                         <constraints>
                             <constraint firstAttribute="height" constant="120" id="M2b-QR-kgY"/>
                         </constraints>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Caj-ik-lgg">
                         <rect key="frame" x="17" y="57" width="426" height="141"/>
@@ -2659,7 +2648,6 @@ CA
                         <constraints>
                             <constraint firstAttribute="height" constant="135" id="XuZ-Lu-sjX"/>
                         </constraints>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h6j-LC-XkZ">
                         <rect key="frame" x="387" y="13" width="59" height="32"/>
@@ -2965,7 +2953,7 @@ DQ
                         <rect key="frame" x="-1" y="61" width="462" height="528"/>
                         <clipView key="contentView" id="bhV-tb-b2H">
                             <rect key="frame" x="0.0" y="0.0" width="462" height="528"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" quoteSubstitution="YES" dashSubstitution="YES" textCompletion="NO" id="J9v-3s-gTH">
                                     <rect key="frame" x="0.0" y="-1" width="462" height="528"/>
@@ -3094,7 +3082,7 @@ Gw
         </window>
     </objects>
     <resources>
-        <image name="bookmark" width="68" height="92"/>
+        <image name="bookmark" width="46" height="60"/>
         <image name="death_banner" width="460" height="588"/>
         <image name="ff_logo" width="128" height="128"/>
         <image name="icon_sword" width="16" height="16"/>
