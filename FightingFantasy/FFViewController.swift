@@ -10,118 +10,17 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
 
     @IBOutlet weak var collectionView: NSCollectionView!
 
-    var icons: [NSImage] = []
+    var icons: NSMutableArray = NSMutableArray.init()
     var tooltips: [String] = []
     var count: Int = 0
-
+    var button: FFIconButton = FFIconButton()
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
 
         // Configure the collection view
         configureCollectionView()
-
-        // Load in the icon icons
-        var image: NSImage? = NSImage.init(named: NSImage.Name("icon_lantern"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_sword"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_armour"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_rope"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_stick"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_skull"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_tooth"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_necklace"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_net"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_axe"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_bow"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_quiver"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_dagger"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_mace"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_spear"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_shield"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_helm"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_chainmail"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_boots"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_sword"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_scroll"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_book"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_potion"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_herb"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_capsule"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_flute"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_hand"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_chalice"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_gem"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_ring"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_crown"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_coins"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_key"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_chest"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_amulet"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_orb"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_bottle"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_food"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_tankard"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_fruit"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_fungus"))
-        icons.append(image!)
-
-        // House of Hell specific icons
-        image = NSImage.init(named: NSImage.Name("icon_gun"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_torch"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_box"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_flask"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_robe"))
-        icons.append(image!)
-        image = NSImage.init(named: NSImage.Name("icon_duck"))
-        icons.append(image!)
-
-        // This should always come last
-        image = NSImage.init(named: NSImage.Name("icon_generic"))
-        icons.append(image!)
 
         tooltips.append("Lantern")
         tooltips.append("Sword")
@@ -196,7 +95,7 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
 
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "FFCollectionViewItem"), for: indexPath)
         guard let collectionViewItem = item as? FFCollectionViewItem else { return item }
-        collectionViewItem.image = icons[count]
+        collectionViewItem.image = icons.object(at: count) as? NSImage
         collectionViewItem.index = count
         collectionViewItem.view.toolTip = tooltips[count]
         count = count + 1
@@ -214,9 +113,15 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         for index in indexPaths {
             let obj = collectionView.item(at: index)
             if obj != nil {
+                // Create an array instance to hold the data we need to send
+                let array: NSMutableArray = NSMutableArray.init()
                 let item = obj as! FFCollectionViewItem
+                array.add(item)
+                array.add(button)
+
+                // Send the selected item to the buttons via a notifications
                 let nc = NotificationCenter.default
-                nc.post(name: NSNotification.Name(rawValue: "select.image") , object: item)
+                nc.post(name: NSNotification.Name(rawValue: "select.image") , object: array)
             }
         }
     }
