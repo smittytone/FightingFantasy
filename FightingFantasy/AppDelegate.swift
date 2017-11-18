@@ -14,9 +14,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var tabs: NSTabView!
+    @IBOutlet weak var bookmark: NSImageView!
 
     @IBOutlet weak var bookmarkWindow: NSWindow!
-    @IBOutlet weak var bookmarkField: NSTextField!
     @IBOutlet weak var bookmarkCurrentField: NSTextField!
 
     @IBOutlet weak var deathWindow: NSWindow!
@@ -82,9 +82,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     // MARK: Pack Tab Items
 
     @IBOutlet weak var packTable: NSTableView!
-    @IBOutlet weak var addItemField: NSTextField!
     @IBOutlet weak var iconPopoverController: FFViewController!
-    @IBOutlet weak var iconButton: FFIconButton!
 
     // MARK: Magic Tab Items
 
@@ -148,7 +146,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
 	var heldTabs: [String:NSTabViewItem] = [:]
 	var dice: [NSImage] = []
-    var icons: [NSImage] = []
+    var icons: NSMutableArray = NSMutableArray.init()
 
 	var rollCount: Int = -1
     var packAddFlag: Bool = false
@@ -185,111 +183,113 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Load pack item icons into an array for easy access later
         image = NSImage.init(named: NSImage.Name("icon_lantern"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_sword"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_armour"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_rope"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_stick"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_skull"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_tooth"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_necklace"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_net"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_axe"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_bow"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_quiver"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_dagger"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_mace"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_spear"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_shield"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_helm"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_chainmail"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_boots"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_sword"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_scroll"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_book"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_potion"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_herb"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_capsule"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_flute"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_hand"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_chalice"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_gem"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_ring"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_crown"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_coins"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_key"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_chest"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_amulet"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_orb"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_bottle"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_food"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_tankard"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_fruit"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_fungus"))
-        icons.append(image!)
+        icons.add(image!)
 
         // House of Hell specific icons
         image = NSImage.init(named: NSImage.Name("icon_gun"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_torch"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_box"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_flask"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_robe"))
-        icons.append(image!)
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_duck"))
-        icons.append(image!)
+        icons.add(image!)
 
         // This should always come last
         image = NSImage.init(named: NSImage.Name("icon_generic"))
-        icons.append(image!)
+        icons.add(image!)
+
+        bookmark.isHidden = true
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Set up pack table view
-        //packTable.target = self
+        packTable.target = self
         //packTable.doubleAction = #selector(tableViewDoubleClick(_:))
 
         // Select the first tab
@@ -301,7 +301,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Set up notifications - used when the player selects a pack icon from the popover
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(setButton), name: NSNotification.Name(rawValue: "select.image"), object: nil)
+        nc.addObserver(self, selector: #selector(updatePack), name: NSNotification.Name(rawValue: "set.pack.item.index"), object: nil)
 
         // Are we starting a new game? May not be if the player double-clicked a saved file
         if !gameInProgress { showPlayerCreate() }
@@ -444,8 +444,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         initUIPack()
         initUIMagic()
 
-        bookmarkField.formatter = onlyIntFormatter
-
         // Clear the 'need to save' indicator
         window.isDocumentEdited = false
 
@@ -514,8 +512,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func initUIPack() {
 
-        addItemField.stringValue = ""
-        iconButton.image = icons[1]
         packTable.reloadData()
         packTable.needsDisplay = true
     }
@@ -889,8 +885,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         monsterAttackStrength = monsterAttackStrength + 6 - monsterMod.indexOfSelectedItem
 
+        // Are we playing Creature of Havoc? A double throw means instant opponent death
         if player!.gamekind == kGameCreatureHavoc && playerRollOne == playerRollTwo {
-            // Matching rolls on Creature of Havoc automatically kill the opponent
             playerAttackStrength = monsterAttackStrength + 1
             monsterStrength = 0
         }
@@ -1161,13 +1157,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     // MARK: Pack Tab Functions
 
-    @IBAction func showIcons(_ sender: Any) {
+    @objc @IBAction func showIcons(_ sender: Any) {
 
-        // The player has clicked on the icon button
+        // Assemble the image matrix
         makeIconMatrix()
 
+        // Show the icon matrix
         if let asender = (sender as? FFIconButton) {
             iconPopover!.show(relativeTo: asender.bounds, of: asender, preferredEdge: NSRectEdge.maxY)
+
+            // Make sure the matrix controller knows which button was clicked on
+            iconPopoverController.button = asender
         }
     }
 
@@ -1179,6 +1179,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             iconPopover!.contentViewController = iconPopoverController
             iconPopover!.delegate = self
             iconPopover!.behavior = NSPopover.Behavior.transient
+            iconPopoverController.icons = icons
         }
     }
 
@@ -1187,22 +1188,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 		// The player has entered an item in the add pack field and click the '+' button
 
 		if let zplayer = player {
-            var itemName: String = addItemField.stringValue;
-            	if itemName.count == 0 { itemName = "New pack item" }
-
+            let itemName = "New pack item"
 			let item: [String:Any] = [ "name" : itemName,
-								       "icon" : NSNumber.init(value: iconButton.index) ]
+								       "icon" : NSNumber.init(value: icons.count - 1) ]
 
-            	zplayer.pack.append(item)
+            zplayer.pack.append(item)
 
-            	packTable.reloadData()
-            	packTable.needsDisplay = true
+            packTable.reloadData()
+            packTable.needsDisplay = true
 
-            	addItemField.stringValue = ""
-
-            	needToSave = true
-            	updateStats()
-        	}
+            needToSave = true
+            updateStats()
+        }
     }
 
     @IBAction func usePackItem(_ sender: Any) {
@@ -1225,20 +1222,40 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-	@objc func setButton(_ note: Notification) {
+    @objc func updatePack(_ note: Notification) {
 
-		// When we receive a notification from the popover's view controller that the
-		// player has selected an icon, we come here and set the button's image to that icon
-		let obj = note.object
+        // This function is called via a notification from the popup controller
+        // Its job is to set a pack item's index value to that of the selected icon
+        let obj = note.object
 
-		if obj != nil {
-			let item = obj as! FFCollectionViewItem
-			iconButton.image = icons[item.index]
-			iconButton.index = item.index
-		}
-	}
+        if obj != nil {
+            // Decode the supplied object as an array
+            let array = obj as! NSMutableArray
+            let sender = array.object(at: 1) as! FFIconButton
+            let index = (array.object(at: 2) as! NSNumber).intValue
 
-	// Data Source Delegate Functions
+            // Get the clicked button's superview, which is the FFTableCellView
+            let view: FFTableCellView = sender.superview as! FFTableCellView
+
+            // Run through the pack table's rows, getting the view of each row
+            for i in 0..<packTable.numberOfRows {
+                if let rowView = packTable.rowView(atRow: i, makeIfNecessary: false) {
+                    // From the row view, extract the column 0 view - this will be
+                    // an FFTableCellView, which we can compare with the one retrieved above
+                    let colView = rowView.view(atColumn: 0) as! FFTableCellView
+                    if view == colView {
+                        // The view's match, so update the relevant pack item in the player instance
+                        if let zplayer = player {
+                            zplayer.pack[i]["icon"] = index
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    // MARK: Pack Table Data Source Delegate Functions
 
     func numberOfRows(in tableView: NSTableView) -> Int {
 
@@ -1249,11 +1266,16 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
         if let zplayer = player {
-            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "packcell"), owner: nil) as? NSTableCellView {
+            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "packcell"), owner: nil) as? FFTableCellView {
                 let dict = zplayer.pack[row]
                 cell.textField?.stringValue = dict["name"] as! String
+                cell.textField?.delegate = self
+
                 let n = dict["icon"] as! NSNumber
-                cell.imageView?.image = icons[n.intValue]
+                cell.button?.index = n.intValue
+                if let image = icons.object(at: n.intValue) as? NSImage { cell.button?.image = image }
+                cell.button?.icons = icons
+                cell.button?.action = #selector(self.showIcons)
                 return cell
             }
         }
@@ -1267,11 +1289,20 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         return true
     }
 
+    func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
+
+        if let zplayer = player {
+            if row < zplayer.pack.count { return true }
+        }
+
+        return false
+    }
+
     @objc func tableViewDoubleClick(_ sender:AnyObject) {
 
         // Make sure user has double-clicked on a non-empty row
         if packTable.selectedRow >= 0 {
-            //usePackItem(self)
+            usePackItem(self)
             if let cell = packTable.view(atColumn: 0, row: packTable.selectedRow, makeIfNecessary: false) {
                 let item = cell as! NSTableCellView
                 item.textField?.isEditable = true
@@ -1279,6 +1310,26 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             }
         }
     }
+
+    override func controlTextDidEndEditing(_ obj: Notification) {
+
+        // This NSControl delegate method is used to trap when ending ends in a table row's NSTextField
+        if let zobj = obj.userInfo {
+            let textField: NSTextView = zobj["NSFieldEditor"] as! NSTextView
+            let row = packTable.selectedRow
+            if row != -1 {
+                if let zplayer = player {
+                    // Swap the old pack item for the new one
+                    let oldItem = zplayer.pack[row]
+                    let newItem: [String:Any] = [ "name" : textField.string,
+                                                  "icon" : oldItem["icon"]! ]
+
+                    zplayer.pack[row] = newItem
+                }
+            }
+        }
+    }
+
 
     // MARK: Magic Tab Functions
 
@@ -1432,9 +1483,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
-        bookmarkCurrentField.stringValue = "\(player!.bookmark)"
-        bookmarkField.stringValue = ""
+        // Make sure we don't show -1 for the bookmark (-1 means no bookmark set)
+        bookmarkCurrentField.stringValue = player!.bookmark == -1 ? "1" : " \(player!.bookmark)"
+        bookmarkCurrentField.formatter = onlyIntFormatter
 
+        // Show the sheet
         window.beginSheet(bookmarkWindow, completionHandler:  { (response) in })
     }
 
@@ -1446,22 +1499,26 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func setBookmarker(_ sender: Any) {
 
-        // Close the sheet
-        if let plr = player {
-            let stringValue = bookmarkField.stringValue
-            let value = stringValue.isEmpty ? plr.bookmark : Int(stringValue)!
-            if plr.bookmark != value {
-                plr.bookmark = value
+        if let zplayer = player {
+            let stringValue = bookmarkCurrentField.stringValue
+            let value = stringValue.isEmpty ? zplayer.bookmark : Int(stringValue)!
+
+            // Only set the bookmark if it has been changed
+            // Only show the bookmark graphic if a bookmark has been set
+            if zplayer.bookmark != value {
+                zplayer.bookmark = value
                 needToSave = true
                 window.isDocumentEdited = true
+                bookmark.isHidden = false
             }
         }
 
+        // Close the sheet
         window.endSheet(bookmarkWindow)
     }
 
+
     // MARK: Player Management Functions
-    
 
     func playerDead() {
 
@@ -1518,20 +1575,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         firstRun = false
         player = nil
 
+        // Reset the UI
         initUI()
     }
 
-    @IBAction func showAbout(_ sender: Any) {
 
-        let v:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        aboutVersonLabel.stringValue = "v" + v
-        window.beginSheet(aboutSheet, completionHandler:nil)
-    }
-
-    @IBAction func closeAbout(_ sender: Any) {
-
-        window.endSheet(aboutSheet)
-    }
+    // MARK: Player Save/Load Functions
 
     @IBAction func savePlayer(_ sender: Any) {
 
@@ -1636,6 +1685,25 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func openCharacter(_ sender: Any) {
 
+        if gameInProgress && needToSave {
+            // There's a game in progress, so warn the user...
+            let alert = NSAlert.init()
+            alert.messageText = needToSave ? "You have a game in progress with unsaved changes" : "You have a game in progress"
+            alert.informativeText = needToSave ? "If you reload a character now, unsaved changes will be lost" : "Are you sure?"
+            alert.addButton(withTitle: "No")
+            alert.addButton(withTitle: "Yes")
+
+            alert.beginSheetModal(for: window) { (response) in
+                if response == NSApplication.ModalResponse.alertSecondButtonReturn {
+                    // Player clicked 'Continue', so display the New Player UI
+                    self.needToSave = false
+                    self.openCharacter(self)
+                }
+            }
+
+            return
+        }
+
         let openPanel: NSOpenPanel = NSOpenPanel.init()
         openPanel.allowedFileTypes = ["ffc"]
         openPanel.allowsMultipleSelection = false
@@ -1715,8 +1783,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
                     self.savePath = path
 
+                    self.window.title = zplayer.gameName
                     self.gameInProgress = true
                     self.updateStats()
+
+                    if zplayer.bookmark != -1 { self.bookmark.isHidden = false }
                 }
             }
         })
@@ -1724,13 +1795,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func closeCharacter(_ sender: Any) {
 
-        if gameInProgress {
+        if gameInProgress && needToSave {
             // There's a game going on, so warn the player
             let alert = NSAlert.init()
             alert.messageText = needToSave ? "You have a game in progress with unsaved changes" : "You have a game in progress"
             alert.informativeText = needToSave ? "If you close the character now, unsaved changes will be lost" : "Are you sure?"
-            alert.addButton(withTitle: "Continue")
-            alert.addButton(withTitle: "Cancel")
+            alert.addButton(withTitle: "No")
+            alert.addButton(withTitle: "Yes")
             alert.beginSheetModal(for: window, completionHandler: { (response) in
                 if response == NSApplication.ModalResponse.alertFirstButtonReturn { self.doClose() }
             })
@@ -1755,13 +1826,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Called when the player selects 'New Character' from the File menu
 
-        if gameInProgress {
+        if gameInProgress && needToSave {
             // There's a game in progress, so warn the user...
             let alert = NSAlert.init()
             alert.messageText = needToSave ? "You have a game in progress with unsaved changes" : "You have a game in progress"
             alert.informativeText = needToSave ? "If you create a new character now, unsaved changes will be lost" : "Are you sure?"
-            alert.addButton(withTitle: "Continue")
-            alert.addButton(withTitle: "Cancel")
+            alert.addButton(withTitle: "No")
+            alert.addButton(withTitle: "Yes")
 
             alert.beginSheetModal(for: window) { (response) in
                 if response == NSApplication.ModalResponse.alertFirstButtonReturn {
@@ -1784,9 +1855,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         startStaminaField.stringValue = "0"
         startLuckField.stringValue = "0"
 		startGamePopup.selectItem(at: 0)
-		startFoodField.stringValue = ""
-		startGoldField.stringValue = ""
-		startPotionPopup.selectItem(at: 0)
+		setItemsForGame(self)
 
         rollStats(self)
 
@@ -1807,6 +1876,39 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         roll = Int(arc4random_uniform(6)) + 7
         startLuckField.stringValue = "\(roll)"
+    }
+
+    @IBAction func setItemsForGame(_ sender: Any) {
+
+        var type = startGamePopup.indexOfSelectedItem;
+        if type > 13 { type = type + 5 }
+
+        if type == kGameCitadel
+            || type == kGameHouseHell
+            || type == kGameReturnFiretop
+            || type == kGameTrialChampions
+            || type == kGameCreatureHavoc {
+            startPotionPopup.isEnabled = false
+            startFoodField.stringValue = "0"
+            startGoldField.stringValue = "0"
+        } else if type == kGameTempleTerror {
+            startPotionPopup.isEnabled = false
+            startGoldField.stringValue = "25"
+            startFoodField.stringValue = "0"
+        } else if type == kGameEyeDragon {
+            startPotionPopup.isEnabled = false
+            startFoodField.stringValue = "10"
+            startGoldField.stringValue = "0"
+        } else if type == kGameSorceryWizard
+            || type == kGameSorceryFighter {
+            startPotionPopup.isEnabled = false
+            startFoodField.stringValue = "2"
+            startGoldField.stringValue = "20"
+        } else {
+            startPotionPopup.isEnabled = true
+            startFoodField.stringValue = "10"
+            startGoldField.stringValue = "0"
+        }
     }
 
     @IBAction func cancelSheet(_ sender: Any) {
@@ -1957,6 +2059,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameType == kGamePortPeril {
             player!.provisions = 10
             player!.gold = 0
+            player!.drinks = 1
             player!.gameName = "Port of Peril"
         }
 
@@ -2000,28 +2103,52 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         updateStats()
 
         // Update the window with the game name
-        window.title = "Fighting Fantasy - " + player!.gameName
+        window.title = player!.gameName
+
+        bookmark.isHidden = true
 
         // Close the sheet
         window.endSheet(createSheet)
     }
 
+
+    // MARK: About Sheet Functions
+
+    @IBAction func showAbout(_ sender: Any) {
+
+        aboutVersonLabel.stringValue = "v" + (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+        window.beginSheet(aboutSheet, completionHandler:nil)
+    }
+
+    @IBAction func closeAbout(_ sender: Any) {
+
+        window.endSheet(aboutSheet)
+    }
+
+
     // MARK: Help Sheet Functions
 
     @IBAction func showHelp(_ sender: Any) {
 
-        let helpString = "\nFighting Fantasy brings you all you need to play your Fighting Fantasy adventures: dice, an adventure sheet and monster encounter records.\n\nThe Status tab shows your character's current state of health, allows you to eat provisions and drink the magic potion with which you start the game. It also helps you keep track of the gold pieces you find and spend during your adventure.\n\nSome Fighting Fantasy games add other attributes and these are recorded here too.\n\nThe Combat tab helps you fight the creatures of the underworld. You can fight up to three adversaries, one at a time or all together. Enter each opponents' Skill and Stamina scores, then check the Combat box of the one you're going to fight. Check more than one monster to fight multiple opponents simultaneously. When you're fighting more than one monster at a time, chose the one you want to try and strike by clicking its Target button. Hit Strike! to attack the creature.\n\nYou can also Test your Luck to alter the outcome of the battle.\n\nThe Magic tab keeps track of your Citadel of Chaos spells. First, enter the number of times you can cast your selected spells. During the game, select a spell and click Cast.\n\nIt also provides space to record the spells you have chosen in Temple of Terror.\n\nThe Tests tab lets you Test you Luck and Try your Skill as dictated by the gamebook entry you're reading. It also provides a handy pair of virtual dice to roll.\n\nThe Backpack tab helps you keep tracks of your possessions. Select an item and click the Use Item button to use it in the game. When you find a new object you wish to keep, type in a description of the object and click on the Add Item button to put it in your backpack.\n\nTo create a new character at the start of the adventure, select New Character from the File menu. Click Roll to determine your character's initial Skill, Stamina and Luck scores, then select which Magic Potion you wish to take with you, if the gamebook allows you to do so. Similarly, enter any Provisions you have at the start of your quest, along with your Gold Pieces.\n\nChoose the name of the game you'll be playing. If your gamebook isn't listed, choose Standard Game.\n\nGood Luck!"
-        helpTextView.isEditable = true
-        helpTextView.insertText(helpString, replacementRange: NSMakeRange(helpTextView.string.count, 0))
-        helpTextView.scrollToBeginningOfDocument(self)
-        helpTextView.isEditable = false
-        window.beginSheet(helpWindow, completionHandler: nil)
+        if let helpTextPath = Bundle.main.path(forResource: "helptext", ofType: "txt") {
+            do {
+                let helpText = try String.init(contentsOfFile: helpTextPath, encoding: String.Encoding.utf8)
+                helpTextView.isEditable = true
+                helpTextView.insertText(helpText, replacementRange: NSMakeRange(0, helpTextView.string.count))
+                helpTextView.scrollToBeginningOfDocument(self)
+                helpTextView.isEditable = false
+                window.beginSheet(helpWindow, completionHandler: nil)
+            } catch  {
+                // NOP
+            }
+        }
     }
 
     @IBAction func closeHelp(_ sender: Any) {
 
         window.endSheet(helpWindow)
     }
+
 
     // MARK: TabView Delegate Functions
 
