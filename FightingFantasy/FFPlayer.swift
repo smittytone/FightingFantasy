@@ -38,7 +38,7 @@ class FFPlayer: NSObject, NSCoding {
     var gamekind: Int = -1
 
     var isDead: Bool = false
-    var bookmark: Int = 1
+    var bookmark: Int = -1
 
     // MARK: Functions
 
