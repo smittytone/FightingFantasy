@@ -41,6 +41,7 @@
                 <outlet property="fireField" destination="l7I-bl-rXu" id="SJz-wh-cvx"/>
                 <outlet property="foodAmountField" destination="yU0-bD-DjD" id="zjl-hv-gqm"/>
                 <outlet property="foodEatButton" destination="Jou-Yb-zMC" id="5DS-YB-Ekg"/>
+                <outlet property="gameMenu" destination="SMb-rD-hat" id="Oog-r3-tBp"/>
                 <outlet property="goldAmountField" destination="stI-QK-A9s" id="dc8-2i-Aex"/>
                 <outlet property="goldStepper" destination="oAF-xY-Ekb" id="xCK-FB-BP9"/>
                 <outlet property="hellBox" destination="JUL-9Q-oXs" id="0d9-l2-fIk"/>
@@ -61,6 +62,7 @@
                 <outlet property="magicTempleBox" destination="IcQ-oc-eKj" id="Hqk-ga-Tfy"/>
                 <outlet property="magicValue" destination="p5B-Gh-tBG" id="Ni0-yC-5IA"/>
                 <outlet property="maxFearValue" destination="0Nw-UC-B2i" id="u2I-hE-l8B"/>
+                <outlet property="menuBar" destination="AYu-sK-qS6" id="4aF-La-4KT"/>
                 <outlet property="monsterMod" destination="lSF-ry-kWU" id="iqo-sO-JgC"/>
                 <outlet property="monsterOneCombatCheck" destination="VIJ-hQ-aa5" id="DHL-lM-8kg"/>
                 <outlet property="monsterOneSkillField" destination="rOQ-Rt-IUW" id="qhX-WZ-x9F"/>
@@ -111,10 +113,12 @@
                 <outlet property="weaknessCell" destination="0gg-av-sqo" id="gko-qf-a1T"/>
                 <outlet property="weaknessField" destination="Rtr-9x-HLA" id="POw-fx-Vbm"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
+                <outlet property="yazMatrix" destination="wvk-gv-HOH" id="Yle-n8-Egm"/>
+                <outlet property="yazWindow" destination="dy4-5W-mo0" id="gCS-6q-FAs"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+        <menu title="Main Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6">
             <items>
                 <menuItem title="FightingFantasy" id="1Xt-HY-uBw">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -173,7 +177,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
-                            <menuItem title="View/Set Bookmark..." keyEquivalent="b" id="Ks3-16-IrQ">
+                            <menuItem title="Set Bookmark..." keyEquivalent="b" id="Ks3-16-IrQ">
                                 <connections>
                                     <action selector="showBookmarker:" target="Voe-Tx-rLC" id="cm2-Sb-5xO"/>
                                 </connections>
@@ -412,6 +416,22 @@
                                         </menuItem>
                                     </items>
                                 </menu>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Game" hidden="YES" enabled="NO" id="SMb-rD-hat">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Game" id="uhS-DA-fMf">
+                        <items>
+                            <menuItem title="Item 1" enabled="NO" id="kGJ-26-tis">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 2" enabled="NO" id="y0Y-fj-OW1">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 3" enabled="NO" id="L1j-Wi-3y4">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                         </items>
                     </menu>
@@ -2269,7 +2289,7 @@ CA
                             <outlet property="delegate" destination="Voe-Tx-rLC" id="TlZ-c5-o4c"/>
                         </connections>
                     </tabView>
-                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFw-cT-mg9" customClass="FFImageView" customModule="FightingFantasy" customModuleProvider="target">
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFw-cT-mg9" customClass="FFBookmarkView" customModule="FightingFantasy">
                         <rect key="frame" x="427" y="540" width="46" height="60"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="bookmark" id="d7o-j8-wl6"/>
@@ -2795,38 +2815,6 @@ DQ
             </view>
             <point key="canvasLocation" x="1308" y="-64"/>
         </window>
-        <menuItem title="View" id="H8h-7b-M4v">
-            <modifierMask key="keyEquivalentModifierMask"/>
-            <menu key="submenu" title="View" id="HyV-fh-RgO">
-                <items>
-                    <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
-                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                        <connections>
-                            <action selector="toggleToolbarShown:" target="-1" id="BXY-wc-z0C"/>
-                        </connections>
-                    </menuItem>
-                    <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
-                        <modifierMask key="keyEquivalentModifierMask"/>
-                        <connections>
-                            <action selector="runToolbarCustomizationPalette:" target="-1" id="pQI-g3-MTW"/>
-                        </connections>
-                    </menuItem>
-                    <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
-                    <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
-                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                        <connections>
-                            <action selector="toggleSourceList:" target="-1" id="iwa-gc-5KM"/>
-                        </connections>
-                    </menuItem>
-                    <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
-                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                        <connections>
-                            <action selector="toggleFullScreen:" target="-1" id="dU3-MA-1Rq"/>
-                        </connections>
-                    </menuItem>
-                </items>
-            </menu>
-        </menuItem>
         <viewController id="8Oc-lr-Pxg" userLabel="Popover View Controller" customClass="FFViewController" customModule="FightingFantasy" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="Gyr-eG-h3B" id="e48-pc-NM6"/>
@@ -2953,7 +2941,7 @@ DQ
                         <rect key="frame" x="-1" y="61" width="462" height="528"/>
                         <clipView key="contentView" id="bhV-tb-b2H">
                             <rect key="frame" x="0.0" y="0.0" width="462" height="528"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" quoteSubstitution="YES" dashSubstitution="YES" textCompletion="NO" id="J9v-3s-gTH">
                                     <rect key="frame" x="0.0" y="-1" width="462" height="528"/>
@@ -3079,6 +3067,105 @@ Gw
                 </constraints>
             </view>
             <point key="canvasLocation" x="177" y="479"/>
+        </window>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="dy4-5W-mo0">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="131" y="158" width="460" height="168"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="460" height="168"/>
+            <value key="maxSize" type="size" width="460" height="168"/>
+            <view key="contentView" id="gXk-Tc-hub">
+                <rect key="frame" x="0.0" y="0.0" width="460" height="168"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ncp-Z3-aBG">
+                        <rect key="frame" x="20" y="131" width="422" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="Sfe-oh-89I"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Which of your attributes wll Yaztromo’s magic enhance?" id="jmn-86-vcn">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvk-gv-HOH">
+                        <rect key="frame" x="20" y="61" width="420" height="62"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="62" id="IH0-9N-3on"/>
+                        </constraints>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <size key="cellSize" width="420" height="18"/>
+                        <size key="intercellSpacing" width="0.0" height="4"/>
+                        <buttonCell key="prototype" type="radio" title="Skill" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="ylb-H9-8sH">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <cells>
+                            <column>
+                                <buttonCell type="radio" title="Skill" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6AA-zr-4yT">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Stamina" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="JSO-SY-4hV">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Luck" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="XcO-Xg-Na3">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </column>
+                        </cells>
+                    </matrix>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Tf-d7-foW">
+                        <rect key="frame" x="365" y="13" width="81" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="HUn-Ch-dkK"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="69" id="dW6-8H-9cw"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bCZ-hb-4yO">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="applyYazMagic:" target="Voe-Tx-rLC" id="mB9-N9-Xjw"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FLZ-we-pEi">
+                        <rect key="frame" x="283" y="13" width="82" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="aYO-nr-OXR"/>
+                            <constraint firstAttribute="height" constant="21" id="iUy-SX-CKe"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ehr-0K-osY">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelYazWindow:" target="Voe-Tx-rLC" id="z8j-9P-dhm"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="wvk-gv-HOH" secondAttribute="trailing" constant="20" id="1Ww-3e-8Tq"/>
+                    <constraint firstAttribute="bottom" secondItem="3Tf-d7-foW" secondAttribute="bottom" constant="20" id="7Vq-DR-0re"/>
+                    <constraint firstAttribute="bottom" secondItem="FLZ-we-pEi" secondAttribute="bottom" constant="20" id="CMW-aA-IyK"/>
+                    <constraint firstItem="FLZ-we-pEi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gXk-Tc-hub" secondAttribute="leading" constant="20" symbolic="YES" id="PG4-np-hkX"/>
+                    <constraint firstItem="3Tf-d7-foW" firstAttribute="leading" secondItem="FLZ-we-pEi" secondAttribute="trailing" constant="12" id="TFg-po-dXd"/>
+                    <constraint firstItem="wvk-gv-HOH" firstAttribute="top" secondItem="Ncp-Z3-aBG" secondAttribute="bottom" constant="8" id="Ufz-n8-OdK"/>
+                    <constraint firstAttribute="trailing" secondItem="3Tf-d7-foW" secondAttribute="trailing" constant="20" id="XJw-GF-zqU"/>
+                    <constraint firstAttribute="trailing" secondItem="Ncp-Z3-aBG" secondAttribute="trailing" constant="20" id="aPd-nX-Fa1"/>
+                    <constraint firstItem="wvk-gv-HOH" firstAttribute="leading" secondItem="gXk-Tc-hub" secondAttribute="leading" constant="20" id="d6F-kL-ih2"/>
+                    <constraint firstItem="Ncp-Z3-aBG" firstAttribute="top" secondItem="gXk-Tc-hub" secondAttribute="top" constant="20" id="pZl-Dz-4yH"/>
+                    <constraint firstItem="Ncp-Z3-aBG" firstAttribute="leading" secondItem="gXk-Tc-hub" secondAttribute="leading" constant="22" id="zny-Gm-dYA"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="217" y="600"/>
         </window>
     </objects>
     <resources>

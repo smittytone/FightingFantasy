@@ -12,9 +12,11 @@ import Cocoa
 class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTableViewDataSource,
                     NSTextFieldDelegate, NSPopoverDelegate, NSTabViewDelegate {
 
+    @IBOutlet weak var menuBar: NSMenu!
+    @IBOutlet weak var gameMenu: NSMenuItem!
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var tabs: NSTabView!
-    @IBOutlet weak var bookmark: NSImageView!
+    @IBOutlet weak var bookmark: FFBookmarkView!
 
     @IBOutlet weak var bookmarkWindow: NSWindow!
     @IBOutlet weak var bookmarkCurrentField: NSTextField!
@@ -25,6 +27,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBOutlet weak var helpWindow: NSWindow!
     @IBOutlet weak var helpTextView: NSTextView!
+
+    @IBOutlet weak var yazWindow: NSWindow!
+    @IBOutlet weak var yazMatrix: NSMatrix!
     
     // MARK: Stats Tab Items
 
@@ -283,7 +288,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_generic"))
         icons.add(image!)
 
+        bookmark.place = -1
         bookmark.isHidden = true
+        gameMenu.isHidden = true
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -446,6 +453,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Clear the 'need to save' indicator
         window.isDocumentEdited = false
+
+        // Hide the bookmark
+        bookmark.isHidden = true
+
+        // Hide the Game menu
+        gameMenu.isHidden = true
 
         // Add back the Magic Tab if necessary (only if we call this after at least one game)
         if !tabs.tabViewItems.contains(magicTabItem) {
@@ -1196,6 +1209,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             packTable.reloadData()
             packTable.needsDisplay = true
+            packTable.scrollRowToVisible(zplayer.pack.count - 1)
 
             needToSave = true
             updateStats()
@@ -1501,7 +1515,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if let zplayer = player {
             let stringValue = bookmarkCurrentField.stringValue
-            let value = stringValue.isEmpty ? zplayer.bookmark : Int(stringValue)!
+            let value: Int = stringValue.isEmpty ? zplayer.bookmark : Int(stringValue)!
 
             // Only set the bookmark if it has been changed
             // Only show the bookmark graphic if a bookmark has been set
@@ -1509,6 +1523,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 zplayer.bookmark = value
                 needToSave = true
                 window.isDocumentEdited = true
+                bookmark.place = value
+                bookmark.needsDisplay = true
                 bookmark.isHidden = false
             }
         }
@@ -1787,7 +1803,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                     self.gameInProgress = true
                     self.updateStats()
 
-                    if zplayer.bookmark != -1 { self.bookmark.isHidden = false }
+                    if zplayer.gamekind == kGamePortPeril {
+                        self.setPortPerilGameMenu()
+                    } else {
+                        self.gameMenu.isHidden = true
+                        self.gameMenu.isEnabled = false
+                    }
+
+                    if zplayer.bookmark != -1 {
+                        self.bookmark.place = zplayer.bookmark
+                        self.bookmark.needsDisplay = true
+                        self.bookmark.isHidden = false
+                    }
                 }
             }
         })
@@ -1803,7 +1830,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             alert.addButton(withTitle: "No")
             alert.addButton(withTitle: "Yes")
             alert.beginSheetModal(for: window, completionHandler: { (response) in
-                if response == NSApplication.ModalResponse.alertFirstButtonReturn { self.doClose() }
+                if response == NSApplication.ModalResponse.alertSecondButtonReturn { self.doClose() }
             })
 
             return
@@ -1835,7 +1862,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             alert.addButton(withTitle: "Yes")
 
             alert.beginSheetModal(for: window) { (response) in
-                if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                if response == NSApplication.ModalResponse.alertSecondButtonReturn {
                     // Player clicked 'Continue', so display the New Player UI
                     self.showPlayerCreate()
                 }
@@ -1966,6 +1993,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             statsTabImage = nil
         }
 
+        self.gameMenu.isHidden = true
+        self.gameMenu.isEnabled = false
+
         citadelBox.isHidden = true
         hellBox.isHidden = true
 
@@ -2061,6 +2091,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.gold = 0
             player!.drinks = 1
             player!.gameName = "Port of Peril"
+
+            setPortPerilGameMenu()
         }
 
         // Sorcery! games - always the last two in the menu
@@ -2170,6 +2202,60 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             }
         }
     }
+
+    // MARK: Game-specific Functions - Port of Peril
+
+    @objc @IBAction func yazMagic(_ sender: Any) {
+
+        if let zplayer = player {
+            // Only show the Yaztromo aid window if the player is playing Port of Peril
+            if zplayer.gamekind == kGamePortPeril { window.beginSheet(yazWindow, completionHandler:nil) }
+        }
+
+    }
+
+    @IBAction func cancelYazWindow(_ sender: Any) {
+
+        window.endSheet(yazWindow)
+    }
+
+    @IBAction func applyYazMagic(_ sender: Any) {
+
+        let row = yazMatrix.selectedRow
+
+        if let zplayer = player {
+            if row == 0 {
+                zplayer.skill = 12
+                zplayer.initialSkill = 12
+            } else if row == 1 {
+                zplayer.stamina = zplayer.stamina + 10
+                zplayer.initialStamina = zplayer.stamina
+            } else {
+                zplayer.luck = 12
+                zplayer.initialLuck = 12
+            }
+        }
+
+        needToSave = true
+        updateStats()
+        window.endSheet(yazWindow)
+    }
+
+    func setPortPerilGameMenu() {
+
+        // Set up the Game Menu
+        if let gmm = gameMenu.submenu {
+            if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.addItem(withTitle: "Take Yaztromo's Aid...", action: #selector(yazMagic), keyEquivalent: "y")
+            let ym: NSMenuItem? = gmm.item(at: 0)
+            if ym != nil { ym!.isEnabled = true }
+        }
+
+        gameMenu.isEnabled = true
+        gameMenu.isHidden = false
+        gameMenu.title = "Port of Peril"
+    }
+
 }
 
 

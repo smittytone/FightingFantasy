@@ -12,6 +12,7 @@
 		3B1DFF941FC0D3C300E8E22B /* helptext.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B1DFF931FC0D3C300E8E22B /* helptext.txt */; };
 		3BB5B2601FABC81200D0B499 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5B25F1FABC81200D0B499 /* Constants.swift */; };
 		3BC840A61FA749F000691F92 /* FFTextFieldFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */; };
+		3BE789E51FC1E1A500F2A3AD /* FFBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE789E41FC1E1A500F2A3AD /* FFBookmarkView.swift */; };
 		3BF193381FA6641A00337EE8 /* FFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF193371FA6641A00337EE8 /* FFViewController.swift */; };
 		3BF1933B1FA66A2300337EE8 /* FFCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF193391FA66A2300337EE8 /* FFCollectionViewItem.swift */; };
 		3BF1933C1FA66A2300337EE8 /* FFCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1933A1FA66A2300337EE8 /* FFCollectionViewItem.xib */; };
@@ -28,6 +29,7 @@
 		3B1DFF931FC0D3C300E8E22B /* helptext.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helptext.txt; sourceTree = SOURCE_ROOT; };
 		3BB5B25F1FABC81200D0B499 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTextFieldFormatter.swift; sourceTree = "<group>"; };
+		3BE789E41FC1E1A500F2A3AD /* FFBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFBookmarkView.swift; sourceTree = "<group>"; };
 		3BF193371FA6641A00337EE8 /* FFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFViewController.swift; sourceTree = "<group>"; };
 		3BF193391FA66A2300337EE8 /* FFCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFCollectionViewItem.swift; sourceTree = "<group>"; };
 		3BF1933A1FA66A2300337EE8 /* FFCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FFCollectionViewItem.xib; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				3BF193391FA66A2300337EE8 /* FFCollectionViewItem.swift */,
 				3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */,
 				3B1DFF911FC069D900E8E22B /* FFTableCellView.swift */,
+				3BE789E41FC1E1A500F2A3AD /* FFBookmarkView.swift */,
 				3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */,
 				3BFE93051FA29615003DF79F /* Assets.xcassets */,
 				3BFE93071FA29615003DF79F /* MainMenu.xib */,
@@ -170,6 +173,7 @@
 			files = (
 				3BFE93121FA29A8D003DF79F /* FFPlayer.swift in Sources */,
 				3BF193381FA6641A00337EE8 /* FFViewController.swift in Sources */,
+				3BE789E51FC1E1A500F2A3AD /* FFBookmarkView.swift in Sources */,
 				3BF1933E1FA67F0F00337EE8 /* FFIconButton.swift in Sources */,
 				3B1DFF921FC069D900E8E22B /* FFTableCellView.swift in Sources */,
 				3BFE93041FA29615003DF79F /* AppDelegate.swift in Sources */,
