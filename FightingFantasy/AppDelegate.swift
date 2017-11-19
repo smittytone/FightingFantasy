@@ -1484,7 +1484,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !gameInProgress || player == nil { return }
 
         // Make sure we don't show -1 for the bookmark (-1 means no bookmark set)
-        bookmarkCurrentField.stringValue = player!.bookmark == -1 ? "1" : " \(player!.bookmark)"
+        bookmarkCurrentField.stringValue = player!.bookmark == -1 ? "1" : "\(player!.bookmark)"
         bookmarkCurrentField.formatter = onlyIntFormatter
 
         // Show the sheet
