@@ -19,6 +19,8 @@
                 <outlet property="aboutSheet" destination="7K9-O1-nea" id="bJm-vs-Ejr"/>
                 <outlet property="aboutVersonLabel" destination="CJb-Qj-9CH" id="Umz-Qn-YUp"/>
                 <outlet property="bookmark" destination="tFw-cT-mg9" id="ig5-EH-5Ht"/>
+                <outlet property="bookmarkButtonButton" destination="mfZ-k3-MTb" id="cNa-7Y-onJ"/>
+                <outlet property="bookmarkButtonView" destination="MHg-mp-kUt" id="UZi-0v-vhI"/>
                 <outlet property="bookmarkCurrentField" destination="pHp-XZ-b6f" id="53O-40-0KX"/>
                 <outlet property="bookmarkWindow" destination="vgD-Ae-gzx" id="qXP-Cm-FbP"/>
                 <outlet property="citadelBox" destination="3Mt-NT-uJ5" id="azb-GC-kEb"/>
@@ -180,6 +182,12 @@
                             <menuItem title="Set Bookmark..." keyEquivalent="b" id="Ks3-16-IrQ">
                                 <connections>
                                     <action selector="showBookmarker:" target="Voe-Tx-rLC" id="cm2-Sb-5xO"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show/Hide Bookmark" keyEquivalent="B" id="QnM-6u-eou">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showBookmark:" target="Voe-Tx-rLC" id="MDZ-Rr-gMI"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="YSA-qF-aGk"/>
@@ -1656,11 +1664,11 @@ DQ
                                     <rect key="frame" x="10" y="33" width="434" height="530"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rv-Xf-HR0">
+                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="7rv-Xf-HR0">
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
@@ -1699,7 +1707,8 @@ DQ
                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XeP-BY-MrH">
                                                                                 <rect key="frame" x="26" y="0.0" width="363" height="17"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="height" constant="17" id="fwz-Rr-uuM"/>
+                                                                                    <constraint firstAttribute="width" constant="359" id="2i9-ed-IiV"/>
+                                                                                    <constraint firstAttribute="height" constant="17" id="Jyp-vi-kzM"/>
                                                                                 </constraints>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="rnD-nT-JMl">
                                                                                     <font key="font" metaFont="system"/>
@@ -1713,9 +1722,8 @@ DQ
                                                                         </subviews>
                                                                         <constraints>
                                                                             <constraint firstItem="eyb-79-VTq" firstAttribute="leading" secondItem="RvY-CV-0zQ" secondAttribute="leading" constant="3" id="ClS-BS-NYH"/>
-                                                                            <constraint firstItem="XeP-BY-MrH" firstAttribute="leading" secondItem="eyb-79-VTq" secondAttribute="trailing" constant="8" id="YZ2-C7-pog"/>
-                                                                            <constraint firstItem="XeP-BY-MrH" firstAttribute="centerY" secondItem="RvY-CV-0zQ" secondAttribute="centerY" id="gZq-xk-agV"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="XeP-BY-MrH" secondAttribute="trailing" constant="8" id="q5J-ah-Fsz"/>
+                                                                            <constraint firstItem="XeP-BY-MrH" firstAttribute="centerY" secondItem="RvY-CV-0zQ" secondAttribute="centerY" id="fTh-JO-NTN"/>
+                                                                            <constraint firstItem="XeP-BY-MrH" firstAttribute="leading" secondItem="eyb-79-VTq" secondAttribute="trailing" constant="8" id="oSs-zt-Mna"/>
                                                                             <constraint firstItem="eyb-79-VTq" firstAttribute="centerY" secondItem="RvY-CV-0zQ" secondAttribute="centerY" id="wp4-ve-xcD"/>
                                                                         </constraints>
                                                                         <connections>
@@ -1737,11 +1745,11 @@ DQ
                                                 <constraint firstAttribute="height" constant="496" id="BjN-YM-ID6"/>
                                             </constraints>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="9hh-uS-J8U">
-                                                <rect key="frame" x="1" y="-14" width="0.0" height="15"/>
+                                                <rect key="frame" x="-100" y="-100" width="0.0" height="15"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="ZBj-Sx-KV7">
-                                                <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                                <rect key="frame" x="-100" y="-100" width="15" height="102"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -3167,9 +3175,28 @@ Gw
             </view>
             <point key="canvasLocation" x="217" y="600"/>
         </window>
+        <customView id="MHg-mp-kUt">
+            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfZ-k3-MTb" customClass="FFBookmarkButton" customModule="FightingFantasy" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="1" width="24" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="button_blue" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="06j-7a-2hO">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="showBookmark:" target="Voe-Tx-rLC" id="vl4-mj-xB3"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="711" y="-191"/>
+        </customView>
     </objects>
     <resources>
         <image name="bookmark" width="46" height="60"/>
+        <image name="button_blue" width="12" height="12"/>
         <image name="death_banner" width="460" height="588"/>
         <image name="ff_logo" width="128" height="128"/>
         <image name="icon_sword" width="16" height="16"/>
