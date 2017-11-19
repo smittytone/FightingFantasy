@@ -14,8 +14,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBOutlet weak var menuBar: NSMenu!
     @IBOutlet weak var gameMenu: NSMenuItem!
+    @IBOutlet weak var fileMenu: NSMenu!
+    @IBOutlet weak var showBookmarkMenuItem: NSMenuItem!
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var tabs: NSTabView!
+
     @IBOutlet weak var bookmark: FFBookmarkView!
     @IBOutlet weak var bookmarkButtonView: NSView!
     @IBOutlet weak var bookmarkButtonButton: FFBookmarkButton!
@@ -292,8 +295,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_generic"))
         icons.add(image!)
 
-        // Set up accessory
-        //window.view.accessoryViewController = bookmarkViewController
+        // Setup File Menu
+        fileMenu.autoenablesItems = false
+        showBookmarkMenuItem.title = "Show Bookmark"
+        showBookmarkMenuItem.isEnabled = false
+
+        // Set up accessory controller for titlebar
         bookmarkViewController.view = bookmarkButtonView
         bookmarkViewController.layoutAttribute = .right
         self.window?.addTitlebarAccessoryViewController(bookmarkViewController)
@@ -581,12 +588,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Mark the window's red close button if the are changes to save
         window.isDocumentEdited = needToSave
-    }
-
-    @IBAction func showBookmark(_ sender: Any) {
-
-        bookmark.isHidden = !bookmark.isHidden
-        bookmarkButtonButton.bookmarkState = !bookmarkButtonButton.bookmarkState
     }
 
     // MARK: Stats Tab Functions
@@ -1435,6 +1436,24 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     // MARK: Bookmarking
 
+    @IBAction func showBookmark(_ sender: Any) {
+
+        if !gameInProgress || player == nil { return }
+
+        if player!.bookmark == -1 {
+            // The player hasn't set a bookmark yet, so open the appropriate sheet
+            // NOTE we can only come here from the titlebar button, not the menu
+            // as it will not have been enabled yet
+            showBookmarker(self)
+            return
+        }
+
+        bookmark.isHidden = !bookmark.isHidden
+        bookmarkButtonButton.bookmarkState = !bookmarkButtonButton.bookmarkState
+        showBookmarkMenuItem.isEnabled = true
+        showBookmarkMenuItem.title = bookmark.isHidden ? "Show Bookmark" : "Hide Bookmark"
+    }
+
     @IBAction func showBookmarker(_ sender: Any) {
 
         if !gameInProgress || player == nil { return }
@@ -1467,8 +1486,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 window.isDocumentEdited = true
                 bookmark.place = value
                 bookmark.needsDisplay = true
-                bookmark.isHidden = false
-                bookmarkButtonButton.bookmarkState = true
+                bookmark.isHidden = true
+                self.bookmarkButtonButton.bookmarkState = false
+                showBookmark(self)
             }
         }
 
@@ -1760,8 +1780,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if zplayer.bookmark != -1 {
                 self.bookmark.place = zplayer.bookmark
                 self.bookmark.needsDisplay = true
-                self.bookmark.isHidden = false
-                self.bookmarkButtonButton.bookmarkState = true
+                self.bookmark.isHidden = true
+                self.bookmarkButtonButton.bookmarkState = false
+                self.showBookmark(self)
+
             }
 
             return true

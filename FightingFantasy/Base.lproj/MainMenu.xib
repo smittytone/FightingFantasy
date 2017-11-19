@@ -39,6 +39,7 @@
                 <outlet property="espField" destination="rmC-Ws-XTd" id="hi4-fU-keo"/>
                 <outlet property="fearStepper" destination="Hmd-xl-Npo" id="tri-oi-VKT"/>
                 <outlet property="fearValue" destination="0N8-NZ-2zI" id="YMP-o0-x7h"/>
+                <outlet property="fileMenu" destination="bib-Uj-vzu" id="iW7-sv-wEJ"/>
                 <outlet property="fireCell" destination="Vey-CM-5yJ" id="ZUU-kc-QoZ"/>
                 <outlet property="fireField" destination="l7I-bl-rXu" id="SJz-wh-cvx"/>
                 <outlet property="foodAmountField" destination="yU0-bD-DjD" id="zjl-hv-gqm"/>
@@ -84,6 +85,7 @@
                 <outlet property="reanimateButton" destination="whk-AA-YUd" id="76N-Lr-cSy"/>
                 <outlet property="shieldingCell" destination="U5s-ts-eyv" id="8uC-w4-p1O"/>
                 <outlet property="shieldingField" destination="7l3-Fx-Ue8" id="s9g-Sn-uzr"/>
+                <outlet property="showBookmarkMenuItem" destination="QnM-6u-eou" id="J4l-KP-gh2"/>
                 <outlet property="skillCell" destination="Q1n-Jv-3vg" id="1XP-AD-XkE"/>
                 <outlet property="skillField" destination="0R9-Hw-pFa" id="uas-da-QKK"/>
                 <outlet property="skillStepper" destination="1cT-CK-8U1" id="rfv-0a-3oW"/>
@@ -3052,7 +3054,7 @@ Gw
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="yX4-cZ-vfF"/>
                         </constraints>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" title="Label" usesSingleLineMode="YES" id="KbS-S0-YaL">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" title="1" usesSingleLineMode="YES" id="KbS-S0-YaL">
                             <font key="font" metaFont="system" size="36"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
