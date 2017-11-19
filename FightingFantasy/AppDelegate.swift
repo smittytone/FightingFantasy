@@ -17,6 +17,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var tabs: NSTabView!
     @IBOutlet weak var bookmark: FFBookmarkView!
+    @IBOutlet weak var bookmarkButtonView: NSView!
+    @IBOutlet weak var bookmarkButtonButton: FFBookmarkButton!
 
     @IBOutlet weak var bookmarkWindow: NSWindow!
     @IBOutlet weak var bookmarkCurrentField: NSTextField!
@@ -165,6 +167,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     var statsTabImage: NSImageView? = nil
 
+    var bookmarkViewController: NSTitlebarAccessoryViewController = NSTitlebarAccessoryViewController.init()
+
     // MARK: App Lifecycle Functions
 
     func applicationWillFinishLaunching(_ notification: Notification) {
@@ -288,12 +292,19 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_generic"))
         icons.add(image!)
 
-        bookmark.place = -1
-        bookmark.isHidden = true
-        gameMenu.isHidden = true
+        // Set up accessory
+        //window.view.accessoryViewController = bookmarkViewController
+        bookmarkViewController.view = bookmarkButtonView
+        bookmarkViewController.layoutAttribute = .right
+        self.window?.addTitlebarAccessoryViewController(bookmarkViewController)
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+
+        // Hide the bookmark and the Game menu
+        bookmark.isHidden = true
+        bookmarkButtonButton.bookmarkState = false
+        gameMenu.isHidden = true
 
         // Set up pack table view
         packTable.target = self
@@ -303,12 +314,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         tabs.selectFirstTabViewItem(self)
         window.center()
 
-        // Set up the UI - if we haven't already done so by double-clicking on a .ffc file
-        if !doubleClickFileLoad { initUI() }
-
         // Set up notifications - used when the player selects a pack icon from the popover
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(updatePack), name: NSNotification.Name(rawValue: "set.pack.item.index"), object: nil)
+
+        // Set up the UI - if we haven't already done so by double-clicking on a .ffc file
+        if !doubleClickFileLoad { initUI() }
 
         // Are we starting a new game? May not be if the player double-clicked a saved file
         if !gameInProgress { showPlayerCreate() }
@@ -316,85 +327,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func application(_ sender: NSApplication, openFile filename: String) -> Bool {
 
-        self.player = NSKeyedUnarchiver.unarchiveObject(withFile: filename) as? FFPlayer
-
-        if let zplayer = self.player {
-            initUI()
-            doubleClickFileLoad = true
-            
-            // Update the Citadel of Chaos magic spell matrix
-            if zplayer.gamekind == kGameCitadel {
-                creatureCopyField.stringValue = "\(zplayer.citadelSpellMatrix[0])"
-                espField.stringValue = "\(zplayer.citadelSpellMatrix[1])"
-                fireField.stringValue = "\(zplayer.citadelSpellMatrix[2])"
-                illusionField.stringValue = "\(zplayer.citadelSpellMatrix[3])"
-                levitationField.stringValue = "\(zplayer.citadelSpellMatrix[4])"
-                luckField.stringValue = "\(zplayer.citadelSpellMatrix[5])"
-                shieldingField.stringValue = "\(zplayer.citadelSpellMatrix[6])"
-                skillField.stringValue = "\(zplayer.citadelSpellMatrix[7])"
-                staminaField.stringValue = "\(zplayer.citadelSpellMatrix[8])"
-                strengthField.stringValue = "\(zplayer.citadelSpellMatrix[9])"
-                weaknessField.stringValue = "\(zplayer.citadelSpellMatrix[10])"
-            }
-
-            // Update the Temple of Terror magic spell readout
-            if zplayer.gamekind == kGameTempleTerror {
-                spellOnePopup.selectItem(at: zplayer.templeSpellMatrix[0])
-                spellTwoPopup.selectItem(at: zplayer.templeSpellMatrix[1])
-                spellThreePopup.selectItem(at: zplayer.templeSpellMatrix[2])
-                spellFourPopup.selectItem(at: zplayer.templeSpellMatrix[3])
-            }
-
-            // Handle tab hiding/unhiding
-            if zplayer.gamekind == kGameTempleTerror || zplayer.gamekind == kGameCitadel {
-                // Add back the Magic tab if necessary
-                if !tabs.tabViewItems.contains(magicTabItem) {
-                    tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: 2)
-                }
-            } else {
-                // Remove the Magic tab
-                heldTabs["magicTabItem"] = magicTabItem!
-                if tabs.tabViewItems.contains(magicTabItem) { tabs.removeTabViewItem(magicTabItem) }
-            }
-
-            // Handle game-specific stats boxes
-            hellBox.isHidden = zplayer.gamekind == kGameHouseHell ? false : true
-            citadelBox.isHidden = zplayer.gamekind == kGameCitadel ? false : true
-
-            // Handle game-specific images
-            if statsTabImage != nil {
-                statsTabImage?.removeFromSuperview()
-                statsTabImage = nil
-            }
-
-            if zplayer.gamekind == kGameHouseHell {
-                let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 102))
-                image.image = NSImage.init(named: NSImage.Name("hoh"))
-                statsTabView.addSubview(image)
-                statsTabImage = image
-            }
-
-            if zplayer.gamekind == kGameCitadel {
-                let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 14, 258, 102))
-                image.image = NSImage.init(named: NSImage.Name("coc"))
-                statsTabView.addSubview(image)
-                statsTabImage = image
-            }
-
-            // Update the modifiers
-            testLuckMod.selectItem(at: zplayer.modMatrix[0])
-            testSkillMod.selectItem(at: zplayer.modMatrix[1])
-            playerMod.selectItem(at: zplayer.modMatrix[2])
-            monsterMod.selectItem(at: zplayer.modMatrix[3])
-
-            gameInProgress = true
-            firstRun = true
-            updateStats()
-
-            return true
-        } else {
-            return false
-        }
+        initUI()
+        doubleClickFileLoad = true
+        return self.openFileHander(filename)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -456,6 +391,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Hide the bookmark
         bookmark.isHidden = true
+        bookmarkButtonButton.bookmarkState = false
 
         // Hide the Game menu
         gameMenu.isHidden = true
@@ -645,6 +581,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Mark the window's red close button if the are changes to save
         window.isDocumentEdited = needToSave
+    }
+
+    @IBAction func showBookmark(_ sender: Any) {
+
+        bookmark.isHidden = !bookmark.isHidden
+        bookmarkButtonButton.bookmarkState = !bookmarkButtonButton.bookmarkState
     }
 
     // MARK: Stats Tab Functions
@@ -1526,6 +1468,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 bookmark.place = value
                 bookmark.needsDisplay = true
                 bookmark.isHidden = false
+                bookmarkButtonButton.bookmarkState = true
             }
         }
 
@@ -1724,100 +1667,107 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         openPanel.allowedFileTypes = ["ffc"]
         openPanel.allowsMultipleSelection = false
         openPanel.beginSheetModal(for: window, completionHandler: { (response) in
-
-            var path: String = ""
-
             if response == NSApplication.ModalResponse.OK {
-                path = openPanel.urls[0].path
-                self.player = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? FFPlayer
-
-                if let zplayer = self.player {
-                    // Update the Citadel of Chaos magic spell matrix
-                    if zplayer.gamekind == kGameCitadel {
-                        self.creatureCopyField.stringValue = "\(zplayer.citadelSpellMatrix[0])"
-                        self.espField.stringValue = "\(zplayer.citadelSpellMatrix[1])"
-                        self.fireField.stringValue = "\(zplayer.citadelSpellMatrix[2])"
-                        self.illusionField.stringValue = "\(zplayer.citadelSpellMatrix[3])"
-                        self.levitationField.stringValue = "\(zplayer.citadelSpellMatrix[4])"
-                        self.luckField.stringValue = "\(zplayer.citadelSpellMatrix[5])"
-                        self.shieldingField.stringValue = "\(zplayer.citadelSpellMatrix[6])"
-                        self.skillField.stringValue = "\(zplayer.citadelSpellMatrix[7])"
-                        self.staminaField.stringValue = "\(zplayer.citadelSpellMatrix[8])"
-                        self.strengthField.stringValue = "\(zplayer.citadelSpellMatrix[9])"
-                        self.weaknessField.stringValue = "\(zplayer.citadelSpellMatrix[10])"
-                    }
-
-                    // Update the Temple of Terror magic spell readout
-                    if zplayer.gamekind == kGameTempleTerror {
-                        self.spellOnePopup.selectItem(at: zplayer.templeSpellMatrix[0])
-                        self.spellTwoPopup.selectItem(at: zplayer.templeSpellMatrix[1])
-                        self.spellThreePopup.selectItem(at: zplayer.templeSpellMatrix[2])
-                        self.spellFourPopup.selectItem(at: zplayer.templeSpellMatrix[3])
-                    }
-
-                    // Handle tab hiding/unhiding
-                    if zplayer.gamekind == kGameTempleTerror || zplayer.gamekind == kGameCitadel {
-                        // Add back the Magic tab if necessary
-                        if !self.tabs.tabViewItems.contains(self.magicTabItem) {
-                            self.tabs.insertTabViewItem(self.heldTabs["magicTabItem"]!, at: 2)
-                        }
-                    } else {
-                        // Remove the Magic tab
-                        self.heldTabs["magicTabItem"] = self.magicTabItem!
-                        if self.tabs.tabViewItems.contains(self.magicTabItem) { self.tabs.removeTabViewItem(self.magicTabItem) }
-                    }
-
-                    // Handle game-specific stats boxes
-                    self.hellBox.isHidden = zplayer.gamekind == kGameHouseHell ? false : true
-                    self.citadelBox.isHidden = zplayer.gamekind == kGameCitadel ? false : true
-
-                    // Handle game-specific images
-                    if self.statsTabImage != nil {
-                        self.statsTabImage?.removeFromSuperview()
-                        self.statsTabImage = nil
-                    }
-
-                    if zplayer.gamekind == kGameHouseHell {
-                        let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 102))
-                        image.image = NSImage.init(named: NSImage.Name("hoh"))
-                        self.statsTabView.addSubview(image)
-                        self.statsTabImage = image
-                    }
-
-                    if zplayer.gamekind == kGameCitadel {
-                        let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 14, 258, 102))
-                        image.image = NSImage.init(named: NSImage.Name("coc"))
-                        self.statsTabView.addSubview(image)
-                        self.statsTabImage = image
-                    }
-
-                    // Update the modifiers
-                    self.testLuckMod.selectItem(at: zplayer.modMatrix[0])
-                    self.testSkillMod.selectItem(at: zplayer.modMatrix[1])
-                    self.playerMod.selectItem(at: zplayer.modMatrix[2])
-                    self.monsterMod.selectItem(at: zplayer.modMatrix[3])
-
-                    self.savePath = path
-
-                    self.window.title = zplayer.gameName
-                    self.gameInProgress = true
-                    self.updateStats()
-
-                    if zplayer.gamekind == kGamePortPeril {
-                        self.setPortPerilGameMenu()
-                    } else {
-                        self.gameMenu.isHidden = true
-                        self.gameMenu.isEnabled = false
-                    }
-
-                    if zplayer.bookmark != -1 {
-                        self.bookmark.place = zplayer.bookmark
-                        self.bookmark.needsDisplay = true
-                        self.bookmark.isHidden = false
-                    }
-                }
+                let path:String = openPanel.urls[0].path
+                _ = self.openFileHander(path)
             }
         })
+    }
+
+    func openFileHander(_ path: String) -> Bool {
+
+        self.player = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? FFPlayer
+
+        if let zplayer = self.player {
+            // Update the Citadel of Chaos magic spell matrix
+            if zplayer.gamekind == kGameCitadel {
+                self.creatureCopyField.stringValue = "\(zplayer.citadelSpellMatrix[0])"
+                self.espField.stringValue = "\(zplayer.citadelSpellMatrix[1])"
+                self.fireField.stringValue = "\(zplayer.citadelSpellMatrix[2])"
+                self.illusionField.stringValue = "\(zplayer.citadelSpellMatrix[3])"
+                self.levitationField.stringValue = "\(zplayer.citadelSpellMatrix[4])"
+                self.luckField.stringValue = "\(zplayer.citadelSpellMatrix[5])"
+                self.shieldingField.stringValue = "\(zplayer.citadelSpellMatrix[6])"
+                self.skillField.stringValue = "\(zplayer.citadelSpellMatrix[7])"
+                self.staminaField.stringValue = "\(zplayer.citadelSpellMatrix[8])"
+                self.strengthField.stringValue = "\(zplayer.citadelSpellMatrix[9])"
+                self.weaknessField.stringValue = "\(zplayer.citadelSpellMatrix[10])"
+            }
+
+            // Update the Temple of Terror magic spell readout
+            if zplayer.gamekind == kGameTempleTerror {
+                self.spellOnePopup.selectItem(at: zplayer.templeSpellMatrix[0])
+                self.spellTwoPopup.selectItem(at: zplayer.templeSpellMatrix[1])
+                self.spellThreePopup.selectItem(at: zplayer.templeSpellMatrix[2])
+                self.spellFourPopup.selectItem(at: zplayer.templeSpellMatrix[3])
+            }
+
+            // Handle tab hiding/unhiding
+            if zplayer.gamekind == kGameTempleTerror || zplayer.gamekind == kGameCitadel {
+                // Add back the Magic tab if necessary
+                if !self.tabs.tabViewItems.contains(self.magicTabItem) {
+                    self.tabs.insertTabViewItem(self.heldTabs["magicTabItem"]!, at: 2)
+                }
+            } else {
+                // Remove the Magic tab
+                self.heldTabs["magicTabItem"] = self.magicTabItem!
+                if self.tabs.tabViewItems.contains(self.magicTabItem) { self.tabs.removeTabViewItem(self.magicTabItem) }
+            }
+
+            // Handle game-specific stats boxes
+            self.hellBox.isHidden = zplayer.gamekind == kGameHouseHell ? false : true
+            self.citadelBox.isHidden = zplayer.gamekind == kGameCitadel ? false : true
+
+            // Handle game-specific images
+            if self.statsTabImage != nil {
+                self.statsTabImage?.removeFromSuperview()
+                self.statsTabImage = nil
+            }
+
+            if zplayer.gamekind == kGameHouseHell {
+                let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 102))
+                image.image = NSImage.init(named: NSImage.Name("hoh"))
+                self.statsTabView.addSubview(image)
+                self.statsTabImage = image
+            }
+
+            if zplayer.gamekind == kGameCitadel {
+                let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 14, 258, 102))
+                image.image = NSImage.init(named: NSImage.Name("coc"))
+                self.statsTabView.addSubview(image)
+                self.statsTabImage = image
+            }
+
+            // Update the modifiers
+            self.testLuckMod.selectItem(at: zplayer.modMatrix[0])
+            self.testSkillMod.selectItem(at: zplayer.modMatrix[1])
+            self.playerMod.selectItem(at: zplayer.modMatrix[2])
+            self.monsterMod.selectItem(at: zplayer.modMatrix[3])
+
+            self.savePath = path
+
+            self.window.title = zplayer.gameName
+            self.gameInProgress = true
+            self.updateStats()
+
+            if zplayer.gamekind == kGamePortPeril {
+                self.setPortPerilGameMenu()
+            } else {
+                self.gameMenu.isHidden = true
+                self.gameMenu.isEnabled = false
+            }
+
+            if zplayer.bookmark != -1 {
+                self.bookmark.place = zplayer.bookmark
+                self.bookmark.needsDisplay = true
+                self.bookmark.isHidden = false
+                self.bookmarkButtonButton.bookmarkState = true
+            }
+
+            return true
+        } else {
+            return false
+        }
     }
 
     @IBAction func closeCharacter(_ sender: Any) {
@@ -2138,6 +2088,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         window.title = player!.gameName
 
         bookmark.isHidden = true
+        bookmarkButtonButton.bookmarkState = false
 
         // Close the sheet
         window.endSheet(createSheet)
