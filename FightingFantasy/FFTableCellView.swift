@@ -8,6 +8,8 @@ import Cocoa
 
 class FFTableCellView: NSTableCellView {
 
+    // This is a simple variant on an NSTableCellView with a button, connected
+    // below as the property 'button', rather than an image
     @IBOutlet weak var button: FFIconButton!
 
 }
