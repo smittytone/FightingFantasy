@@ -1666,20 +1666,20 @@ DQ
                                     <rect key="frame" x="10" y="33" width="434" height="530"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="7rv-Xf-HR0">
+                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="7rv-Xf-HR0">
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="6yi-V8-ZeC">
+                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
-                                                            <tableColumn identifier="" editable="NO" width="395" minWidth="40" maxWidth="1000" id="RjV-Hw-k1S">
+                                                            <tableColumn identifier="" editable="NO" width="390" minWidth="40" maxWidth="1000" id="RjV-Hw-k1S">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                     <font key="font" metaFont="smallSystem"/>
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1692,24 +1692,13 @@ DQ
                                                                 </textFieldCell>
                                                                 <prototypeCellViews>
                                                                     <tableCellView identifier="packcell" id="RvY-CV-0zQ" customClass="FFTableCellView" customModule="FightingFantasy" customModuleProvider="target">
-                                                                        <rect key="frame" x="1" y="1" width="395" height="17"/>
+                                                                        <rect key="frame" x="1" y="1" width="390" height="22"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
-                                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eyb-79-VTq" customClass="FFIconButton" customModule="FightingFantasy" customModuleProvider="target">
-                                                                                <rect key="frame" x="3" y="0.0" width="17" height="17"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="width" constant="17" id="26H-8O-o0J"/>
-                                                                                    <constraint firstAttribute="height" constant="17" id="K3G-0q-R4h"/>
-                                                                                </constraints>
-                                                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_sword" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="ToC-f3-FsJ">
-                                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                    <font key="font" metaFont="system"/>
-                                                                                </buttonCell>
-                                                                            </button>
                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XeP-BY-MrH">
-                                                                                <rect key="frame" x="26" y="0.0" width="363" height="17"/>
+                                                                                <rect key="frame" x="26" y="3" width="352" height="17"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="width" constant="359" id="2i9-ed-IiV"/>
+                                                                                    <constraint firstAttribute="width" constant="348" id="2i9-ed-IiV"/>
                                                                                     <constraint firstAttribute="height" constant="17" id="Jyp-vi-kzM"/>
                                                                                 </constraints>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="rnD-nT-JMl">
@@ -1721,11 +1710,22 @@ DQ
                                                                                     <outlet property="delegate" destination="Voe-Tx-rLC" id="UUz-zX-vWb"/>
                                                                                 </connections>
                                                                             </textField>
+                                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eyb-79-VTq" customClass="FFIconButton" customModule="FightingFantasy" customModuleProvider="target">
+                                                                                <rect key="frame" x="3" y="0.0" width="22" height="22"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="22" id="26H-8O-o0J"/>
+                                                                                    <constraint firstAttribute="height" constant="22" id="K3G-0q-R4h"/>
+                                                                                </constraints>
+                                                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_sword" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="ToC-f3-FsJ">
+                                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                </buttonCell>
+                                                                            </button>
                                                                         </subviews>
                                                                         <constraints>
                                                                             <constraint firstItem="eyb-79-VTq" firstAttribute="leading" secondItem="RvY-CV-0zQ" secondAttribute="leading" constant="3" id="ClS-BS-NYH"/>
                                                                             <constraint firstItem="XeP-BY-MrH" firstAttribute="centerY" secondItem="RvY-CV-0zQ" secondAttribute="centerY" id="fTh-JO-NTN"/>
-                                                                            <constraint firstItem="XeP-BY-MrH" firstAttribute="leading" secondItem="eyb-79-VTq" secondAttribute="trailing" constant="8" id="oSs-zt-Mna"/>
+                                                                            <constraint firstItem="XeP-BY-MrH" firstAttribute="leading" secondItem="eyb-79-VTq" secondAttribute="trailing" constant="3" id="oSs-zt-Mna"/>
                                                                             <constraint firstItem="eyb-79-VTq" firstAttribute="centerY" secondItem="RvY-CV-0zQ" secondAttribute="centerY" id="wp4-ve-xcD"/>
                                                                         </constraints>
                                                                         <connections>
@@ -3203,7 +3203,7 @@ Gw
         <image name="button_blue" width="12" height="12"/>
         <image name="death_banner" width="460" height="588"/>
         <image name="ff_logo" width="128" height="128"/>
-        <image name="icon_sword" width="16" height="16"/>
+        <image name="icon_sword" width="32" height="32"/>
         <image name="one" width="96" height="96"/>
         <image name="scroll" width="416" height="85"/>
         <image name="sword" width="416" height="126"/>
