@@ -232,7 +232,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_boots"))
         icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_sword"))
+        image = NSImage.init(named: NSImage.Name("icon_sack"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_scroll"))
         icons.add(image!)
