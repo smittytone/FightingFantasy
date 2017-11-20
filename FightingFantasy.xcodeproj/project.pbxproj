@@ -10,6 +10,7 @@
 		3B0930B31FBF9D9E0078FAC0 /* FFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */; };
 		3B1DFF921FC069D900E8E22B /* FFTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1DFF911FC069D900E8E22B /* FFTableCellView.swift */; };
 		3B1DFF941FC0D3C300E8E22B /* helptext.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B1DFF931FC0D3C300E8E22B /* helptext.txt */; };
+		3B7375A71FC23DE2000C4F88 /* FFBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7375A61FC23DE2000C4F88 /* FFBookmarkButton.swift */; };
 		3BB5B2601FABC81200D0B499 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5B25F1FABC81200D0B499 /* Constants.swift */; };
 		3BC840A61FA749F000691F92 /* FFTextFieldFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */; };
 		3BE789E51FC1E1A500F2A3AD /* FFBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE789E41FC1E1A500F2A3AD /* FFBookmarkView.swift */; };
@@ -27,6 +28,7 @@
 		3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFImageView.swift; sourceTree = "<group>"; };
 		3B1DFF911FC069D900E8E22B /* FFTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTableCellView.swift; sourceTree = "<group>"; };
 		3B1DFF931FC0D3C300E8E22B /* helptext.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helptext.txt; sourceTree = SOURCE_ROOT; };
+		3B7375A61FC23DE2000C4F88 /* FFBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFBookmarkButton.swift; sourceTree = "<group>"; };
 		3BB5B25F1FABC81200D0B499 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTextFieldFormatter.swift; sourceTree = "<group>"; };
 		3BE789E41FC1E1A500F2A3AD /* FFBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFBookmarkView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */,
 				3B1DFF911FC069D900E8E22B /* FFTableCellView.swift */,
 				3BE789E41FC1E1A500F2A3AD /* FFBookmarkView.swift */,
+				3B7375A61FC23DE2000C4F88 /* FFBookmarkButton.swift */,
 				3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */,
 				3BFE93051FA29615003DF79F /* Assets.xcassets */,
 				3BFE93071FA29615003DF79F /* MainMenu.xib */,
@@ -177,6 +180,7 @@
 				3BF1933E1FA67F0F00337EE8 /* FFIconButton.swift in Sources */,
 				3B1DFF921FC069D900E8E22B /* FFTableCellView.swift in Sources */,
 				3BFE93041FA29615003DF79F /* AppDelegate.swift in Sources */,
+				3B7375A71FC23DE2000C4F88 /* FFBookmarkButton.swift in Sources */,
 				3BB5B2601FABC81200D0B499 /* Constants.swift in Sources */,
 				3BC840A61FA749F000691F92 /* FFTextFieldFormatter.swift in Sources */,
 				3B0930B31FBF9D9E0078FAC0 /* FFImageView.swift in Sources */,
