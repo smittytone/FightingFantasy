@@ -1890,11 +1890,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             startPotionPopup.isEnabled = false
             startFoodField.stringValue = "0"
             startGoldField.stringValue = "0"
-        } else if type == kGameTempleTerror {
-            startPotionPopup.isEnabled = false
-            startGoldField.stringValue = "25"
-            startFoodField.stringValue = "0"
-        } else if type == kGameEyeDragon {
+        } else if type == kGameTempleTerror
+            || type == kGameEyeDragon {
             startPotionPopup.isEnabled = false
             startFoodField.stringValue = "10"
             startGoldField.stringValue = "0"
