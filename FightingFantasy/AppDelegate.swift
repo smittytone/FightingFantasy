@@ -15,13 +15,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var menuBar: NSMenu!
     @IBOutlet weak var gameMenu: NSMenuItem!
     @IBOutlet weak var fileMenu: NSMenu!
-    @IBOutlet weak var showBookmarkMenuItem: NSMenuItem!
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var tabs: NSTabView!
 
     @IBOutlet weak var bookmark: FFBookmarkView!
     @IBOutlet weak var bookmarkButtonView: NSView!
     @IBOutlet weak var bookmarkButtonButton: FFBookmarkButton!
+    @IBOutlet weak var showBookmarkMenuItem: NSMenuItem!
 
     @IBOutlet weak var bookmarkWindow: NSWindow!
     @IBOutlet weak var bookmarkCurrentField: NSTextField!
@@ -1067,7 +1067,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         roll = roll + 3 - testSkillMod.indexOfSelectedItem
         needToSave = true
 
-        var sk = 0
+        var sk = player!.skill
+
         if player!.gamekind == kGameHouseHell {
             sk = player!.skill + 3
             if sk > player!.initialSkill { sk = player!.initialSkill }
