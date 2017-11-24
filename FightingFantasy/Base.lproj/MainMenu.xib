@@ -23,6 +23,7 @@
                 <outlet property="bookmarkButtonView" destination="MHg-mp-kUt" id="UZi-0v-vhI"/>
                 <outlet property="bookmarkCurrentField" destination="pHp-XZ-b6f" id="53O-40-0KX"/>
                 <outlet property="bookmarkWindow" destination="vgD-Ae-gzx" id="qXP-Cm-FbP"/>
+                <outlet property="castSpellButton" destination="EPL-lp-5fI" id="tcF-D2-2NH"/>
                 <outlet property="citadelBox" destination="3Mt-NT-uJ5" id="azb-GC-kEb"/>
                 <outlet property="combatReadoutOne" destination="5dP-bZ-pLe" id="wj3-Zi-Qhg"/>
                 <outlet property="combatReadoutThree" destination="UJn-Oo-ayd" id="dwq-Rc-Lt0"/>
@@ -79,6 +80,7 @@
                 <outlet property="monsterTwoSkillField" destination="URg-US-jFv" id="HYS-w0-48I"/>
                 <outlet property="monsterTwoStamField" destination="V6E-Ex-huX" id="370-Dt-xKd"/>
                 <outlet property="monsterTwoTargetCheck" destination="F31-vX-hux" id="agA-dK-waD"/>
+                <outlet property="notesTextView" destination="FJO-tP-qkY" id="mnj-Lp-klG"/>
                 <outlet property="packTable" destination="6yi-V8-ZeC" id="AAR-7y-CbO"/>
                 <outlet property="playerMod" destination="rXu-FF-lJM" id="vqv-Rm-mGR"/>
                 <outlet property="potionTypeLabel" destination="EBu-Bb-Tt3" id="jZF-mA-ytb"/>
@@ -615,6 +617,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="116" id="OqM-IL-h1M"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Potions and Provisions" translatesAutoresizingMaskIntoConstraints="NO" id="IR3-Zo-ek2">
                                             <rect key="frame" x="6" y="291" width="422" height="110"/>
@@ -706,6 +709,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="106" id="eEq-Jf-M20"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Treasure" translatesAutoresizingMaskIntoConstraints="NO" id="62R-mc-QJC">
                                             <rect key="frame" x="6" y="207" width="422" height="80"/>
@@ -756,6 +760,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="76" id="enL-vM-in1"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-8F-VmQ">
                                             <rect key="frame" x="9" y="138" width="416" height="65"/>
@@ -829,6 +834,7 @@
                                                 <constraint firstAttribute="height" constant="116" id="ppH-Go-Q8o"/>
                                                 <constraint firstAttribute="width" constant="261" id="tpy-Um-01s"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Citadel of Chaos" translatesAutoresizingMaskIntoConstraints="NO" id="3Mt-NT-uJ5">
                                             <rect key="frame" x="6" y="10" width="146" height="120"/>
@@ -865,6 +871,7 @@
                                                 <constraint firstAttribute="width" constant="140" id="ZQv-VQ-XVz"/>
                                                 <constraint firstAttribute="height" constant="116" id="nS5-eZ-qm2"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -1182,6 +1189,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="215" id="ENV-Fu-dUx"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Bonuses and Penalties" translatesAutoresizingMaskIntoConstraints="NO" id="exA-ee-WUr">
                                             <rect key="frame" x="6" y="198" width="422" height="104"/>
@@ -1324,6 +1332,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="9a8-HJ-utU"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5dP-bZ-pLe">
                                             <rect key="frame" x="7" y="174" width="420" height="17"/>
@@ -1669,7 +1678,7 @@ DQ
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
@@ -2103,6 +2112,7 @@ DQ
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="394" id="gCh-ka-a03"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box autoresizesSubviews="NO" borderType="line" title="Temple of Terror Magic Spells" translatesAutoresizingMaskIntoConstraints="NO" id="IcQ-oc-eKj">
                                             <rect key="frame" x="6" y="10" width="422" height="113"/>
@@ -2282,6 +2292,7 @@ DQ
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="109" id="1LJ-57-vJ8"/>
                                             </constraints>
+                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -2291,6 +2302,54 @@ DQ
                                         <constraint firstAttribute="trailing" secondItem="8UX-G5-Q9v" secondAttribute="trailing" constant="9" id="bzR-Jr-Fxx"/>
                                         <constraint firstAttribute="trailing" secondItem="IcQ-oc-eKj" secondAttribute="trailing" constant="9" id="jG4-aV-vfh"/>
                                         <constraint firstItem="IcQ-oc-eKj" firstAttribute="leading" secondItem="q8s-ZW-pSA" secondAttribute="leading" constant="9" id="tnQ-1Z-o1N"/>
+                                    </constraints>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Notes" identifier="" id="rB7-jF-xi1">
+                                <view key="view" id="XnX-0m-MH5">
+                                    <rect key="frame" x="10" y="33" width="434" height="530"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="VoZ-kB-Avo">
+                                            <rect key="frame" x="4" y="-3" width="426" height="530"/>
+                                            <clipView key="contentView" id="Wmm-rp-wkK">
+                                                <rect key="frame" x="0.0" y="0.0" width="426" height="530"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textView importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" quoteSubstitution="YES" dashSubstitution="YES" id="FJO-tP-qkY">
+                                                        <rect key="frame" x="0.0" y="0.0" width="426" height="530"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <color key="backgroundColor" red="0.89011114840000005" green="0.89025741820000004" blue="0.89008003469999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <size key="minSize" width="426" height="530"/>
+                                                        <size key="maxSize" width="510" height="10000000"/>
+                                                        <attributedString key="textStorage">
+                                                            <fragment content="Test">
+                                                                <attributes>
+                                                                    <font key="NSFont" size="16" name="Apple-Chancery"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                </attributes>
+                                                            </fragment>
+                                                        </attributedString>
+                                                        <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </textView>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.71365642547607422" green="0.71377545595169067" blue="0.71363109350204468" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </clipView>
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="OPP-7c-OMA">
+                                                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </scroller>
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="yTV-Wg-hfm">
+                                                <rect key="frame" x="385" y="0.0" width="15" height="510"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </scroller>
+                                        </scrollView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="VoZ-kB-Avo" secondAttribute="trailing" constant="4" id="8mm-gn-id1"/>
+                                        <constraint firstItem="VoZ-kB-Avo" firstAttribute="top" secondItem="XnX-0m-MH5" secondAttribute="top" constant="3" id="WOO-Tb-cuf"/>
+                                        <constraint firstAttribute="bottom" secondItem="VoZ-kB-Avo" secondAttribute="bottom" constant="-3" id="acc-yj-WXm"/>
+                                        <constraint firstItem="VoZ-kB-Avo" firstAttribute="leading" secondItem="XnX-0m-MH5" secondAttribute="leading" constant="4" id="gPN-eu-grr"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
@@ -2456,6 +2515,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="123" id="9a9-IW-Vki"/>
                         </constraints>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="WB1-pY-oMa">
                         <rect key="frame" x="17" y="204" width="426" height="126"/>
@@ -2565,6 +2625,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="120" id="M2b-QR-kgY"/>
                         </constraints>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Caj-ik-lgg">
                         <rect key="frame" x="17" y="57" width="426" height="141"/>
@@ -2678,6 +2739,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="135" id="XuZ-Lu-sjX"/>
                         </constraints>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h6j-LC-XkZ">
                         <rect key="frame" x="387" y="13" width="59" height="32"/>
@@ -2948,21 +3010,21 @@ DQ
                         </connections>
                     </button>
                     <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXK-8i-5ZU">
-                        <rect key="frame" x="-1" y="61" width="462" height="528"/>
-                        <clipView key="contentView" id="bhV-tb-b2H">
-                            <rect key="frame" x="0.0" y="0.0" width="462" height="528"/>
+                        <rect key="frame" x="5" y="61" width="450" height="528"/>
+                        <clipView key="contentView" drawsBackground="NO" id="bhV-tb-b2H">
+                            <rect key="frame" x="0.0" y="0.0" width="450" height="528"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" quoteSubstitution="YES" dashSubstitution="YES" textCompletion="NO" id="J9v-3s-gTH">
-                                    <rect key="frame" x="0.0" y="-1" width="462" height="528"/>
+                                    <rect key="frame" x="0.0" y="-1" width="450" height="528"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="462" height="528"/>
+                                    <size key="minSize" width="450" height="528"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <attributedString key="textStorage">
                                         <fragment content="Test">
                                             <attributes>
-                                                <font key="NSFont" size="16" name="HelveticaNeue-Medium"/>
+                                                <font key="NSFont" size="16" name="Apple-Chancery"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
@@ -2970,7 +3032,7 @@ DQ
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </textView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.89011114840000005" green="0.89025741820000004" blue="0.89008003469999997" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="c4q-jJ-oMi">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
@@ -2986,12 +3048,12 @@ DQ
                     <constraint firstItem="eJN-vG-8Bu" firstAttribute="top" secondItem="PXK-8i-5ZU" secondAttribute="bottom" constant="20" id="1tK-H4-rft"/>
                     <constraint firstItem="PXK-8i-5ZU" firstAttribute="top" secondItem="Ill-a5-dM0" secondAttribute="top" constant="-1" id="798-Pn-9Ta"/>
                     <constraint firstItem="eJN-vG-8Bu" firstAttribute="centerX" secondItem="Ill-a5-dM0" secondAttribute="centerX" id="Au4-83-qXK"/>
-                    <constraint firstItem="PXK-8i-5ZU" firstAttribute="leading" secondItem="Ill-a5-dM0" secondAttribute="leading" constant="-1" id="YnQ-p5-Xjb"/>
-                    <constraint firstAttribute="trailing" secondItem="PXK-8i-5ZU" secondAttribute="trailing" constant="-1" id="ZvL-aL-VtA"/>
+                    <constraint firstItem="PXK-8i-5ZU" firstAttribute="leading" secondItem="Ill-a5-dM0" secondAttribute="leading" constant="5" id="YnQ-p5-Xjb"/>
+                    <constraint firstAttribute="trailing" secondItem="PXK-8i-5ZU" secondAttribute="trailing" constant="5" id="ZvL-aL-VtA"/>
                     <constraint firstAttribute="bottom" secondItem="eJN-vG-8Bu" secondAttribute="bottom" constant="20" id="bjF-YW-3BH"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="1368" y="113"/>
+            <point key="canvasLocation" x="1368" y="84"/>
         </window>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="vgD-Ae-gzx">
             <windowStyleMask key="styleMask" titled="YES"/>

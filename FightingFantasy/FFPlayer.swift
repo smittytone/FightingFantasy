@@ -37,6 +37,8 @@ class FFPlayer: NSObject, NSCoding {
     var gameName: String = "None"
     var gamekind: Int = -1
 
+    var notes: String = ""
+
     var isDead: Bool = false
     var bookmark: Int = -1
 
@@ -66,6 +68,7 @@ class FFPlayer: NSObject, NSCoding {
         aCoder.encode(modMatrix, forKey: "ff.modmatrix")
         aCoder.encode(gameName, forKey: "ff.gamename")
         aCoder.encode(name, forKey: "ff.name")
+        aCoder.encode(notes, forKey: "ff.notes")
         aCoder.encode(NSNumber(value: gamekind), forKey: "ff.gamekind")
         aCoder.encode(NSNumber(value: skill), forKey: "ff.skill")
         aCoder.encode(NSNumber(value: initialSkill), forKey: "ff.iskill")
@@ -108,6 +111,13 @@ class FFPlayer: NSObject, NSCoding {
         self.drinks = (aDecoder.decodeObject(forKey: "ff.drinks") as! NSNumber).intValue
         self.bookmark = (aDecoder.decodeObject(forKey: "ff.bookmark") as! NSNumber).intValue
         self.packSelectedItem = (aDecoder.decodeObject(forKey: "ff.psm") as! NSNumber).intValue
+
+        // Check for opening old games files with no 'notes' field
+        if let ns = aDecoder.decodeObject(forKey: "ff.notes") {
+            self.notes = ns as! String
+        } else {
+            self.notes = ""
+        }
 
         var csm = aDecoder.decodeObject(forKey: "ff.cspellmatrix") as! [NSNumber]
         for i in 0...10 { citadelSpellMatrix.append(csm[i].intValue) }

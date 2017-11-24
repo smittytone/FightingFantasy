@@ -10,7 +10,7 @@ import Cocoa
 @NSApplicationMain
 
 class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTableViewDataSource,
-                    NSTextFieldDelegate, NSPopoverDelegate, NSTabViewDelegate {
+                    NSTextFieldDelegate, NSPopoverDelegate, NSTabViewDelegate, NSTextViewDelegate {
 
     @IBOutlet weak var menuBar: NSMenu!
     @IBOutlet weak var gameMenu: NSMenuItem!
@@ -126,6 +126,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var spellFourPopup: NSPopUpButton!
     @IBOutlet weak var magicCitadelBox: NSBox!
     @IBOutlet weak var magicTempleBox: NSBox!
+    @IBOutlet weak var castSpellButton: NSButton!
+
+    // Mark: Notes Tab
+
+    @IBOutlet weak var notesTextView: NSTextView!
 
     // MARK: Player Creation Sheet
 
@@ -145,7 +150,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     var player: FFPlayer?
 
-	var needToSave: Bool = false
+    var mustSave: Bool = false
+    var needToSave: Bool {
+        get {
+            return self.mustSave
+        }
+        set {
+            self.mustSave = newValue
+            window.isDocumentEdited = newValue
+        }
+    }
+
     var gameInProgress: Bool = false
     var firstRun: Bool = true
     var doubleClickFileLoad: Bool = false
@@ -392,9 +407,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         initUITests()
         initUIPack()
         initUIMagic()
+        initUINotes()
 
         // Clear the 'need to save' indicator
-        window.isDocumentEdited = false
+        //window.isDocumentEdited = false
 
         // Hide the bookmark
         bookmark.isHidden = true
@@ -405,7 +421,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Add back the Magic Tab if necessary (only if we call this after at least one game)
         if !tabs.tabViewItems.contains(magicTabItem) {
-            tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: tabs.tabViewItems.count)
+            tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: 4)
         }
     }
 
@@ -506,6 +522,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         spellFourPopup.selectItem(at: 0)
     }
 
+    func initUINotes() {
+
+        let font = NSFont(name: "Apple Chancery", size: 16)
+        let attributes = [NSAttributedStringKey.font : font!]
+
+        notesTextView.typingAttributes = attributes
+        notesTextView.string = ""
+
+        notesTextView.delegate = self
+    }
+
     func updateStats() {
 
         // Called regularly to update the UI with the player's current stats
@@ -587,7 +614,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
 
         // Mark the window's red close button if the are changes to save
-        window.isDocumentEdited = needToSave
+        //window.isDocumentEdited = needToSave
     }
 
     // MARK: Stats Tab Functions
@@ -1484,7 +1511,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if zplayer.bookmark != value {
                 zplayer.bookmark = value
                 needToSave = true
-                window.isDocumentEdited = true
+                //window.isDocumentEdited = true
                 bookmark.place = value
                 bookmark.needsDisplay = true
                 bookmark.isHidden = true
@@ -1580,7 +1607,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if result {
             needToSave = false
-            window.isDocumentEdited = false
+            //window.isDocumentEdited = false
         }
 
     }
@@ -1616,7 +1643,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
                             if result {
                                 self.needToSave = false
-                                self.window.isDocumentEdited = false
+                                // self.window.isDocumentEdited = false
                             }
                         }
                     }
@@ -1656,6 +1683,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             zplayer.templeSpellMatrix[2] = spellThreePopup.indexOfSelectedItem
             zplayer.templeSpellMatrix[3] = spellFourPopup.indexOfSelectedItem
 
+            zplayer.notes = notesTextView.string
+
             // Save theCharacter object
 
             result = NSKeyedArchiver.archiveRootObject(zplayer, toFile: path)
@@ -1693,6 +1722,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 _ = self.openFileHander(path)
             }
         })
+
+        tabs.selectTabViewItem(at: 0)
     }
 
     func openFileHander(_ path: String) -> Bool {
@@ -1727,10 +1758,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if zplayer.gamekind == kGameTempleTerror || zplayer.gamekind == kGameCitadel {
                 // Add back the Magic tab if necessary
                 if !self.tabs.tabViewItems.contains(self.magicTabItem) {
-                    self.tabs.insertTabViewItem(self.heldTabs["magicTabItem"]!, at: 2)
+                    self.tabs.insertTabViewItem(self.heldTabs["magicTabItem"]!, at: 4)
+                    self.castSpellButton.isEnabled = true
                 }
             } else {
                 // Remove the Magic tab
+                self.castSpellButton.isEnabled = false
                 self.heldTabs["magicTabItem"] = self.magicTabItem!
                 if self.tabs.tabViewItems.contains(self.magicTabItem) { self.tabs.removeTabViewItem(self.magicTabItem) }
             }
@@ -1773,6 +1806,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             if zplayer.gamekind == kGamePortPeril {
                 self.setPortPerilGameMenu()
+            } else if zplayer.gamekind == kGameCavernsSnow {
+                self.setCavernsGameMenu()
             } else {
                 self.gameMenu.isHidden = true
                 self.gameMenu.isEnabled = false
@@ -1784,8 +1819,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 self.bookmark.isHidden = true
                 self.bookmarkButtonButton.bookmarkState = false
                 self.showBookmark(self)
-
             }
+
+            self.notesTextView.string = zplayer.notes
+
+            self.showExtraInfo(zplayer.gamekind)
 
             return true
         } else {
@@ -1817,6 +1855,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Clear the player and refresh the UI
         player = nil
+        gameInProgress = false
+        needToSave = false
         initUI()
     }
 
@@ -1863,6 +1903,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // NOTE There's no completion handler used here, as we send the buttons' actions
         // to functions within this App Delegate (see below)
         window.beginSheet(createSheet, completionHandler: nil)
+
+        tabs.selectTabViewItem(at: 0)
 	}
 
     @IBAction func rollStats(_ sender: Any) {
@@ -1955,7 +1997,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if tabs.tabViewItems.contains(magicTabItem) { tabs.removeTabViewItem(magicTabItem) }
         } else {
             // Add back the Magic tab on the end if necessary
-            if !tabs.tabViewItems.contains(magicTabItem) { tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: tabs.tabViewItems.count) }
+            if !tabs.tabViewItems.contains(magicTabItem) { tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: 4) }
         }
 
         if statsTabImage != nil {
@@ -2015,6 +2057,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.drinks = 1
             player!.gold = 0
             player!.gameName = "Caverns of the Snow Witch"
+
+            setCavernsGameMenu()
         }
 
         if gameType == kGameReturnFiretop {
@@ -2093,12 +2137,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 			// Add items to the pack as dictionaries with the keys 'name' and 'icon'
 			// 'name' is the item as a string, 'icon' is the index of its icon in
 			// the 'icons' array of images. The index is stored here as an NSNumber
-			var dict: [String:Any] = [ "name" : "Lantern", "icon" : NSNumber.init(value: 0) ]
-			player!.pack.append(dict)
-			dict = [ "name" : "Sword", "icon" : NSNumber.init(value: 1) ]
+			var dict: [String:Any] = [ "name" : "Sword", "icon" : NSNumber.init(value: 1) ]
 			player!.pack.append(dict)
             dict = [ "name" : "Leather armour", "icon" : NSNumber.init(value: 2) ]
 			player!.pack.append(dict)
+
+            if gameType != kGameCavernsSnow {
+                dict = [ "name" : "Lantern", "icon" : NSNumber.init(value: 0) ]
+                player!.pack.append(dict)
+            }
         }
 
         // Update the UI with the new stats
@@ -2112,6 +2159,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Close the sheet
         window.endSheet(createSheet)
+
+        showExtraInfo(gameType)
+    }
+
+    func showExtraInfo(_ gameType: Int) {
+
+        if gameType == kGamePortPeril {
+            let alert: NSAlert = NSAlert.init()
+            alert.messageText = "Use the Game menu to gain Yaztromo’s aid when instructed in the game book."
+            alert.beginSheetModal(for: window, completionHandler: nil)
+        }
+
+        if gameType == kGameCavernsSnow {
+            let alert: NSAlert = NSAlert.init()
+            alert.messageText = "Use the Game menu for certain monsters’ extra attacks when instructed in the game book."
+            alert.beginSheetModal(for: window, completionHandler: nil)
+        }
     }
 
 
@@ -2174,6 +2238,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
+    // MARK: NSTextDelegate Functions
+
+    func textDidChange(_ notification: Notification) {
+
+        if gameInProgress { needToSave = true }
+    }
+
     // MARK: Game-specific Functions - Port of Peril
 
     @objc @IBAction func yazMagic(_ sender: Any) {
@@ -2227,6 +2298,71 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         gameMenu.title = "Port of Peril"
     }
 
+    func setCavernsGameMenu() {
+
+        // Set up the Game Menu
+
+        // Set up the Game Menu
+        if let gmm = gameMenu.submenu {
+            if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.addItem(withTitle: "White Dragon Extra Attack", action: #selector(dragonExtraAttack), keyEquivalent: "")
+            gmm.addItem(withTitle: "Ice Demon Extra Attack", action: #selector(demonExtraAttack), keyEquivalent: "")
+            let ym: NSMenuItem? = gmm.item(at: 0)
+            if ym != nil { ym!.isEnabled = true }
+        }
+
+        gameMenu.isEnabled = true
+        gameMenu.isHidden = false
+        gameMenu.title = "Caverns of the Snow Witch"
+    }
+
+    @objc func dragonExtraAttack() {
+
+        // White dragon does +2 damage on roll of 1-2
+        if !gameInProgress { return }
+
+        let roll: Int = Int(arc4random_uniform(6)) + 1
+
+        if roll < 3 {
+            if player != nil {
+                player!.stamina = player!.stamina - 2
+                if player!.stamina < 0 { player!.stamina = 0 }
+                showExtraAttackResult("White Dragon", 2)
+            }
+        } else {
+            showExtraAttackResult("White Dragon", 0)
+        }
+    }
+
+    @objc func demonExtraAttack() {
+
+        // Ice Demon does +1 damage on roll of 1-3
+        if !gameInProgress { return }
+
+        let roll: Int = Int(arc4random_uniform(6)) + 1
+
+        if roll < 4 {
+            if player != nil {
+                player!.stamina = player!.stamina - 1
+                if player!.stamina < 0 { player!.stamina = 0 }
+                showExtraAttackResult("White Dragon", 1)
+            }
+        } else {
+            showExtraAttackResult("White Dragon", 0)
+        }
+    }
+
+    func showExtraAttackResult(_ beast: String, _ damage: Int) {
+
+        let alert: NSAlert = NSAlert.init()
+        alert.messageText = "The \(beast) attempts an extra strike... " + (damage > 0 ? "Doing \(damage) damage!" : "But misses you!")
+
+        alert.beginSheetModal(for: window, completionHandler: { (modalResponse) in
+
+            self.combatReadoutThree.stringValue = "Your Stamina is \(self.player!.stamina). Your Luck is \(self.player!.luck)"
+            self.updateStats()
+        })
+    }
 }
 
 
