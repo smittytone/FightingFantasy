@@ -227,17 +227,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_net"))
         icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_whip"))
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_axe"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_bow"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_quiver"))
         icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_hammer"))
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_dagger"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_mace"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_spear"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_sling"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_shield"))
         icons.add(image!)
@@ -247,11 +253,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_boots"))
         icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_candle"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_horn"))
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_sack"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_bell"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_mirror"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_glass"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_scroll"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_book"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_staff"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_potion"))
         icons.add(image!)
@@ -260,6 +278,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_capsule"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_flute"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_whistle"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_eye"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_hand"))
         icons.add(image!)
@@ -275,11 +297,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_key"))
         icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_pendant"))
+        icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_chest"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_amulet"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_orb"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_bracelet"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_stone"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_bottle"))
         icons.add(image!)
@@ -291,6 +319,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_fungus"))
         icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_salt"))
+        icons.add(image!)
 
         // House of Hell specific icons
         image = NSImage.init(named: NSImage.Name("icon_gun"))
@@ -298,6 +328,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_torch"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_box"))
+        icons.add(image!)
+        image = NSImage.init(named: NSImage.Name("icon_bucket"))
         icons.add(image!)
         image = NSImage.init(named: NSImage.Name("icon_flask"))
         icons.add(image!)
@@ -332,16 +364,19 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         packTable.target = self
         //packTable.doubleAction = #selector(tableViewDoubleClick(_:))
 
-        // Select the first tab
-        tabs.selectFirstTabViewItem(self)
-        window.center()
-
         // Set up notifications - used when the player selects a pack icon from the popover
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(updatePack), name: NSNotification.Name(rawValue: "set.pack.item.index"), object: nil)
 
         // Set up the UI - if we haven't already done so by double-clicking on a .ffc file
         if !doubleClickFileLoad { initUI() }
+
+        // Select the first tab
+        tabs.selectFirstTabViewItem(self)
+
+        // Centre the window, then make it appear
+        window.center()
+        window.makeKeyAndOrderFront(self)
 
         // Are we starting a new game? May not be if the player double-clicked a saved file
         if !gameInProgress { showPlayerCreate() }

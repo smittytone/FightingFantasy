@@ -487,7 +487,7 @@
             </items>
             <point key="canvasLocation" x="112" y="-124"/>
         </menu>
-        <window title="FightingFantasy" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="FightingFantasy" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="600"/>
@@ -514,7 +514,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aiV-az-l0B">
-                                                        <rect key="frame" x="18" y="72" width="78" height="17"/>
+                                                        <rect key="frame" x="18" y="75" width="78" height="17"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Skill" id="jnv-yB-sxn">
                                                             <font key="font" metaFont="systemBold"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -522,7 +522,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q9h-ZP-3kq">
-                                                        <rect key="frame" x="43" y="9" width="76" height="55"/>
+                                                        <rect key="frame" x="43" y="12" width="76" height="55"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="72" id="j6R-XO-8xS"/>
                                                         </constraints>
@@ -533,7 +533,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hSu-cj-jRG">
-                                                        <rect key="frame" x="181" y="72" width="57" height="17"/>
+                                                        <rect key="frame" x="181" y="75" width="57" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="53" id="X9P-1y-AeR"/>
                                                         </constraints>
@@ -544,14 +544,14 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y97-OV-QLl">
-                                                        <rect key="frame" x="149" y="27" width="19" height="27"/>
+                                                        <rect key="frame" x="149" y="26" width="19" height="27"/>
                                                         <stepperCell key="cell" alignment="left" minValue="-1" maxValue="1" autorepeat="NO" id="yf0-z9-fr6"/>
                                                         <connections>
                                                             <action selector="adjustStamina:" target="Voe-Tx-rLC" id="5WW-PX-2yk"/>
                                                         </connections>
                                                     </stepper>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wAx-GN-lLo">
-                                                        <rect key="frame" x="171" y="9" width="76" height="55"/>
+                                                        <rect key="frame" x="171" y="12" width="76" height="55"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" id="nml-02-p8C">
                                                             <font key="font" metaFont="system" size="46"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -559,7 +559,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xT1-AQ-Gna">
-                                                        <rect key="frame" x="322" y="72" width="78" height="17"/>
+                                                        <rect key="frame" x="322" y="75" width="78" height="17"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Luck" id="3vO-JN-Eyc">
                                                             <font key="font" metaFont="systemBold"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -567,25 +567,25 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UwK-1d-iHu">
-                                                        <rect key="frame" x="302" y="9" width="76" height="55"/>
+                                                        <rect key="frame" x="302" y="12" width="76" height="55"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" id="IfU-P3-gRx">
                                                             <font key="font" metaFont="system" size="46"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-CT-IjY">
-                                                        <rect key="frame" x="280" y="27" width="19" height="27"/>
-                                                        <stepperCell key="cell" alignment="left" minValue="-1" maxValue="1" autorepeat="NO" id="i4p-Xy-vlE"/>
-                                                        <connections>
-                                                            <action selector="adjustLuck:" target="Voe-Tx-rLC" id="4hf-GM-fyL"/>
-                                                        </connections>
-                                                    </stepper>
                                                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1cT-CK-8U1">
-                                                        <rect key="frame" x="21" y="27" width="19" height="27"/>
+                                                        <rect key="frame" x="21" y="26" width="19" height="27"/>
                                                         <stepperCell key="cell" alignment="left" minValue="-1" maxValue="1" autorepeat="NO" id="3YL-Kq-GkR"/>
                                                         <connections>
                                                             <action selector="adjustSkill:" target="Voe-Tx-rLC" id="umI-47-htw"/>
+                                                        </connections>
+                                                    </stepper>
+                                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-CT-IjY">
+                                                        <rect key="frame" x="280" y="26" width="19" height="27"/>
+                                                        <stepperCell key="cell" alignment="left" minValue="-1" maxValue="1" autorepeat="NO" id="i4p-Xy-vlE"/>
+                                                        <connections>
+                                                            <action selector="adjustLuck:" target="Voe-Tx-rLC" id="4hf-GM-fyL"/>
                                                         </connections>
                                                     </stepper>
                                                 </subviews>
@@ -606,8 +606,8 @@
                                                     <constraint firstItem="UwK-1d-iHu" firstAttribute="leading" secondItem="i2L-CT-IjY" secondAttribute="trailing" constant="8" symbolic="YES" id="cuq-yO-qbH"/>
                                                     <constraint firstItem="hSu-cj-jRG" firstAttribute="baseline" secondItem="xT1-AQ-Gna" secondAttribute="baseline" id="eH0-c1-nlC"/>
                                                     <constraint firstItem="q9h-ZP-3kq" firstAttribute="leading" secondItem="1cT-CK-8U1" secondAttribute="trailing" constant="8" symbolic="YES" id="g8W-Vy-Hyj"/>
-                                                    <constraint firstItem="1cT-CK-8U1" firstAttribute="top" secondItem="aiV-az-l0B" secondAttribute="bottom" constant="20" id="hng-Ss-02J"/>
-                                                    <constraint firstItem="aiV-az-l0B" firstAttribute="top" secondItem="Nkv-Ci-rea" secondAttribute="top" constant="14" id="iSV-Md-nU4"/>
+                                                    <constraint firstItem="1cT-CK-8U1" firstAttribute="top" secondItem="aiV-az-l0B" secondAttribute="bottom" constant="24" id="hng-Ss-02J"/>
+                                                    <constraint firstItem="aiV-az-l0B" firstAttribute="top" secondItem="Nkv-Ci-rea" secondAttribute="top" constant="11" id="iSV-Md-nU4"/>
                                                     <constraint firstItem="1cT-CK-8U1" firstAttribute="leading" secondItem="Nkv-Ci-rea" secondAttribute="leading" constant="24" id="iiO-oP-5hl"/>
                                                     <constraint firstItem="aiV-az-l0B" firstAttribute="baseline" secondItem="hSu-cj-jRG" secondAttribute="baseline" id="tts-jT-uqv"/>
                                                     <constraint firstItem="1cT-CK-8U1" firstAttribute="top" secondItem="y97-OV-QLl" secondAttribute="top" id="vcv-1R-WWB"/>
@@ -617,7 +617,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="116" id="OqM-IL-h1M"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Potions and Provisions" translatesAutoresizingMaskIntoConstraints="NO" id="IR3-Zo-ek2">
                                             <rect key="frame" x="6" y="291" width="422" height="110"/>
@@ -709,7 +708,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="106" id="eEq-Jf-M20"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Treasure" translatesAutoresizingMaskIntoConstraints="NO" id="62R-mc-QJC">
                                             <rect key="frame" x="6" y="207" width="422" height="80"/>
@@ -760,7 +758,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="76" id="enL-vM-in1"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-8F-VmQ">
                                             <rect key="frame" x="9" y="138" width="416" height="65"/>
@@ -834,7 +831,6 @@
                                                 <constraint firstAttribute="height" constant="116" id="ppH-Go-Q8o"/>
                                                 <constraint firstAttribute="width" constant="261" id="tpy-Um-01s"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Citadel of Chaos" translatesAutoresizingMaskIntoConstraints="NO" id="3Mt-NT-uJ5">
                                             <rect key="frame" x="6" y="10" width="146" height="120"/>
@@ -871,7 +867,6 @@
                                                 <constraint firstAttribute="width" constant="140" id="ZQv-VQ-XVz"/>
                                                 <constraint firstAttribute="height" constant="116" id="nS5-eZ-qm2"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -1189,7 +1184,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="215" id="ENV-Fu-dUx"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box title="Bonuses and Penalties" translatesAutoresizingMaskIntoConstraints="NO" id="exA-ee-WUr">
                                             <rect key="frame" x="6" y="198" width="422" height="104"/>
@@ -1332,7 +1326,6 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="9a8-HJ-utU"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5dP-bZ-pLe">
                                             <rect key="frame" x="7" y="174" width="420" height="17"/>
@@ -1678,7 +1671,7 @@ DQ
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
@@ -2112,7 +2105,6 @@ DQ
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="394" id="gCh-ka-a03"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <box autoresizesSubviews="NO" borderType="line" title="Temple of Terror Magic Spells" translatesAutoresizingMaskIntoConstraints="NO" id="IcQ-oc-eKj">
                                             <rect key="frame" x="6" y="10" width="422" height="113"/>
@@ -2292,7 +2284,6 @@ DQ
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="109" id="1LJ-57-vJ8"/>
                                             </constraints>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -2314,7 +2305,7 @@ DQ
                                             <rect key="frame" x="4" y="-3" width="426" height="530"/>
                                             <clipView key="contentView" id="Wmm-rp-wkK">
                                                 <rect key="frame" x="0.0" y="0.0" width="426" height="530"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <textView importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" quoteSubstitution="YES" dashSubstitution="YES" id="FJO-tP-qkY">
                                                         <rect key="frame" x="0.0" y="0.0" width="426" height="530"/>
@@ -2515,7 +2506,6 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="123" id="9a9-IW-Vki"/>
                         </constraints>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="WB1-pY-oMa">
                         <rect key="frame" x="17" y="204" width="426" height="126"/>
@@ -2625,7 +2615,6 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="120" id="M2b-QR-kgY"/>
                         </constraints>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Caj-ik-lgg">
                         <rect key="frame" x="17" y="57" width="426" height="141"/>
@@ -2739,7 +2728,6 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="135" id="XuZ-Lu-sjX"/>
                         </constraints>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h6j-LC-XkZ">
                         <rect key="frame" x="387" y="13" width="59" height="32"/>
@@ -2900,14 +2888,14 @@ DQ
             </connections>
         </popover>
         <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="B4c-2k-Wvc">
-            <rect key="frame" x="0.0" y="0.0" width="278" height="208"/>
+            <rect key="frame" x="0.0" y="0.0" width="278" height="276"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
-                <rect key="frame" x="1" y="1" width="276" height="206"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <rect key="frame" x="1" y="1" width="276" height="274"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
-                        <rect key="frame" x="0.0" y="0.0" width="276" height="206"/>
+                        <rect key="frame" x="0.0" y="0.0" width="276" height="274"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="rN9-mo-Xtc">
                             <size key="itemSize" width="32" height="32"/>
