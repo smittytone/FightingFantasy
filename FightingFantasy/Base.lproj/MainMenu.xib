@@ -187,7 +187,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem title="Show/Hide Bookmark" keyEquivalent="B" id="QnM-6u-eou">
-                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showBookmark:" target="Voe-Tx-rLC" id="MDZ-Rr-gMI"/>
                                 </connections>
@@ -1670,7 +1669,7 @@ DQ
                                             <rect key="frame" x="17" y="31" width="400" height="496"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="494"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
@@ -2843,7 +2842,7 @@ DQ
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
                 <rect key="frame" x="1" y="1" width="276" height="206"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
                         <rect key="frame" x="0.0" y="0.0" width="276" height="206"/>
