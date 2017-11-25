@@ -92,7 +92,11 @@
                 <outlet property="skillField" destination="0R9-Hw-pFa" id="uas-da-QKK"/>
                 <outlet property="skillStepper" destination="1cT-CK-8U1" id="rfv-0a-3oW"/>
                 <outlet property="skillValue" destination="q9h-ZP-3kq" id="c3p-e8-afD"/>
+                <outlet property="spellFourPopup" destination="8JE-yq-p2f" id="nMB-Ic-mwx"/>
                 <outlet property="spellOnePopup" destination="fxU-Rg-fBF" id="H52-JS-8tp"/>
+                <outlet property="spellThreePopup" destination="u4c-Bm-1SM" id="yMW-Of-7hu"/>
+                <outlet property="spellTwoPopup" destination="ikh-2p-Pht" id="SIb-Eb-okr"/>
+                <outlet property="splashWindow" destination="SeV-0M-C0q" id="Ch5-Ya-M9b"/>
                 <outlet property="staminaCell" destination="P2S-Ef-EmM" id="ebp-Qg-z8h"/>
                 <outlet property="staminaField" destination="Rbq-3H-57P" id="sny-fL-bVr"/>
                 <outlet property="staminaStepper" destination="y97-OV-QLl" id="lAl-Ug-esN"/>
@@ -1316,15 +1320,14 @@ DQ
                                     <rect key="frame" x="10" y="33" width="434" height="530"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="7rv-Xf-HR0">
-                                            <rect key="frame" x="17" y="24" width="400" height="496"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <clipView key="contentView" ambiguous="YES" id="nV5-Ea-Vfg">
-                                                <rect key="frame" x="1" y="1" width="398" height="494"/>
+                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="7rv-Xf-HR0">
+                                            <rect key="frame" x="17" y="49" width="400" height="471"/>
+                                            <clipView key="contentView" id="nV5-Ea-Vfg">
+                                                <rect key="frame" x="1" y="1" width="398" height="469"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" viewBased="YES" id="6yi-V8-ZeC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="494"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="469"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1382,6 +1385,9 @@ DQ
                                                     </tableView>
                                                 </subviews>
                                             </clipView>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="471" id="zcn-lQ-pqf"/>
+                                            </constraints>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="9hh-uS-J8U">
                                                 <rect key="frame" x="-100" y="-100" width="0.0" height="15"/>
                                                 <autoresizingMask key="autoresizingMask"/>
@@ -1391,9 +1397,12 @@ DQ
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MxC-mJ-hIQ">
-                                            <rect key="frame" x="329" y="-10" width="94" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MxC-mJ-hIQ">
+                                            <rect key="frame" x="329" y="1" width="94" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="GOy-I2-Cxj"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="82" id="zHy-2k-d6T"/>
+                                            </constraints>
                                             <buttonCell key="cell" type="push" title="Use Item" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kLP-F5-Kdp">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1404,9 +1413,12 @@ DQ
                                                 <action selector="usePackItem:" target="Voe-Tx-rLC" id="S3Q-Ki-aQ3"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0PC-rd-aSC">
-                                            <rect key="frame" x="11" y="-10" width="95" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0PC-rd-aSC">
+                                            <rect key="frame" x="11" y="1" width="95" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="83" id="CNS-jT-R1Z"/>
+                                                <constraint firstAttribute="height" constant="21" id="xLW-vS-Coo"/>
+                                            </constraints>
                                             <buttonCell key="cell" type="push" title="Add Item" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wja-wR-vzC">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1418,6 +1430,17 @@ DQ
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="0PC-rd-aSC" firstAttribute="leading" secondItem="dfy-Ic-wQW" secondAttribute="leading" constant="17" id="9Lb-g4-C1F"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0PC-rd-aSC" secondAttribute="trailing" constant="20" symbolic="YES" id="TSu-5b-26c"/>
+                                        <constraint firstAttribute="trailing" secondItem="7rv-Xf-HR0" secondAttribute="trailing" constant="17" id="bbF-K4-sZf"/>
+                                        <constraint firstItem="7rv-Xf-HR0" firstAttribute="leading" secondItem="dfy-Ic-wQW" secondAttribute="leading" constant="17" id="fDV-e1-zbG"/>
+                                        <constraint firstAttribute="bottom" secondItem="0PC-rd-aSC" secondAttribute="bottom" constant="8" id="kZ4-Xz-jPz"/>
+                                        <constraint firstAttribute="bottom" secondItem="MxC-mJ-hIQ" secondAttribute="bottom" constant="8" id="mua-NQ-mjY"/>
+                                        <constraint firstItem="7rv-Xf-HR0" firstAttribute="top" secondItem="dfy-Ic-wQW" secondAttribute="top" constant="10" id="pT2-Ze-OBv"/>
+                                        <constraint firstAttribute="trailing" secondItem="MxC-mJ-hIQ" secondAttribute="trailing" constant="17" id="xzG-uD-nvr"/>
+                                        <constraint firstItem="MxC-mJ-hIQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dfy-Ic-wQW" secondAttribute="leading" constant="20" symbolic="YES" id="zUx-ER-WEq"/>
+                                    </constraints>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Magic" identifier="" id="C8h-aa-xEe">
@@ -1855,14 +1878,13 @@ DQ
                                     <rect key="frame" x="10" y="33" width="434" height="530"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="VoZ-kB-Avo">
+                                        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="VoZ-kB-Avo">
                                             <rect key="frame" x="4" y="-3" width="426" height="530"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <clipView key="contentView" ambiguous="YES" id="Wmm-rp-wkK">
+                                            <clipView key="contentView" id="Wmm-rp-wkK">
                                                 <rect key="frame" x="0.0" y="0.0" width="426" height="530"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textView ambiguous="YES" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" quoteSubstitution="YES" dashSubstitution="YES" id="FJO-tP-qkY">
+                                                    <textView importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" quoteSubstitution="YES" dashSubstitution="YES" id="FJO-tP-qkY">
                                                         <rect key="frame" x="0.0" y="0.0" width="426" height="530"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" red="0.89011114840000005" green="0.89025741820000004" blue="0.89008003469999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1891,6 +1913,12 @@ DQ
                                             </scroller>
                                         </scrollView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="VoZ-kB-Avo" firstAttribute="top" secondItem="XnX-0m-MH5" secondAttribute="top" constant="3" id="1uE-yh-I8E"/>
+                                        <constraint firstAttribute="bottom" secondItem="VoZ-kB-Avo" secondAttribute="bottom" constant="-3" id="GcP-Ul-PU2"/>
+                                        <constraint firstAttribute="trailing" secondItem="VoZ-kB-Avo" secondAttribute="trailing" constant="4" id="VPs-Io-5lX"/>
+                                        <constraint firstItem="VoZ-kB-Avo" firstAttribute="leading" secondItem="XnX-0m-MH5" secondAttribute="leading" constant="4" id="jpy-SH-I3R"/>
+                                    </constraints>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
@@ -2398,12 +2426,12 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ecx-07-B0n">
-                        <rect key="frame" x="166" y="72" width="128" height="128"/>
+                        <rect key="frame" x="-10" y="72" width="480" height="128"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="128" id="ALd-Uf-LQD"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="K0B-DE-pyn"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ff_logo" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="VPq-EB-PUj">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ff_logo_lg" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="VPq-EB-PUj">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -2556,7 +2584,7 @@ DQ
                         <rect key="frame" x="5" y="61" width="450" height="528"/>
                         <clipView key="contentView" drawsBackground="NO" id="bhV-tb-b2H">
                             <rect key="frame" x="0.0" y="0.0" width="450" height="528"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" quoteSubstitution="YES" dashSubstitution="YES" textCompletion="NO" id="J9v-3s-gTH">
                                     <rect key="frame" x="0.0" y="-1" width="450" height="528"/>
@@ -2801,12 +2829,31 @@ Gw
             </subviews>
             <point key="canvasLocation" x="711" y="-191"/>
         </customView>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SeV-0M-C0q">
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="131" y="158" width="480" height="480"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="480" height="480"/>
+            <value key="maxSize" type="size" width="480" height="480"/>
+            <view key="contentView" id="Z2x-5M-WuY">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pro-8F-SKL">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ff_logo_lg" id="Rgl-QD-p9g"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="39" y="-125"/>
+        </window>
     </objects>
     <resources>
         <image name="bookmark" width="46" height="60"/>
         <image name="button_blue" width="12" height="12"/>
         <image name="death_banner" width="460" height="588"/>
-        <image name="ff_logo" width="128" height="128"/>
+        <image name="ff_logo_lg" width="480" height="480"/>
         <image name="icon_sword" width="32" height="32"/>
         <image name="one" width="96" height="96"/>
         <image name="sword" width="416" height="126"/>
