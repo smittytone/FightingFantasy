@@ -12,6 +12,8 @@ import Cocoa
 class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTableViewDataSource,
                     NSTextFieldDelegate, NSPopoverDelegate, NSTabViewDelegate, NSTextViewDelegate {
 
+    @IBOutlet weak var splashWindow: NSWindow!
+    
     @IBOutlet weak var menuBar: NSMenu!
     @IBOutlet weak var gameMenu: NSMenuItem!
     @IBOutlet weak var fileMenu: NSMenu!
@@ -187,9 +189,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     var bookmarkViewController: NSTitlebarAccessoryViewController = NSTitlebarAccessoryViewController.init()
 
-    // MARK: App Lifecycle Functions
+    // MARK: - App Lifecycle Functions
 
     func applicationWillFinishLaunching(_ notification: Notification) {
+
+        // Show the splash screen
+        splashWindow.center()
+        splashWindow.backgroundColor = NSColor.clear
+        splashWindow.alphaValue = 1.0
+        splashWindow.isOpaque = true
+        splashWindow.hasShadow = true;
+        splashWindow.makeKeyAndOrderFront(self)
 
         // Load up the images here so that they're present if the user double clicks on
         // a .ffc file - which will be loaded BEFORE applicationDidFinishLoading() is called
@@ -342,37 +352,71 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         image = NSImage.init(named: NSImage.Name("icon_generic"))
         icons.add(image!)
 
-        // Setup File Menu
+        // Set up the File menu
         fileMenu.autoenablesItems = false
         showBookmarkMenuItem.title = "Show Bookmark"
         showBookmarkMenuItem.isEnabled = false
+
+        // Set up the Game menu
+        gameMenu.isHidden = true
 
         // Set up accessory controller for titlebar
         bookmarkViewController.view = bookmarkButtonView
         bookmarkViewController.layoutAttribute = .right
         self.window?.addTitlebarAccessoryViewController(bookmarkViewController)
-    }
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-
-        // Hide the bookmark and the Game menu
         bookmark.isHidden = true
         bookmarkButtonButton.bookmarkState = false
-        gameMenu.isHidden = true
 
         // Set up pack table view
         packTable.target = self
         //packTable.doubleAction = #selector(tableViewDoubleClick(_:))
+    }
+
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+
+        // NOTE This is called after applicationWillFinish: and before applicationDidFinish:
+
+        // Set appropriate flags
+        // NOTE We set 'gameInProgress' to true here to avoid
+        // rolling out the New Character sheet in start()
+        doubleClickFileLoad = true
+        gameInProgress = true
+
+        // Prep the UI
+        start()
+
+        // Load in the double-clicked file
+        return self.openFileHander(filename)
+    }
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Set up notifications - used when the player selects a pack icon from the popover
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(updatePack), name: NSNotification.Name(rawValue: "set.pack.item.index"), object: nil)
 
-        // Set up the UI - if we haven't already done so by double-clicking on a .ffc file
-        if !doubleClickFileLoad { initUI() }
-
         // Select the first tab
         tabs.selectFirstTabViewItem(self)
+
+        // Close the splash window and exit if we're coming from a file-load
+        if doubleClickFileLoad {
+            doubleClickFileLoad = false
+            return
+        }
+
+        // If we're not here from a file load, show the splash for four seconds
+        let _: Timer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false) { (timer) in
+            self.start()
+        }
+    }
+
+    @objc func start() {
+
+        // Refresh the UI
+        initUI()
+
+        // Close the splash window
+        splashWindow.close()
 
         // Centre the window, then make it appear
         window.center()
@@ -382,13 +426,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !gameInProgress { showPlayerCreate() }
     }
 
-    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-
-        initUI()
-        doubleClickFileLoad = true
-        return self.openFileHander(filename)
-    }
-
     func applicationWillTerminate(_ aNotification: Notification) {
 
 		// Insert code here to tear down your application
@@ -396,8 +433,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
 
+        // Do we need to save the current character before quitting?
         if gameInProgress && needToSave && player != nil {
-            // Haven't saved previous (non-dead) character so should give opportunity to save
             let alert = NSAlert.init()
             alert.messageText = "You have a game in progress with unsaved changes"
             alert.informativeText = "If you quit now, unsaved changes will be lost"
@@ -422,17 +459,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         return true
     }
 
-    /*
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    // MARK: - UI Initialization Functions
 
-        // Deal with the Save Character menu, which should be disabled if there are
-        // no changes to save (all other menus operate either way)
-        if menuItem.title == "Save Character" { return needToSave }
-
-        return super.validateMenuItem(menuItem)
-    }
-     */
-    
     func initUI() {
 
         // Set the UI to its default state
@@ -648,7 +676,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-    // MARK: Stats Tab Functions
+    // MARK: - Stats Tab Functions
 
     @IBAction func adjustSkill(_ sender: Any) {
 
@@ -817,7 +845,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-    // MARK: Combat Tab Functions
+    // MARK: - Combat Tab Functions
 
     @IBAction func setTarget(_ sender: Any) {
 
@@ -1104,7 +1132,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         combatReadoutThree.stringValue = "Your Stamina is \(player!.stamina). Your Luck is \(player!.luck)"
     }
 
-    // MARK: Test Tab Functions
+    // MARK: - Test Tab Functions
 
     @IBAction func testLuck(_ sender: Any) {
 
@@ -1170,7 +1198,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-    // MARK: Pack Tab Functions
+    // MARK: - Pack Tab Functions
 
     @objc @IBAction func showIcons(_ sender: Any) {
 
@@ -1200,8 +1228,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func addPackItem(_ sender: Any) {
 
-		// The player has entered an item in the add pack field and click the '+' button
-
+		// The player has entered an item in the add pack field and click the Add button
 		if let zplayer = player {
             let itemName = "New pack item"
 			let item: [String:Any] = [ "name" : itemName,
@@ -1269,7 +1296,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             }
         }
     }
-
 
     // MARK: Pack Table Data Source Delegate Functions
 
@@ -1346,8 +1372,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-
-    // MARK: Magic Tab Functions
+    // MARK: - Magic Tab Functions
 
     @IBAction func castSpell(_ sender: Any) {
 
@@ -1498,7 +1523,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         })
     }
 
-    // MARK: Bookmarking
+    // MARK: - Bookmarking Functions
 
     @IBAction func showBookmark(_ sender: Any) {
 
@@ -1560,8 +1585,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         window.endSheet(bookmarkWindow)
     }
 
-
-    // MARK: Player Management Functions
+    // MARK: - Player Management Functions
 
     func playerDead() {
 
@@ -1622,8 +1646,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         initUI()
     }
 
-
-    // MARK: Player Save/Load Functions
+    // MARK: - Player Save/Load Functions
 
     @IBAction func savePlayer(_ sender: Any) {
 
@@ -1896,7 +1919,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         initUI()
     }
 
-    // MARK: Player Creation Functions
+    // MARK: - Player Creation Functions
 
     @IBAction func newPlayer(_ sender: Any) {
 
@@ -2244,23 +2267,37 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-
-    // MARK: About Sheet Functions
+    // MARK: - About Sheet Functions
 
     @IBAction func showAbout(_ sender: Any) {
 
         // Write in the version number into the About panel
         aboutVersonLabel.stringValue = "v" + (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
-        window.beginSheet(aboutSheet, completionHandler:nil)
+
+        // Attach the sheet to the main window - or, if the main window already
+        // has a sheet, attach it to that sheet
+        if window.sheets.count > 0 {
+            let sheet = window.sheets[0]
+            sheet.beginSheet(aboutSheet, completionHandler: nil)
+        } else {
+            window.beginSheet(aboutSheet, completionHandler:nil)
+        }
     }
 
     @IBAction func closeAbout(_ sender: Any) {
 
-        window.endSheet(aboutSheet)
+        // Check whether the About sheet is attached to the window
+        // or another sheet, eg. New Character
+        if window.sheets.count > 0 {
+            let sheet = window.sheets[0]
+            sheet.endSheet(aboutSheet)
+        } else {
+            window.endSheet(aboutSheet)
+        }
     }
 
 
-    // MARK: Help Sheet Functions
+    // MARK: - Help Sheet Functions
 
     @IBAction func showHelp(_ sender: Any) {
 
@@ -2272,7 +2309,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 helpTextView.insertText(helpText, replacementRange: NSMakeRange(0, helpTextView.string.count))
                 helpTextView.scrollToBeginningOfDocument(self)
                 helpTextView.isEditable = false
-                window.beginSheet(helpWindow, completionHandler: nil)
+
+                // Attach the sheet to the main window - or, if the main window already
+                // has a sheet, attach it to that sheet
+                if window.sheets.count > 0 {
+                    let sheet = window.sheets[0]
+                    sheet.beginSheet(helpWindow, completionHandler: nil)
+                } else {
+                    window.beginSheet(helpWindow, completionHandler: nil)
+                }
             } catch  {
                 // NOP
             }
@@ -2281,7 +2326,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func closeHelp(_ sender: Any) {
 
-        window.endSheet(helpWindow)
+        // Check whether the Help sheet is attached to the window
+        // or another sheet, eg. New Characterif window.sheets.count > 0 {
+        if window.sheets.count > 0 {
+            let sheet = window.sheets[0]
+            sheet.endSheet(helpWindow)
+        } else {
+            window.endSheet(helpWindow)
+        }
     }
 
     @IBAction func openSite(_ sender: Any) {
@@ -2292,7 +2344,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-    // MARK: TabView Delegate Functions
+    // MARK: - TabView Delegate Functions
 
     func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
 
@@ -2313,16 +2365,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-
-    // MARK: NSTextDelegate Functions
+    // MARK: - NSTextDelegate Functions
 
     func textDidChange(_ notification: Notification) {
 
         if gameInProgress { needToSave = true }
     }
 
-
-    // MARK: Game-specific Functions - Port of Peril
+    // MARK: - Game-specific Functions
+    // MARK: Port of Peril
 
     @objc @IBAction func yazMagic(_ sender: Any) {
 
@@ -2376,6 +2427,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         gameMenu.isHidden = false
         gameMenu.title = "Port of Peril"
     }
+
+    // MARK: Caverns of the Snow Witch
 
     func setCavernsGameMenu() {
 
