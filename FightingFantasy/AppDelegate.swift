@@ -477,11 +477,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         hellBox.isHidden = true
         citadelBox.isHidden = true
 
-        // Remove any images
-        if statsTabImage != nil {
-            statsTabImage!.removeFromSuperview()
-            statsTabImage = nil
-        }
+        let image: NSImageView = NSImageView.init(frame: NSMakeRect(10, 56, 416, 85))
+        image.image = NSImage.init(named: NSImage.Name("scroll"))
+        statsTabView.addSubview(image)
+        statsTabImage = image
     }
 
     func initUICombat() {
@@ -647,9 +646,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 }
             }
         }
-
-        // Mark the window's red close button if the are changes to save
-        //window.isDocumentEdited = needToSave
     }
 
     // MARK: Stats Tab Functions
@@ -1458,12 +1454,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // This routine is called when the user types in a number into a magic spell Uses field.
         // It adds up all the points entered thus far to make sure they don't exceed the Magic value.
+        // NOTE Also called when it has focus and the tab shifts
 
         if let zplayer = player {
 
             if zplayer.gamekind != kGameCitadel {
                 // Not a Citadel of Chaos game? Then ignore click
-                showAlert("This section is only for Citadel of Chaos games", "", false)
+                if let asender = (sender as? NSTextField) {
+                    if asender.stringValue.count > 0 {
+                        asender.stringValue = ""
+                    }
+                }
                 return
             }
 
@@ -1957,6 +1958,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func setItemsForGame(_ sender: Any) {
 
+        // Pre-fill certain fields in the New Character panel according
+        // to the type of game selected to save the player adding it in
         var type = startGamePopup.indexOfSelectedItem;
         if type > 13 { type = type + 5 }
 
@@ -2026,6 +2029,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameType == kGameDeathtrap { player!.gameName = "Deathtrap Dungeon" }
         if gameType == kGameCityThieves { player!.gameName = "City of Thieves" }
 
+        // Manage the Magic tab — it's only present for certain games
         if gameType != kGameCitadel && gameType != kGameTempleTerror {
             // Remove the Magic tab for all but Citadel of Chaos and Temple of Terror
             heldTabs["magicTabItem"] = magicTabItem!
@@ -2035,14 +2039,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if !tabs.tabViewItems.contains(magicTabItem) { tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: 4) }
         }
 
+        // Remove any previously placed images from the Stats tab
         if statsTabImage != nil {
             statsTabImage!.removeFromSuperview()
             statsTabImage = nil
         }
 
+        // Hide the game menu
         self.gameMenu.isHidden = true
         self.gameMenu.isEnabled = false
 
+        // Hide the game-specific Stats tab boxes
         citadelBox.isHidden = true
         hellBox.isHidden = true
 
@@ -2055,18 +2062,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.gameName = "Citadel of Chaos"
             citadelBox.isHidden = false
 
-            // Place an image in the gap to the left
-            let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 14, 258, 102))
-            image.image = NSImage.init(named: NSImage.Name("coc"))
+            // Place an image in the gap to the right of the stats panel
+            let image: NSImageView = NSImageView.init(frame: NSMakeRect(166, 78, 258, 102))
+            let pic = NSImage.init(named: NSImage.Name("coc"))
+            image.image = pic
             statsTabView.addSubview(image)
             statsTabImage = image
 
             magicSpellsValue.stringValue = "\(player!.magic)"
-        }
-
-        if gameType == kGameForestDoom {
-            player!.gold = 30
-            player!.gameName = "Forest of Doom"
         }
 
         if gameType == kGameHouseHell {
@@ -2081,11 +2084,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.gameName = "House of Hell"
             hellBox.isHidden = false
 
-            // Place an image in the gap to the left
-            let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 102))
+            // Place an image in the gap to the left of the stats pnel
+            let image: NSImageView = NSImageView.init(frame: NSMakeRect(12, 78, 146, 102))
             image.image = NSImage.init(named: NSImage.Name("hoh"))
             statsTabView.addSubview(image)
             statsTabImage = image
+        }
+
+        if gameType != kGameHouseHell && gameType != kGameCitadel {
+            let image: NSImageView = NSImageView.init(frame: NSMakeRect(10, 56, 416, 85))
+            image.image = NSImage.init(named: NSImage.Name("scroll"))
+            statsTabView.addSubview(image)
+            statsTabImage = image
+        }
+
+        if gameType == kGameForestDoom {
+            player!.gold = 30
+            player!.gameName = "Forest of Doom"
         }
 
         if gameType == kGameCavernsSnow {
@@ -2189,17 +2204,21 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Update the window with the game name
         window.title = player!.gameName
 
+        // Set the bookmark state
         bookmark.isHidden = true
         bookmarkButtonButton.bookmarkState = false
 
         // Close the sheet
         window.endSheet(createSheet)
 
+        // Pop up game-specific info
         showExtraInfo(gameType)
     }
 
     func showExtraInfo(_ gameType: Int) {
 
+        // Present alerts containing useful info for specific game types,
+        // immediately before play actually begins
         if gameType == kGamePortPeril {
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Use the Game menu to gain Yaztromo’s aid when instructed in the game book."
@@ -2211,6 +2230,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             alert.messageText = "Use the Game menu for certain monsters’ extra attacks when instructed in the game book."
             alert.beginSheetModal(for: window, completionHandler: nil)
         }
+
+        if gameType == kGameTempleTerror || gameType == kGameCitadel {
+            let alert: NSAlert = NSAlert.init()
+            alert.messageText = "Dont’t forget to selet your magic spells in the Magic tab."
+            alert.beginSheetModal(for: window, completionHandler: nil)
+        }
+
+        if gameType == kGameHouseHell {
+            let alert: NSAlert = NSAlert.init()
+            alert.messageText = "Don’t forget you start the game with reduced Skill — take care!"
+            alert.beginSheetModal(for: window, completionHandler: nil)
+        }
     }
 
 
@@ -2218,6 +2249,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func showAbout(_ sender: Any) {
 
+        // Write in the version number into the About panel
         aboutVersonLabel.stringValue = "v" + (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
         window.beginSheet(aboutSheet, completionHandler:nil)
     }
@@ -2232,6 +2264,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func showHelp(_ sender: Any) {
 
+        // Read in the helptext.txt file and drop it into the Help panel's NSTextView
         if let helpTextPath = Bundle.main.path(forResource: "helptext", ofType: "txt") {
             do {
                 let helpText = try String.init(contentsOfFile: helpTextPath, encoding: String.Encoding.utf8)
@@ -2251,6 +2284,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         window.endSheet(helpWindow)
     }
 
+    @IBAction func openSite(_ sender: Any) {
+
+        // Open up the Fighting Fantasy website when the logo in the About panel is clicked
+        if let url = URL.init(string: "https://www.fightingfantasy.com/") {
+            NSWorkspace.shared.open(url)
+        }
+    }
 
     // MARK: TabView Delegate Functions
 
@@ -2273,6 +2313,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
+
     // MARK: NSTextDelegate Functions
 
     func textDidChange(_ notification: Notification) {
@@ -2280,15 +2321,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameInProgress { needToSave = true }
     }
 
+
     // MARK: Game-specific Functions - Port of Peril
 
     @objc @IBAction func yazMagic(_ sender: Any) {
 
+        // Only show the Yaztromo aid window if the player is playing Port of Peril
         if let zplayer = player {
-            // Only show the Yaztromo aid window if the player is playing Port of Peril
-            if zplayer.gamekind == kGamePortPeril { window.beginSheet(yazWindow, completionHandler:nil) }
+            if zplayer.gamekind == kGamePortPeril {
+                window.beginSheet(yazWindow, completionHandler:nil)
+            }
         }
-
     }
 
     @IBAction func cancelYazWindow(_ sender: Any) {
@@ -2298,6 +2341,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBAction func applyYazMagic(_ sender: Any) {
 
+        // Enact the improvements made by Yaztromo's magic
         let row = yazMatrix.selectedRow
 
         if let zplayer = player {
@@ -2320,7 +2364,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func setPortPerilGameMenu() {
 
-        // Set up the Game Menu
+        // Set up the Game Menu for Port of Peril
         if let gmm = gameMenu.submenu {
             if (gmm.items.count > 0) { gmm.removeAllItems() }
             gmm.addItem(withTitle: "Take Yaztromo's Aid...", action: #selector(yazMagic), keyEquivalent: "y")
@@ -2335,7 +2379,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func setCavernsGameMenu() {
 
-        // Set up the Game Menu
+        // Set up the Game Menu for Caverns of the Snow Witch
 
         // Set up the Game Menu
         if let gmm = gameMenu.submenu {
