@@ -1,7 +1,9 @@
 
 //  FightingFantasy
 //  Created by Tony Smith on 02/11/2017.
-//  Copyright © 2017 Tony Smith. All rights reserved.
+//  Software © 2017 Tony Smith. All rights reserved.
+//  Software ONLY issued under MIT Licence
+//  Fighting Fantasy © 2016 Steve Jackson and Ian Livingstone
 
 
 import Foundation
