@@ -1837,26 +1837,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.hellBox.isHidden = zplayer.gamekind == kGameHouseHell ? false : true
             self.citadelBox.isHidden = zplayer.gamekind == kGameCitadel ? false : true
 
-            // Handle game-specific images
-            if self.statsTabImage != nil {
-                self.statsTabImage?.removeFromSuperview()
-                self.statsTabImage = nil
-            }
-
-            if zplayer.gamekind == kGameHouseHell {
-                let image: NSImageView = NSImageView.init(frame: NSMakeRect(8, 14, 146, 102))
-                image.image = NSImage.init(named: NSImage.Name("hoh"))
-                self.statsTabView.addSubview(image)
-                self.statsTabImage = image
-            }
-
-            if zplayer.gamekind == kGameCitadel {
-                let image: NSImageView = NSImageView.init(frame: NSMakeRect(161, 14, 258, 102))
-                image.image = NSImage.init(named: NSImage.Name("coc"))
-                self.statsTabView.addSubview(image)
-                self.statsTabImage = image
-            }
-
             // Update the modifiers
             self.testLuckMod.selectItem(at: zplayer.modMatrix[0])
             self.testSkillMod.selectItem(at: zplayer.modMatrix[1])
@@ -1864,11 +1844,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.monsterMod.selectItem(at: zplayer.modMatrix[3])
 
             self.savePath = path
-
-            self.window.title = zplayer.gameName
             self.gameInProgress = true
-            self.updateStats()
 
+            // Set up the Game menu
             if zplayer.gamekind == kGamePortPeril {
                 self.setPortPerilGameMenu()
             } else if zplayer.gamekind == kGameCavernsSnow {
@@ -1878,6 +1856,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 self.gameMenu.isEnabled = false
             }
 
+            // Set up the bookmark
             if zplayer.bookmark != -1 {
                 self.bookmark.place = zplayer.bookmark
                 self.bookmark.needsDisplay = true
@@ -1886,8 +1865,19 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 self.showBookmark(self)
             }
 
+            // Drop in the notes the player made last game
             self.notesTextView.string = zplayer.notes
 
+            // Set the Stats View image
+            self.setStatsViewImage(zplayer.gamekind)
+
+            // Update the window title
+            self.window.title = zplayer.gameName
+
+            // Show the player's stats
+            self.updateStats()
+
+            // Show the extra information as a reminder
             self.showExtraInfo(zplayer.gamekind)
 
             return true
@@ -2068,12 +2058,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             if !tabs.tabViewItems.contains(magicTabItem) { tabs.insertTabViewItem(heldTabs["magicTabItem"]!, at: 4) }
         }
 
-        // Remove any previously placed images from the Stats tab
-        if statsTabImage != nil {
-            statsTabImage!.removeFromSuperview()
-            statsTabImage = nil
-        }
-
         // Hide the game menu
         self.gameMenu.isHidden = true
         self.gameMenu.isEnabled = false
@@ -2091,13 +2075,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.gameName = "Citadel of Chaos"
             citadelBox.isHidden = false
 
-            // Place an image in the gap to the right of the stats panel
-            let image: NSImageView = NSImageView.init(frame: NSMakeRect(166, 78, 258, 102))
-            let pic = NSImage.init(named: NSImage.Name("coc"))
-            image.image = pic
-            statsTabView.addSubview(image)
-            statsTabImage = image
-
             magicSpellsValue.stringValue = "\(player!.magic)"
         }
 
@@ -2112,19 +2089,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.provisions = 0
             player!.gameName = "House of Hell"
             hellBox.isHidden = false
-
-            // Place an image in the gap to the left of the stats pnel
-            let image: NSImageView = NSImageView.init(frame: NSMakeRect(12, 78, 146, 102))
-            image.image = NSImage.init(named: NSImage.Name("hoh"))
-            statsTabView.addSubview(image)
-            statsTabImage = image
-        }
-
-        if gameType != kGameHouseHell && gameType != kGameCitadel {
-            let image: NSImageView = NSImageView.init(frame: NSMakeRect(10, 56, 416, 85))
-            image.image = NSImage.init(named: NSImage.Name("scroll"))
-            statsTabView.addSubview(image)
-            statsTabImage = image
         }
 
         if gameType == kGameForestDoom {
@@ -2227,6 +2191,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             }
         }
 
+        // Set the Stats View image
+        setStatsViewImage(gameType)
+
         // Update the UI with the new stats
         updateStats()
 
@@ -2271,6 +2238,34 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             alert.messageText = "Don’t forget you start the game with reduced Skill — take care!"
             alert.beginSheetModal(for: window, completionHandler: nil)
         }
+    }
+
+    func setStatsViewImage(_ gameType:Int) {
+
+        let image: NSImageView
+
+        // Remove any previously placed images from the Stats tab
+        if statsTabImage != nil {
+            statsTabImage!.removeFromSuperview()
+            statsTabImage = nil
+        }
+
+        // Add game-specific image
+        if gameType == kGameCitadel {
+            // Place an image in the gap to the right of the stats panel
+            image = NSImageView.init(frame: NSMakeRect(166, 78, 258, 102))
+            image.image = NSImage.init(named: NSImage.Name("coc"))
+        } else if gameType == kGameHouseHell {
+            // Place an image in the gap to the left of the stats panel
+            image = NSImageView.init(frame: NSMakeRect(12, hellBox.frame.origin.y, 146, 102))
+            image.image = NSImage.init(named: NSImage.Name("hoh"))
+        } else {
+            image = NSImageView.init(frame: NSMakeRect(10, 56, 416, 85))
+            image.image = NSImage.init(named: NSImage.Name("scroll"))
+        }
+
+        statsTabView.addSubview(image)
+        statsTabImage = image
     }
 
     // MARK: - Start Sheet Functions
