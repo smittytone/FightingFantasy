@@ -966,6 +966,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             // Now check for other monsters' attacks, if anys
             // If character's already dead, it only wastes CPU cycles, result's the same
+            var hits: Int = -1
+
             if monsterOneCombatCheck.state == NSControl.StateValue.on && target != 1 {
                 // Monster One's in the game but not the target
                 monsterAttackStrength = monsterOneSkillField.integerValue + Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
@@ -973,8 +975,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
                     player!.stamina = player!.stamina - 2
-                    combatReadoutTwo.stringValue = "You take another hit..."
+                    hits = hits + 1
                 }
+
+                if hits == -1 { hits = 0 }
             }
 
             if monsterTwoCombatCheck.state == NSControl.StateValue.on && target != 2 {
@@ -984,8 +988,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
                     player!.stamina = player!.stamina - 2
-                    combatReadoutTwo.stringValue = "You take another hit..."
+                    hits = hits + 1
                 }
+
+                if hits == -1 { hits = 0 }
             }
 
             if monsterThreeCombatCheck.state == NSControl.StateValue.on && target != 3 {
@@ -995,8 +1001,20 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
                     player!.stamina = player!.stamina - 2
-                    combatReadoutTwo.stringValue = "You take another hit..."
+                    hits = hits + 1
                 }
+
+                if hits == -1 { hits = 0 }
+            }
+
+            // Record any extra hits
+            // NOTE 'hits' will be -1 if there are no other possible attacks
+            if hits == 0 {
+                combatReadoutTwo.stringValue = "No other monster hits you"
+            } else if hits == 1 {
+                combatReadoutTwo.stringValue = "One monster gets an extra hit on you"
+            } else if hits > 1 {
+                combatReadoutTwo.stringValue = "The other monsters hit you \(hits) times"
             }
 
             // All attacks are done now, so we just need to check if the attacked monster's dead or not.
@@ -1007,7 +1025,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 switch (target) {
                 case 1:
                     monsterOneStamField.stringValue = "\(monsterStrength)"
-                    combatReadoutTwo.stringValue = "...killing the beast"
+                    combatReadoutOne.stringValue = combatReadoutOne.stringValue + " killing the beast"
 
                     // Move target radio button selection along
                     monsterOneTargetCheck.state = NSControl.StateValue.off
@@ -1015,13 +1033,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                     monsterTwoTargetCheck.state = NSControl.StateValue.on
                 case 2:
                     monsterTwoStamField.stringValue = "\(monsterStrength)"
-                    combatReadoutTwo.stringValue = "...killing the beast"
+                    combatReadoutOne.stringValue = combatReadoutOne.stringValue + " killing the beast"
                     monsterTwoTargetCheck.state = NSControl.StateValue.off
                     monsterTwoCombatCheck.state = NSControl.StateValue.off
                     monsterThreeTargetCheck.state = NSControl.StateValue.on
                 default:
                     monsterThreeStamField.stringValue = "\(monsterStrength)"
-                    combatReadoutTwo.stringValue = "...killing the beast"
+                    combatReadoutOne.stringValue = combatReadoutOne.stringValue + " killing the beast"
                     monsterThreeTargetCheck.state = NSControl.StateValue.off
                     monsterThreeCombatCheck.state = NSControl.StateValue.off
                     monsterOneTargetCheck.state = NSControl.StateValue.on
@@ -1669,12 +1687,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Save the player
         let result: Bool = save(savePath)
-
-        if result {
-            needToSave = false
-            //window.isDocumentEdited = false
-        }
-
+        needToSave = !result
     }
 
     @IBAction func savePlayerAs(_ sender: Any) {
@@ -1699,17 +1712,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                             path = (path as NSString).lastPathComponent
                             path = (path as NSString).deletingPathExtension
                             self.player!.name = path
-                        }
 
-                        if let url = panel.url {
-                            path = url.path
                             result = self.save(path)
-                            self.needToSave = result
-
-                            if result {
-                                self.needToSave = false
-                                // self.window.isDocumentEdited = false
-                            }
+                            if result { self.savePath = path }
+                            self.needToSave = !result
                         }
                     }
                 })
@@ -1754,6 +1760,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             result = NSKeyedArchiver.archiveRootObject(zplayer, toFile: path)
         }
+
         return result
     }
 
@@ -1847,14 +1854,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.gameInProgress = true
 
             // Set up the Game menu
-            if zplayer.gamekind == kGamePortPeril {
-                self.setPortPerilGameMenu()
-            } else if zplayer.gamekind == kGameCavernsSnow {
-                self.setCavernsGameMenu()
-            } else {
-                self.gameMenu.isHidden = true
-                self.gameMenu.isEnabled = false
-            }
+            setGameMenu(zplayer.gamekind)
 
             // Set up the bookmark
             if zplayer.bookmark != -1 {
@@ -2100,8 +2100,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.drinks = 1
             player!.gold = 0
             player!.gameName = "Caverns of the Snow Witch"
-
-            setCavernsGameMenu()
         }
 
         if gameType == kGameReturnFiretop {
@@ -2148,8 +2146,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.gold = 0
             player!.drinks = 1
             player!.gameName = "Port of Peril"
-
-            setPortPerilGameMenu()
         }
 
         // Sorcery! games - always the last two in the menu
@@ -2194,6 +2190,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Set the Stats View image
         setStatsViewImage(gameType)
 
+        // Set the Game menu
+        setGameMenu(gameType)
+
         // Update the UI with the new stats
         updateStats()
 
@@ -2221,7 +2220,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             alert.beginSheetModal(for: window, completionHandler: nil)
         }
 
-        if gameType == kGameCavernsSnow {
+        if gameType == kGameCavernsSnow || gameType == kGameTempleTerror {
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Use the Game menu for certain monsters’ extra attacks when instructed in the game book."
             alert.beginSheetModal(for: window, completionHandler: nil)
@@ -2229,13 +2228,19 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if gameType == kGameTempleTerror || gameType == kGameCitadel {
             let alert: NSAlert = NSAlert.init()
-            alert.messageText = "Dont’t forget to selet your magic spells in the Magic tab."
+            alert.messageText = "Don’t forget to selet your magic spells in the Magic tab."
             alert.beginSheetModal(for: window, completionHandler: nil)
         }
 
         if gameType == kGameHouseHell {
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Don’t forget you start the game with reduced Skill — take care!"
+            alert.beginSheetModal(for: window, completionHandler: nil)
+        }
+
+        if gameType == kGameSorceryWizard || gameType == kGameSorceryFighter {
+            let alert: NSAlert = NSAlert.init()
+            alert.messageText = "Use the Game menu to ask Libra to restore your health and fortune."
             alert.beginSheetModal(for: window, completionHandler: nil)
         }
     }
@@ -2407,6 +2412,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     }
 
     // MARK: - Game-specific Functions
+
+    func setGameMenu(_ gameType: Int) {
+
+        if (gameType == kGamePortPeril) { setPortPerilGameMenu() }
+        if (gameType == kGameCavernsSnow) { setCavernsGameMenu() }
+        if (gameType == kGameTempleTerror) { setTempleGameMenu() }
+    }
+
     // MARK: Port of Peril
 
     @objc @IBAction func yazMagic(_ sender: Any) {
@@ -2529,6 +2542,79 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.updateStats()
         })
     }
+
+    // MARK: Temple of Terror
+
+    func setTempleGameMenu() {
+
+        // Set up the Game Menu for Temple of Terror
+
+        if let gmm = gameMenu.submenu {
+            if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.addItem(withTitle: "Firefly Extra Attack", action: #selector(fireflyExtraAttack), keyEquivalent: "")
+            let ym: NSMenuItem? = gmm.item(at: 0)
+            if ym != nil { ym!.isEnabled = true }
+        }
+
+        gameMenu.isEnabled = true
+        gameMenu.isHidden = false
+        gameMenu.title = "Temple of Terror"
+    }
+
+    @objc func fireflyExtraAttack() {
+
+        // Fireflies do +2 damage on roll of 1-3
+        if !gameInProgress { return }
+
+        let roll: Int = Int(arc4random_uniform(6)) + 1
+
+        if roll < 4 {
+            if player != nil {
+                player!.stamina = player!.stamina - 2
+                if player!.stamina < 0 { player!.stamina = 0 }
+                showExtraAttackResult("Firefly", 2)
+            }
+        } else {
+            showExtraAttackResult("Firefly", 0)
+        }
+    }
+
+    // MARK: Sorcery!
+
+    func setSorceryGameMenu() {
+
+        // Set up the Game Menu for Sorcery!
+
+        if let gmm = gameMenu.submenu {
+            if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.addItem(withTitle: "Ask Libra to Resttore You", action: #selector(libraRestore), keyEquivalent: "")
+            let ym: NSMenuItem? = gmm.item(at: 0)
+            if ym != nil { ym!.isEnabled = true }
+        }
+
+        gameMenu.isEnabled = true
+        gameMenu.isHidden = false
+        gameMenu.title = "Sorcery!"
+    }
+
+    @objc func libraRestore() {
+
+        if let zplayer = player {
+            zplayer.skill = zplayer.initialSkill
+            zplayer.stamina = zplayer.initialStamina
+            zplayer.luck = zplayer.initialLuck
+
+            let alert: NSAlert = NSAlert.init()
+            alert.messageText = "Libra restores your health and fortune!"
+
+            alert.beginSheetModal(for: window, completionHandler: { (modalResponse) in
+
+                self.combatReadoutThree.stringValue = "Your Stamina is \(self.player!.stamina). Your Luck is \(self.player!.luck)"
+                self.updateStats()
+            })
+        }
+    }
+
 }
 
 
