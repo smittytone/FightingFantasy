@@ -37,6 +37,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     @IBOutlet weak var yazWindow: NSWindow!
     @IBOutlet weak var yazMatrix: NSMatrix!
+
+    @IBOutlet weak var startSheet: NSWindow!
+    @IBOutlet weak var startNewButton: NSButton!
+    @IBOutlet weak var startLoadButton: NSButton!
     
     // MARK: Stats Tab Items
 
@@ -423,7 +427,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         window.makeKeyAndOrderFront(self)
 
         // Are we starting a new game? May not be if the player double-clicked a saved file
-        if !gameInProgress { showPlayerCreate() }
+        if !gameInProgress { showStartSheet() }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -2267,6 +2271,33 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
+    // MARK: - Start Sheet Functions
+
+    @IBAction func startGame(_ sender: Any) {
+
+        window.endSheet(startSheet)
+
+        let asender = sender as! NSButton
+
+        if asender == startNewButton {
+            newPlayer(self)
+        }
+
+        if asender == startLoadButton {
+            openCharacter(self)
+        }
+    }
+
+    func showStartSheet() {
+
+        startSheet.backgroundColor = NSColor.init(deviceWhite: 0.0, alpha: 0.9)
+        startSheet.alphaValue = 1.0
+        startSheet.isOpaque = true
+        startSheet.hasShadow = false
+
+        window.beginSheet(startSheet, completionHandler: nil)
+    }
+
     // MARK: - About Sheet Functions
 
     @IBAction func showAbout(_ sender: Any) {
@@ -2290,10 +2321,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // or another sheet, eg. New Character
         if window.sheets.count > 0 {
             let sheet = window.sheets[0]
-            sheet.endSheet(aboutSheet)
-        } else {
-            window.endSheet(aboutSheet)
+            if sheet != aboutSheet {
+                sheet.endSheet(aboutSheet)
+                return
+            }
         }
+
+        window.endSheet(aboutSheet)
     }
 
 
@@ -2330,10 +2364,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // or another sheet, eg. New Characterif window.sheets.count > 0 {
         if window.sheets.count > 0 {
             let sheet = window.sheets[0]
-            sheet.endSheet(helpWindow)
-        } else {
-            window.endSheet(helpWindow)
+            if sheet != helpWindow {
+                sheet.endSheet(helpWindow)
+                return
+            }
         }
+
+        window.endSheet(helpWindow)
     }
 
     @IBAction func openSite(_ sender: Any) {
