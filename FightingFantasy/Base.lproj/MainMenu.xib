@@ -976,7 +976,7 @@
                                                         </buttonCell>
                                                     </button>
                                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="cO6-8V-URx">
-                                                        <rect key="frame" x="20" y="70" width="380" height="18"/>
+                                                        <rect key="frame" x="20" y="70" width="380" height="5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     </box>
                                                 </subviews>
@@ -2155,10 +2155,10 @@ DQ
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="vCD-jN-gYb"/>
-                                                <menuItem title="Sorcery! series as a Fighter" id="W1k-W9-9qL">
+                                                <menuItem title="Sorcery! as a Fighter (simple game)" id="W1k-W9-9qL" userLabel="Sorcery! as a Fighter (simple game)">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
-                                                <menuItem title="Sorcery! series as a Wizard" id="qjf-md-Mej">
+                                                <menuItem title="Sorcery! as a Magician (advanced game)" id="qjf-md-Mej">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                             </items>
@@ -2430,12 +2430,9 @@ DQ
                             <action selector="closeAbout:" target="Voe-Tx-rLC" id="Clc-tq-dUU"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ecx-07-B0n">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ecx-07-B0n">
                         <rect key="frame" x="166" y="61" width="128" height="128"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="128" id="XjZ-A6-qxf"/>
-                            <constraint firstAttribute="height" constant="128" id="afx-Wa-G1M"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ff_logo_lg" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="VPq-EB-PUj">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -2451,9 +2448,7 @@ DQ
                     <constraint firstItem="Ls5-en-fTh" firstAttribute="leading" secondItem="2fw-op-TCp" secondAttribute="leading" constant="20" id="5TT-z1-K8i"/>
                     <constraint firstItem="jFw-g4-LYQ" firstAttribute="centerX" secondItem="2fw-op-TCp" secondAttribute="centerX" id="D3h-9o-Dml"/>
                     <constraint firstItem="CJb-Qj-9CH" firstAttribute="top" secondItem="dLZ-hf-Wjf" secondAttribute="bottom" constant="8" id="IOL-7C-YPg"/>
-                    <constraint firstItem="Ecx-07-B0n" firstAttribute="top" secondItem="Ls5-en-fTh" secondAttribute="bottom" constant="8" id="IkN-hS-YWz"/>
                     <constraint firstAttribute="trailing" secondItem="Ls5-en-fTh" secondAttribute="trailing" constant="20" id="Vw9-EZ-xsF"/>
-                    <constraint firstItem="Ecx-07-B0n" firstAttribute="centerX" secondItem="2fw-op-TCp" secondAttribute="centerX" id="aSs-n2-4Mv"/>
                     <constraint firstAttribute="trailing" secondItem="dLZ-hf-Wjf" secondAttribute="trailing" constant="20" id="ha6-pK-Xqz"/>
                     <constraint firstAttribute="trailing" secondItem="CJb-Qj-9CH" secondAttribute="trailing" constant="20" id="jdh-5s-Hzz"/>
                     <constraint firstAttribute="bottom" secondItem="jFw-g4-LYQ" secondAttribute="bottom" constant="20" id="lsO-Zd-saG"/>
@@ -2480,7 +2475,7 @@ DQ
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
                 <rect key="frame" x="1" y="1" width="276" height="274"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
                         <rect key="frame" x="0.0" y="0.0" width="276" height="274"/>
@@ -2866,20 +2861,14 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="460" height="590"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1T2-nK-cRZ">
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1T2-nK-cRZ">
                         <rect key="frame" x="20" y="496" width="420" height="74"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="74" id="8TG-1v-xsK"/>
-                            <constraint firstAttribute="width" constant="420" id="8jL-c7-EAA"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="text_logo" id="gWV-20-i8Y"/>
                     </imageView>
-                    <button wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6tc-fc-JZo">
+                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6tc-fc-JZo">
                         <rect key="frame" x="20" y="195" width="200" height="200"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="200" id="HW9-Rm-ucr"/>
-                            <constraint firstAttribute="width" constant="200" id="sLb-fD-VU6"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="button_new" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="4Pz-Jx-bfo">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="21"/>
@@ -2888,12 +2877,9 @@ Gw
                             <action selector="startGame:" target="Voe-Tx-rLC" id="gdi-ar-pXS"/>
                         </connections>
                     </button>
-                    <button wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c8W-o4-U2h">
+                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8W-o4-U2h">
                         <rect key="frame" x="240" y="195" width="200" height="200"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="200" id="Ish-wR-EC7"/>
-                            <constraint firstAttribute="height" constant="200" id="tr6-ae-vt5"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="button_load" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="MyX-CA-uXd">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -2903,14 +2889,6 @@ Gw
                         </connections>
                     </button>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="1T2-nK-cRZ" firstAttribute="top" secondItem="sHM-q6-WrD" secondAttribute="top" constant="20" id="2pO-2i-Kv6"/>
-                    <constraint firstItem="6tc-fc-JZo" firstAttribute="leading" secondItem="sHM-q6-WrD" secondAttribute="leading" constant="20" id="5fs-N0-XT6"/>
-                    <constraint firstAttribute="trailing" secondItem="c8W-o4-U2h" secondAttribute="trailing" constant="20" id="HsM-rn-AJw"/>
-                    <constraint firstItem="c8W-o4-U2h" firstAttribute="top" secondItem="1T2-nK-cRZ" secondAttribute="bottom" constant="101" id="OMh-co-oEY"/>
-                    <constraint firstItem="6tc-fc-JZo" firstAttribute="top" secondItem="1T2-nK-cRZ" secondAttribute="bottom" constant="101" id="egz-VR-Cbm"/>
-                    <constraint firstItem="1T2-nK-cRZ" firstAttribute="centerX" secondItem="sHM-q6-WrD" secondAttribute="centerX" id="gKR-pv-2ra"/>
-                </constraints>
             </view>
             <point key="canvasLocation" x="229" y="233"/>
         </window>
