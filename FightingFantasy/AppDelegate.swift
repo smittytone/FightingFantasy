@@ -2240,7 +2240,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if gameType == kGameSorceryWizard || gameType == kGameSorceryFighter {
             let alert: NSAlert = NSAlert.init()
-            alert.messageText = "Use the Game menu to ask Libra to restore your health and fortune."
+            alert.messageText = "Use the Game menu to ask Libra to revitalise you once during each book in the Sorcery! series."
             alert.beginSheetModal(for: window, completionHandler: nil)
         }
     }
@@ -2587,7 +2587,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if let gmm = gameMenu.submenu {
             if (gmm.items.count > 0) { gmm.removeAllItems() }
-            gmm.addItem(withTitle: "Ask Libra to Resttore You", action: #selector(libraRestore), keyEquivalent: "")
+            gmm.addItem(withTitle: "Ask Libra to Revitalise You", action: #selector(libraRestore), keyEquivalent: "")
             let ym: NSMenuItem? = gmm.item(at: 0)
             if ym != nil { ym!.isEnabled = true }
         }
@@ -2606,6 +2606,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Libra restores your health and fortune!"
+            alert.informativeText = "Your Skill, Stamina and Luck scores have been restored to their initial values."
 
             alert.beginSheetModal(for: window, completionHandler: { (modalResponse) in
 
