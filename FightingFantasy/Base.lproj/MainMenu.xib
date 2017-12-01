@@ -1166,7 +1166,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cNp-CP-UvN">
-                                            <rect key="frame" x="7" y="480" width="133" height="17"/>
+                                            <rect key="frame" x="7" y="480" width="130" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Skill" id="pKM-a9-hPT">
                                                 <font key="font" metaFont="systemBold"/>
@@ -1188,15 +1188,6 @@ DQ
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Luck" id="kzH-0I-SRF">
                                                 <font key="font" metaFont="systemBold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Re-97-LYP">
-                                            <rect key="frame" x="274" y="410" width="78" height="62"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" id="IUX-U5-riD">
-                                                <font key="font" metaFont="system" size="46"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1277,9 +1268,12 @@ DQ
                                                 </menu>
                                             </popUpButtonCell>
                                         </popUpButton>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Qj-8H-4pG">
-                                            <rect key="frame" x="172" y="-63" width="90" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Qj-8H-4pG">
+                                            <rect key="frame" x="172" y="10" width="90" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="78" id="N3C-vu-mq7"/>
+                                                <constraint firstAttribute="height" constant="21" id="t2f-8z-fs3"/>
+                                            </constraints>
                                             <buttonCell key="cell" type="push" title="Roll" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wSh-Dy-PUR">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1291,31 +1285,64 @@ DQ
                                                 <action selector="rollDice:" target="Voe-Tx-rLC" id="nxB-aC-caI"/>
                                             </connections>
                                         </button>
-                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6U-UH-HCe">
+                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L6U-UH-HCe">
                                             <rect key="frame" x="281" y="85" width="64" height="64"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="64" id="9U8-0j-Y0U"/>
+                                                <constraint firstAttribute="width" constant="64" id="Ymy-pE-4iW"/>
+                                            </constraints>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="one" id="DKZ-qs-OFA"/>
                                         </imageView>
-                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K99-iF-ssl">
+                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K99-iF-ssl">
                                             <rect key="frame" x="89" y="85" width="64" height="64"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="64" id="2Zv-Gj-0JT"/>
+                                                <constraint firstAttribute="height" constant="64" id="Di7-zH-fEi"/>
+                                            </constraints>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="one" id="ZWz-at-0TR"/>
                                         </imageView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ysa-EE-z62">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ysa-EE-z62">
                                             <rect key="frame" x="7" y="174" width="420" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17" id="vAD-hb-ylI"/>
+                                            </constraints>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Dice" id="Zfo-tX-Kph">
                                                 <font key="font" metaFont="systemBold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bpW-Q6-QBJ">
+                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bpW-Q6-QBJ">
                                             <rect key="frame" x="9" y="199" width="416" height="113"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="113" id="Mh4-tf-eod"/>
+                                            </constraints>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="test" id="DaS-Ul-Kvq"/>
                                         </imageView>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Re-97-LYP">
+                                            <rect key="frame" x="274" y="410" width="78" height="62"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" id="IUX-U5-riD">
+                                                <font key="font" metaFont="system" size="46"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bpW-Q6-QBJ" firstAttribute="leading" secondItem="uOg-zm-bgU" secondAttribute="leading" constant="9" id="6a9-it-olQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="L6U-UH-HCe" secondAttribute="bottom" constant="85" id="Fh1-fx-jl2"/>
+                                        <constraint firstItem="Ysa-EE-z62" firstAttribute="leading" secondItem="uOg-zm-bgU" secondAttribute="leading" constant="9" id="Inu-Q6-2tV"/>
+                                        <constraint firstItem="K99-iF-ssl" firstAttribute="leading" secondItem="uOg-zm-bgU" secondAttribute="leading" constant="89" id="JZx-Q7-2ft"/>
+                                        <constraint firstItem="2Qj-8H-4pG" firstAttribute="centerX" secondItem="uOg-zm-bgU" secondAttribute="centerX" id="KKL-Jk-Fpk"/>
+                                        <constraint firstItem="L6U-UH-HCe" firstAttribute="top" secondItem="Ysa-EE-z62" secondAttribute="bottom" constant="25" id="NeB-dv-tOm"/>
+                                        <constraint firstAttribute="trailing" secondItem="bpW-Q6-QBJ" secondAttribute="trailing" constant="9" id="ZGJ-db-N1x"/>
+                                        <constraint firstAttribute="bottom" secondItem="2Qj-8H-4pG" secondAttribute="bottom" constant="17" id="d1Q-ay-ueM"/>
+                                        <constraint firstAttribute="bottom" secondItem="K99-iF-ssl" secondAttribute="bottom" constant="85" id="fCd-vL-qZm"/>
+                                        <constraint firstAttribute="trailing" secondItem="L6U-UH-HCe" secondAttribute="trailing" constant="89" id="fsM-7m-YJX"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ysa-EE-z62" secondAttribute="trailing" constant="9" id="xbG-hd-Km3"/>
+                                        <constraint firstItem="Ysa-EE-z62" firstAttribute="top" secondItem="bpW-Q6-QBJ" secondAttribute="bottom" constant="8" id="ydq-HW-JX7"/>
+                                    </constraints>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Pack" identifier="" id="gcb-6m-OAV">
@@ -1327,7 +1354,7 @@ DQ
                                             <rect key="frame" x="17" y="49" width="400" height="471"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="469"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="469"/>
@@ -2902,7 +2929,7 @@ Gw
         <image name="ff_logo_lg" width="480" height="480"/>
         <image name="icon_sword" width="32" height="32"/>
         <image name="one" width="96" height="96"/>
-        <image name="sword" width="416" height="126"/>
+        <image name="sword" width="416" height="89"/>
         <image name="test" width="416" height="282"/>
         <image name="text_logo" width="460" height="67"/>
     </resources>
