@@ -17,8 +17,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var splashWindow: NSWindow!
     
     @IBOutlet weak var menuBar: NSMenu!
-    @IBOutlet weak var gameMenu: NSMenuItem!
+    @IBOutlet weak var appMenu: NSMenu!
+    @IBOutlet weak var aboutMenuItem: NSMenuItem!
     @IBOutlet weak var fileMenu: NSMenu!
+    @IBOutlet weak var gameMenu: NSMenuItem!
+    @IBOutlet weak var helpMenu: NSMenu!
+    @IBOutlet weak var helpMenuItem: NSMenuItem!
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var tabs: NSTabView!
 
@@ -199,13 +203,32 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func applicationWillFinishLaunching(_ notification: Notification) {
 
-        // Show the splash screen
+        // Disable menus to prevent 'pre-window clicking'
+        appMenu.autoenablesItems = false
+        fileMenu.autoenablesItems = false
+        helpMenu.autoenablesItems = false
+
+        aboutMenuItem.isEnabled = false
+        helpMenuItem.isEnabled = false
+
+        for item in fileMenu.items {
+            item.isEnabled = false
+        }
+
+        // Show the splash screen    
         splashWindow.center()
         splashWindow.backgroundColor = NSColor.clear
         splashWindow.alphaValue = 1.0
         splashWindow.isOpaque = true
         splashWindow.hasShadow = true;
         splashWindow.makeKeyAndOrderFront(self)
+
+        // Stop modal sheets from blocking app termination
+        startSheet.preventsApplicationTerminationWhenModal = false
+        aboutSheet.preventsApplicationTerminationWhenModal = false
+        deathWindow.preventsApplicationTerminationWhenModal = false
+        helpWindow.preventsApplicationTerminationWhenModal = false
+        createSheet.preventsApplicationTerminationWhenModal = false
 
         // Load up the images here so that they're present if the user double clicks on
         // a .ffc file - which will be loaded BEFORE applicationDidFinishLoading() is called
@@ -469,6 +492,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func initUI() {
 
+        // Sort out the menu Items
+        aboutMenuItem.isEnabled = true
+        helpMenuItem.isEnabled = true
+
+        for item in fileMenu.items {
+            item.isEnabled = true
+        }
+
         // Set the UI to its default state
         // Work through each of the tabs
         initUIstats()
@@ -477,9 +508,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         initUIPack()
         initUIMagic()
         initUINotes()
-
-        // Clear the 'need to save' indicator
-        //window.isDocumentEdited = false
 
         // Hide the bookmark
         bookmark.isHidden = true
@@ -1703,18 +1731,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 panel.allowedFileTypes = ["ffc"]
                 panel.beginSheetModal(for: window, completionHandler: { (response) in
 
-                    var path: String = ""
+                    var name: String = ""
                     var result: Bool
 
                     if response == NSApplication.ModalResponse.OK {
                         if let url = panel.url {
-                            path = url.path
-                            path = (path as NSString).lastPathComponent
-                            path = (path as NSString).deletingPathExtension
-                            self.player!.name = path
+                            name = url.path
+                            name = (name as NSString).lastPathComponent
+                            name = (name as NSString).deletingPathExtension
+                            self.player!.name = name
 
-                            result = self.save(path)
-                            if result { self.savePath = path }
+                            result = self.save(url.path)
+                            if result { self.savePath = url.path }
                             self.needToSave = !result
                         }
                     }
@@ -2298,6 +2326,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         startSheet.hasShadow = false
 
         window.beginSheet(startSheet, completionHandler: nil)
+    }
+
+    @IBAction func cancelStartSheet(_ sender: Any) {
+
+        window.endSheet(startSheet)
     }
 
     // MARK: - About Sheet Functions
