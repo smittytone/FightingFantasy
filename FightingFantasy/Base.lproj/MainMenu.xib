@@ -185,6 +185,12 @@
                                     <action selector="newPlayer:" target="Voe-Tx-rLC" id="6A5-xn-rTz"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Set Stats to Current" alternate="YES" keyEquivalent="n" id="Hu5-aL-epl">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="resetStats:" target="Voe-Tx-rLC" id="IqZ-lh-Bya"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Open Character..." keyEquivalent="o" id="IAo-SY-fd9">
                                 <connections>
                                     <action selector="openCharacter:" target="Voe-Tx-rLC" id="KZ1-ou-NgL"/>
@@ -493,7 +499,7 @@
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="112" y="-124"/>
+            <point key="canvasLocation" x="115" y="-247"/>
         </menu>
         <window title="FightingFantasy" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
@@ -2908,17 +2914,6 @@ Gw
                             <action selector="startGame:" target="Voe-Tx-rLC" id="gdi-ar-pXS"/>
                         </connections>
                     </button>
-                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8W-o4-U2h">
-                        <rect key="frame" x="240" y="233" width="200" height="200"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="button_load" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="MyX-CA-uXd">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="startGame:" target="Voe-Tx-rLC" id="vnz-hR-Q8O"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6dK-S0-Rtw">
                         <rect key="frame" x="130" y="20" width="200" height="200"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -2931,6 +2926,17 @@ Gw
                         </buttonCell>
                         <connections>
                             <action selector="cancelStartSheet:" target="Voe-Tx-rLC" id="W2v-8L-qgr"/>
+                        </connections>
+                    </button>
+                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8W-o4-U2h">
+                        <rect key="frame" x="240" y="233" width="200" height="200"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="button_load" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="MyX-CA-uXd">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="startGame:" target="Voe-Tx-rLC" id="vnz-hR-Q8O"/>
                         </connections>
                     </button>
                 </subviews>
