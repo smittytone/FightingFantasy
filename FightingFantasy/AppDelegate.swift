@@ -528,6 +528,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         luckValue.stringValue = ""
         staminaValue.stringValue = ""
 
+        skillValue.formatter = onlyIntFormatter
+        staminaValue.formatter = onlyIntFormatter
+        luckValue.formatter = onlyIntFormatter
+
         goldAmountField.stringValue = ""
         foodAmountField.stringValue = ""
         potionTypeLabel.stringValue = "None"
@@ -716,11 +720,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        let flag = NSEvent.modifierFlags.contains(.control)
+
         if let stepper = (sender as? NSStepper) {
             let stepperValue = stepper.integerValue
             var psk = player!.skill + stepperValue
 
-            if psk > player!.initialSkill { psk = player!.initialSkill }
+            if !flag && psk > player!.initialSkill { psk = player!.initialSkill }
+            if flag && psk > 12 { psk = 12 }
             if psk < 0 { psk = 0 }
 
             if (psk != player!.skill) {
@@ -737,11 +744,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        let flag = NSEvent.modifierFlags.contains(.control)
+
         if let stepper = (sender as? NSStepper) {
             let stepperValue = stepper.integerValue
             var pst = player!.stamina + stepperValue
 
-            if pst > player!.initialStamina { pst = player!.initialStamina }
+            if !flag && pst > player!.initialStamina { pst = player!.initialStamina }
+            if flag && pst > 24 { pst = 24 }
             if pst < 0 { pst = 0 }
 
             if (pst != player!.stamina) {
@@ -758,12 +768,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        let flag = NSEvent.modifierFlags.contains(.control)
+
         if let stepper = (sender as? NSStepper) {
 
             let stepperValue = stepper.integerValue
             var psl = player!.luck + stepperValue
 
-            if psl > player!.initialLuck { psl = player!.initialLuck }
+            if !flag && psl > player!.initialLuck { psl = player!.initialLuck }
+            if flag && psl > 14 { psl = 14}
             if psl < 0 { psl = 0 }
 
             if (psl != player!.luck) {
@@ -862,11 +875,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        let flag = NSEvent.modifierFlags.contains(.control)
+
         if let stepper = (sender as? NSStepper) {
             let stepperValue = stepper.integerValue
             var psf = player!.fear + stepperValue
 
-            if psf > player!.maxFear { psf = player!.maxFear }
+            if !flag && psf > player!.maxFear { psf = player!.maxFear }
+            if flag && psf > 12 { psf = 12 }
             if psf < 0 { psf = 0 }
 
             if (psf != player!.fear) {
@@ -876,6 +892,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             stepper.integerValue = 0
             updateStats()
+        }
+    }
+
+    @IBAction func resetStats(_ sender: Any) {
+
+        if !gameInProgress || player == nil { return }
+
+        player!.initialSkill = Int(skillValue.stringValue)!
+        player!.initialStamina = Int(staminaValue.stringValue)!
+        player!.initialLuck = Int(luckValue.stringValue)!
+
+        player!.skill = player!.initialSkill
+        player!.stamina = player!.initialStamina
+        player!.luck = player!.initialLuck
+
+        if player!.gamekind == kGameHouseHell {
+            player!.maxFear = Int(maxFearValue.stringValue)!
         }
     }
 
@@ -2053,7 +2086,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         player = FFPlayer()
         player!.gold = startGoldField.integerValue
         player!.provisions = startFoodField.integerValue
+
         player!.potion = startPotionPopup.indexOfSelectedItem - 1
+        if player!.potion == -1 { player!.potion = Int(arc4random_uniform(2)) }
         player!.drinks = 2
 
         player!.skill = startSkillField.integerValue
@@ -2098,7 +2133,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.magic = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 8
             player!.initialMagic = player!.magic
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.gold = 0
             player!.gameName = "Citadel of Chaos"
             citadelBox.isHidden = false
@@ -2112,7 +2146,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             player!.maxFear = Int(arc4random_uniform(6)) + 7
             player!.fear = 0
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.gold = 0
             player!.provisions = 0
             player!.gameName = "House of Hell"
@@ -2132,7 +2165,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if gameType == kGameReturnFiretop {
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.gold = 0
             player!.provisions = 0
             player!.gameName = "Return to Firetop Mountain"
@@ -2140,14 +2172,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if gameType == kGameTempleTerror {
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.gold = 25
             player!.gameName = "Temple of Terror"
         }
 
         if gameType == kGameEyeDragon {
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.provisions = 10
             player!.gold = 0
             player!.gameName = "Eye of the Dragon"
@@ -2155,7 +2185,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if gameType == kGameTrialChampions {
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.provisions = 0
             player!.gold = 0
             player!.gameName = "Trial of Champions"
@@ -2163,7 +2192,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if gameType == kGameCreatureHavoc {
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.provisions = 0
             player!.gold = 0
             player!.gameName = "Creature of Havoc"
@@ -2181,7 +2209,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameType == kGameSorceryWizard {
             player!.skill = player!.skill - 2
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.gold = 20
             player!.provisions = 2
             player!.gameName = "Sorcery! Wizard"
@@ -2190,11 +2217,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if gameType == kGameSorceryFighter {
             player!.potion = kPotionNone
-            player!.drinks = 0
             player!.gold = 20
             player!.provisions = 2
             player!.gameName = "Sorcery! Fighter"
         }
+
+        if player!.potion == kPotionNone { player!.drinks = 0 }
 
         // Initialise the backpack
         if player!.pack.count > 0 { player!.pack.removeAll() }
