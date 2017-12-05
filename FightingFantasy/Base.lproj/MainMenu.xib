@@ -123,6 +123,8 @@
                 <outlet property="strengthCell" destination="CK3-IO-mI4" id="OUN-R4-XbT"/>
                 <outlet property="strengthField" destination="OLd-js-0YE" id="7lU-yf-nkM"/>
                 <outlet property="tabs" destination="Kjf-7T-SpF" id="ChG-wv-8wG"/>
+                <outlet property="testLuckMod" destination="khy-LW-CTJ" id="cFb-ph-rhS"/>
+                <outlet property="testLuckValue" destination="qNp-Vn-11N" id="KVW-fA-QMF"/>
                 <outlet property="testSkillMod" destination="LeF-x3-dRt" id="tXv-gG-f1n"/>
                 <outlet property="testSkillValue" destination="Dsj-hm-Xg3" id="qpn-nB-N3b"/>
                 <outlet property="testsTabItem" destination="k2j-M2-piH" id="B6J-6m-KZJ"/>
@@ -1453,7 +1455,7 @@ DQ
                                             <rect key="frame" x="17" y="49" width="400" height="471"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="469"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="469"/>
@@ -2012,19 +2014,58 @@ CA
                                             <rect key="frame" x="4" y="-3" width="426" height="530"/>
                                             <clipView key="contentView" id="Wmm-rp-wkK">
                                                 <rect key="frame" x="0.0" y="0.0" width="426" height="530"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textView importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" quoteSubstitution="YES" dashSubstitution="YES" id="FJO-tP-qkY">
+                                                    <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" quoteSubstitution="YES" dashSubstitution="YES" id="FJO-tP-qkY">
                                                         <rect key="frame" x="0.0" y="0.0" width="426" height="530"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" red="0.89011114840000005" green="0.89025741820000004" blue="0.89008003469999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <size key="minSize" width="426" height="530"/>
                                                         <size key="maxSize" width="510" height="10000000"/>
                                                         <attributedString key="textStorage">
-                                                            <fragment content="Test">
+                                                            <fragment content="Make some notes about your adventure…">
                                                                 <attributes>
                                                                     <font key="NSFont" size="16" name="Apple-Chancery"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                        <tabStops>
+                                                                            <textTab alignment="left" location="28">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="56">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="84">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="112">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="140">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="168">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="196">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="224">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="252">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="280">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="308">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="336">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                        </tabStops>
+                                                                    </paragraphStyle>
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>

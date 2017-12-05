@@ -630,7 +630,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         let attributes = [NSAttributedStringKey.font : font!]
 
         notesTextView.typingAttributes = attributes
-        notesTextView.string = ""
+        notesTextView.string = "Make notes about your adventure here…"
 
         notesTextView.delegate = self
     }
