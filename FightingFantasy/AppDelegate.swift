@@ -14,8 +14,10 @@ import Cocoa
 class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTableViewDataSource,
                     NSTextFieldDelegate, NSPopoverDelegate, NSTabViewDelegate, NSTextViewDelegate {
 
+    @IBOutlet weak var tv: NSTabView!
+
     @IBOutlet weak var splashWindow: NSWindow!
-    
+
     @IBOutlet weak var menuBar: NSMenu!
     @IBOutlet weak var appMenu: NSMenu!
     @IBOutlet weak var aboutMenuItem: NSMenuItem!
@@ -54,6 +56,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var skillValue: NSTextField!
     @IBOutlet weak var staminaValue: NSTextField!
     @IBOutlet weak var luckValue: NSTextField!
+    @IBOutlet weak var initSkillValue: NSTextField!
+    @IBOutlet weak var initStaminaValue: NSTextField!
+    @IBOutlet weak var initLuckValue: NSTextField!
     @IBOutlet weak var skillStepper: NSStepper!
     @IBOutlet weak var staminaStepper: NSStepper!
     @IBOutlet weak var luckStepper: NSStepper!
@@ -65,6 +70,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var goldStepper: NSStepper!
     @IBOutlet weak var citadelBox: NSBox!
     @IBOutlet weak var magicValue: NSTextField!
+    @IBOutlet weak var maxMagicValue: NSTextField!
     @IBOutlet weak var hellBox: NSBox!
     @IBOutlet weak var fearValue: NSTextField!
     @IBOutlet weak var maxFearValue: NSTextField!
@@ -528,10 +534,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         luckValue.stringValue = ""
         staminaValue.stringValue = ""
 
-        skillValue.formatter = onlyIntFormatter
-        staminaValue.formatter = onlyIntFormatter
-        luckValue.formatter = onlyIntFormatter
-
         goldAmountField.stringValue = ""
         foodAmountField.stringValue = ""
         potionTypeLabel.stringValue = "None"
@@ -648,17 +650,20 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             // Stats Tab
             skillValue.stringValue = "\(zplayer.skill)"
             testSkillValue.stringValue = zplayer.gamekind == kGameHouseHell ? "\(zplayer.initialSkill)" : "\(zplayer.skill)"
+            initSkillValue.stringValue = "\(zplayer.initialSkill)"
 
             // Ensure Luck readout goes red below a score of 5
             colour = zplayer.luck < 5 ? NSColor.red : NSColor.black
             var astring = NSAttributedString.init(string: "\(zplayer.luck)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
             luckValue.attributedStringValue = astring
             testLuckValue.attributedStringValue = astring
+            initLuckValue.stringValue = "\(zplayer.initialLuck)"
 
             // Ensure Stamina readout goes red below a score of 5
             colour = zplayer.stamina < 5 ? NSColor.red : NSColor.black
             astring = NSAttributedString.init(string: "\(zplayer.stamina)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
             staminaValue.attributedStringValue = astring
+            initStaminaValue.stringValue = "\(zplayer.initialStamina)"
 
             // Ensure Fear readout goes red 4 below maxFear
             colour = zplayer.fear > zplayer.maxFear - 5 ? NSColor.red : NSColor.black
@@ -667,6 +672,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             maxFearValue.stringValue = "\(zplayer.maxFear)"
 
             magicValue.stringValue = "\(zplayer.magic)"
+            maxMagicValue.stringValue = "\(zplayer.initialMagic)"
+
             foodAmountField.stringValue = "\(zplayer.provisions)"
             goldAmountField.stringValue = "\(zplayer.gold)"
 
@@ -910,6 +917,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if player!.gamekind == kGameHouseHell {
             player!.maxFear = Int(maxFearValue.stringValue)!
         }
+
+        updateStats()
     }
 
     // MARK: - Combat Tab Functions
@@ -1710,9 +1719,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             needToSave = true
             firstRun = false
 
-            zplayer.skill = player!.initialSkill > 11 ? player!.initialSkill - 6 : 6
-            zplayer.stamina = 6
-
+            zplayer.skill = player!.initialSkill
+            zplayer.stamina = player!.initialSkill > 12 ? 12 : player!.initialSkill
+            zplayer.fear = 6
+            
             updateStats()
         }
     }
@@ -2314,14 +2324,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Add game-specific image
         if gameType == kGameCitadel {
             // Place an image in the gap to the right of the stats panel
-            image = NSImageView.init(frame: NSMakeRect(166, 78, 258, 102))
+            image = NSImageView.init(frame: NSMakeRect(citadelBox.frame.origin.x + 160, citadelBox.frame.origin.y, 258, 140))
             image.image = NSImage.init(named: NSImage.Name("coc"))
         } else if gameType == kGameHouseHell {
             // Place an image in the gap to the left of the stats panel
-            image = NSImageView.init(frame: NSMakeRect(12, hellBox.frame.origin.y, 146, 102))
+            image = NSImageView.init(frame: NSMakeRect(6, hellBox.frame.origin.y, 262, 136))
             image.image = NSImage.init(named: NSImage.Name("hoh"))
         } else {
-            image = NSImageView.init(frame: NSMakeRect(10, 56, 416, 85))
+            image = NSImageView.init(frame: NSMakeRect(6, 56, 422, 85))
             image.image = NSImage.init(named: NSImage.Name("scroll"))
         }
 
@@ -2675,6 +2685,16 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 self.updateStats()
             })
         }
+    }
+
+    @IBAction func showstats(_ sender: Any) {
+
+        tv.selectTabViewItem(at: 0)
+    }
+
+    @IBAction func showCombat(_ sender: Any) {
+
+        tv.selectTabViewItem(at: 1)
     }
 
 }
