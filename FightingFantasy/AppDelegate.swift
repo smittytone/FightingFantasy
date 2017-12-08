@@ -727,16 +727,21 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        // Was the Ctrl key held down while the player clicked the stepper?
         let flag = NSEvent.modifierFlags.contains(.control)
 
         if let stepper = (sender as? NSStepper) {
             let stepperValue = stepper.integerValue
             var psk = player!.skill + stepperValue
 
+            // 'flag' is true if the Ctrl key is held down
+            // If it's false, make sure we don't exceed initial skill
+            // if it's true, increase up to 12 (use with reset() )
             if !flag && psk > player!.initialSkill { psk = player!.initialSkill }
             if flag && psk > 12 { psk = 12 }
             if psk < 0 { psk = 0 }
 
+            // Only change the recorded skill value if it will change
             if (psk != player!.skill) {
                 needToSave = true
                 player!.skill = psk
@@ -751,16 +756,21 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        // Was the Ctrl key held down while the player clicked the stepper?
         let flag = NSEvent.modifierFlags.contains(.control)
 
         if let stepper = (sender as? NSStepper) {
             let stepperValue = stepper.integerValue
             var pst = player!.stamina + stepperValue
 
+            // 'flag' is true if the Ctrl key is held down
+            // If it's false, make sure we don't exceed initial stamina
+            // if it's true, increase up to 24 (use with reset() )
             if !flag && pst > player!.initialStamina { pst = player!.initialStamina }
             if flag && pst > 24 { pst = 24 }
             if pst < 0 { pst = 0 }
 
+            // Only change the recorded stamina value if it will change
             if (pst != player!.stamina) {
                 needToSave = true
                 player!.stamina = pst
@@ -775,6 +785,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        // Was the Ctrl key held down while the player clicked the stepper?
         let flag = NSEvent.modifierFlags.contains(.control)
 
         if let stepper = (sender as? NSStepper) {
@@ -782,10 +793,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             let stepperValue = stepper.integerValue
             var psl = player!.luck + stepperValue
 
+            // 'flag' is true if the Ctrl key is held down
+            // If it's false, make sure we don't exceed initial luck
+            // if it's true, increase up to 12 (use with reset() )
             if !flag && psl > player!.initialLuck { psl = player!.initialLuck }
-            if flag && psl > 14 { psl = 14}
+            if flag && psl > 12 { psl = 12}
             if psl < 0 { psl = 0 }
 
+            // Only change the recorded luck value if it will change
             if (psl != player!.luck) {
                 needToSave = true
                 player!.luck = psl
@@ -800,25 +815,29 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
-        if let asender = (sender as? NSButton) {
-            if asender == foodEatButton {
+        if let button = (sender as? NSButton) {
+            if button == foodEatButton {
                 if player!.provisions > 0 {
                     player!.provisions = player!.provisions - 1
                     foodAmountField.stringValue = "\(player!.provisions)"
                     player!.stamina = player!.stamina + 4
                     if player!.stamina > player!.initialStamina { player!.stamina = player!.initialStamina }
-
                     needToSave = true
                     updateStats()
                 }
             }
         }
 
-        if let asender = (sender as? NSTextField) {
-            if asender == foodAmountField {
-                player!.provisions = foodAmountField.integerValue
-                if player!.provisions < 0 { player!.provisions = 0 }
-                needToSave = true
+        // This is called when text ends editing which happens when it loses focus, ie.
+        // even when the NSTextField hasn't been used but we're switching tabs
+        if let textField = (sender as? NSTextField) {
+            if textField == foodAmountField {
+                // Only change the gold value if it is different
+                if player!.provisions != foodAmountField.integerValue {
+                    player!.provisions = foodAmountField.integerValue
+                    if player!.provisions < 0 { player!.provisions = 0 }
+                    needToSave = true
+                }
             }
         }
     }
@@ -845,7 +864,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             player!.drinks = player!.drinks - 1
             if player!.drinks == 0 { player!.potion = kPotionNone }
-
             needToSave = true
             updateStats()
         }
@@ -855,25 +873,28 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
-        if let asender = (sender as? NSStepper) {
-            if asender == goldStepper {
-                if player!.gold == 0 && asender.integerValue == -1 { return }
-
-                player!.gold = player!.gold + asender.integerValue
-                asender.integerValue = 0
-
+        // Did the player click on the stepper control?
+        if let stepper = (sender as? NSStepper) {
+            if stepper == goldStepper {
+                if player!.gold == 0 && stepper.integerValue == -1 { return }
+                player!.gold = player!.gold + stepper.integerValue
+                stepper.integerValue = 0
                 needToSave = true;
                 updateStats()
             }
         }
 
-        if let asender = (sender as? NSTextField) {
-            if asender == goldAmountField {
-                player!.gold = goldAmountField.integerValue
-                asender.integerValue = 0
-
-                needToSave = true;
-                updateStats()
+        // This is called when text ends editing which happens when it loses focus, ie.
+        // even when the NSTextField hasn't been used but we're switching tabs
+        if let textField = (sender as? NSTextField) {
+            if textField == goldAmountField {
+                // Only change the gold value if it is different
+                if player!.gold != goldAmountField.integerValue {
+                    player!.gold = goldAmountField.integerValue
+                    if player!.gold < 0 { player!.gold = 0 }
+                    needToSave = true;
+                    updateStats()
+                }
             }
         }
     }
@@ -882,16 +903,21 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        // Was the Ctrl key held down while the player clicked the stepper?
         let flag = NSEvent.modifierFlags.contains(.control)
 
         if let stepper = (sender as? NSStepper) {
             let stepperValue = stepper.integerValue
             var psf = player!.fear + stepperValue
 
+            // 'flag' is true if the Ctrl key is held down
+            // If it's false, make sure we don't exceed maxFear
+            // if it's true, increase up to 12 (use with resetStats() )
             if !flag && psf > player!.maxFear { psf = player!.maxFear }
             if flag && psf > 12 { psf = 12 }
             if psf < 0 { psf = 0 }
 
+            // Only change the recorded fear value if it will change
             if (psf != player!.fear) {
                 needToSave = true
                 player!.fear = psf
@@ -906,14 +932,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if !gameInProgress || player == nil { return }
 
+        // Reset the initial stats values to those currently displayed
         player!.initialSkill = Int(skillValue.stringValue)!
         player!.initialStamina = Int(staminaValue.stringValue)!
         player!.initialLuck = Int(luckValue.stringValue)!
 
+        // Set the current stats to the displayed values
         player!.skill = player!.initialSkill
         player!.stamina = player!.initialStamina
         player!.luck = player!.initialLuck
 
+        // Handle fear for House of Hell games
         if player!.gamekind == kGameHouseHell {
             player!.maxFear = Int(maxFearValue.stringValue)!
         }
@@ -926,14 +955,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBAction func setTarget(_ sender: Any) {
 
         // Make sure only one monster can be targetted at once
-        if let asender = (sender as? NSButton) {
-            if asender == monsterOneTargetCheck {
+        if let button = (sender as? NSButton) {
+            if button == monsterOneTargetCheck {
                 monsterTwoTargetCheck.state = NSControl.StateValue.off
                 monsterThreeTargetCheck.state = NSControl.StateValue.off
-            } else if asender == monsterTwoTargetCheck {
+            } else if button == monsterTwoTargetCheck {
                 monsterOneTargetCheck.state = NSControl.StateValue.off
                 monsterThreeTargetCheck.state = NSControl.StateValue.off
-            } else if asender == monsterThreeTargetCheck {
+            } else if button == monsterThreeTargetCheck {
                 monsterTwoTargetCheck.state = NSControl.StateValue.off
                 monsterOneTargetCheck.state = NSControl.StateValue.off
             }
@@ -974,8 +1003,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Add in modifier
         playerAttackStrength = playerAttackStrength + 6 - playerMod.indexOfSelectedItem
 
-        // Select target. Note these are controlled elsewhere to ensure only one or no
-        // Target checks are selected
+        // Select target. Note these are controlled elsewhere to ensure only one
+        // or no targets are selected
         var target: Int = 0
 
         if monsterOneTargetCheck.state == NSControl.StateValue.on { target = 1 }
@@ -1234,9 +1263,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         var roll: Int = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
         roll = roll + 3 - testLuckMod.indexOfSelectedItem
+        showAlert((roll <= player!.luck ? "Destiny smiles upon you..." : "You are ill-favoured..."), "", true)
         player!.luck = player!.luck - 1
         needToSave = true
-        showAlert((roll <= player!.luck ? "Destiny smiles upon you..." : "You are ill-favoured..."), "", true)
     }
 
     @IBAction func testSkill(_ sender: Any) {
@@ -1245,8 +1274,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         var roll: Int = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
         roll = roll + 3 - testSkillMod.indexOfSelectedItem
-        needToSave = true
-
         var sk = player!.skill
 
         if player!.gamekind == kGameHouseHell {
@@ -1255,13 +1282,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
 
         showAlert((roll <= sk ? "You were skilfull..." : "You fumble the test..."), "", true)
+        needToSave = true
     }
 
     @IBAction func rollDice(_ sender: Any) {
 
-        if let asender = (sender as? AppDelegate) {
-            if asender == self {
-                // We are here through a timer call
+        if let myself = (sender as? AppDelegate) {
+            // Are we here through a timer call? The caller is 'self' if so
+            if myself == self {
                 if rollCount > 0 {
                     var roll: Int = Int(arc4random_uniform(6))
                     dieOne.image = dice[roll]
@@ -1281,10 +1309,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             return
         }
 
+        // We have clicked the button, but we check against rollcount so that
+        // subsequent (fast) clicks don't trigger the sequence
         if rollCount == -1 {
-
-            // We have clicked the button, but we check against rollcount so that
-            // subsequent (fast) clicks don't trigger the sequence
             rollCount = 10
             _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: { (timer) in
                 self.rollDice(self)
@@ -1300,11 +1327,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         makeIconMatrix()
 
         // Show the icon matrix
-        if let asender = (sender as? FFIconButton) {
-            iconPopover!.show(relativeTo: asender.bounds, of: asender, preferredEdge: NSRectEdge.maxY)
-
+        if let iconButton = (sender as? FFIconButton) {
             // Make sure the matrix controller knows which button was clicked on
-            iconPopoverController.button = asender
+            iconPopoverController.button = iconButton
+
+            // Show the popover
+            iconPopover!.show(relativeTo: iconButton.bounds, of: iconButton, preferredEdge: NSRectEdge.maxY)
         }
     }
 
@@ -1330,6 +1358,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
             zplayer.pack.append(item)
 
+            // Update the table
             packTable.reloadData()
             packTable.needsDisplay = true
             packTable.scrollRowToVisible(zplayer.pack.count - 1)
@@ -1351,6 +1380,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 			// Remove the item from the pack, and the item's icon index
 			zplayer.pack.remove(at: zplayer.packSelectedItem)
 
+            // Update the table
 			packTable.reloadData()
 			packTable.needsDisplay = true
 
