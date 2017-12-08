@@ -90,6 +90,17 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         tooltips.append("Other")
     }
 
+    override func viewDidAppear() {
+
+        super.viewDidAppear()
+
+        // Clear the current selection and set it to the icon of
+        // the button the user has clicked on
+        collectionView.deselectAll(self)
+        let set: Set<IndexPath> = [IndexPath.init(item: button.index, section: 0)]
+        collectionView.selectItems(at: set, scrollPosition: NSCollectionView.ScrollPosition.top)
+    }
+
     func configureCollectionView() {
 
         // Configure the collection view's flow layout manager
@@ -100,6 +111,8 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         flowLayout.minimumLineSpacing = 2.0
         collectionView.collectionViewLayout = flowLayout
         collectionView.layer?.backgroundColor = NSColor.white.cgColor
+        collectionView.isSelectable = true
+        collectionView.allowsEmptySelection = true
         view.wantsLayer = true
     }
 
