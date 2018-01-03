@@ -2572,7 +2572,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 zplayer.initialSkill = 12
             } else if row == 1 {
                 zplayer.stamina = zplayer.stamina + 10
-                zplayer.initialStamina = zplayer.stamina
+                if zplayer.initialStamina < zplayer.stamina {
+                    zplayer.initialStamina = zplayer.stamina
+                }
             } else {
                 zplayer.luck = 12
                 zplayer.initialLuck = 12
