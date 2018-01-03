@@ -2600,7 +2600,7 @@ DQ
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
                 <rect key="frame" x="1" y="1" width="276" height="274"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
                         <rect key="frame" x="0.0" y="0.0" width="276" height="274"/>
@@ -2709,7 +2709,7 @@ DQ
                         <rect key="frame" x="5" y="61" width="450" height="528"/>
                         <clipView key="contentView" drawsBackground="NO" id="bhV-tb-b2H">
                             <rect key="frame" x="0.0" y="0.0" width="450" height="528"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" quoteSubstitution="YES" dashSubstitution="YES" textCompletion="NO" id="J9v-3s-gTH">
                                     <rect key="frame" x="0.0" y="-1" width="450" height="528"/>
@@ -2853,7 +2853,7 @@ Gw
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="AXP-Hb-61V"/>
                         </constraints>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Which of your attributes wll Yaztromo’s magic enhance?" id="jmn-86-vcn">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Which of your attributes will Yaztromo’s magic enhance?" id="jmn-86-vcn">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -2873,15 +2873,15 @@ Gw
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Skill" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6AA-zr-4yT">
+                                <buttonCell type="radio" title="Skill — Skill set to 12 points" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6AA-zr-4yT">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Stamina" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="JSO-SY-4hV">
+                                <buttonCell type="radio" title="Stamina — Stamina increased by 10 points" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="JSO-SY-4hV">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Luck" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="XcO-Xg-Na3">
+                                <buttonCell type="radio" title="Luck — Luck set to 12 points" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="XcO-Xg-Na3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -3040,10 +3040,10 @@ Gw
         <image name="button_new" width="256" height="256"/>
         <image name="death_banner" width="460" height="588"/>
         <image name="ff_logo_lg" width="480" height="480"/>
-        <image name="icon_sword" width="32" height="32"/>
+        <image name="icon_sword" width="64" height="64"/>
         <image name="one" width="96" height="96"/>
-        <image name="sword3" width="422" height="59"/>
+        <image name="sword3" width="422" height="58.5"/>
         <image name="test" width="208" height="141"/>
-        <image name="text_logo" width="460" height="67"/>
+        <image name="text_logo" width="460" height="66.5"/>
     </resources>
 </document>
