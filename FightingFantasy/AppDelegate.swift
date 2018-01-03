@@ -96,6 +96,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBOutlet weak var combatReadoutOne: NSTextField!
     @IBOutlet weak var combatReadoutTwo: NSTextField!
     @IBOutlet weak var combatReadoutThree: NSTextField!
+    @IBOutlet weak var swordImage: NSImageView!
 
     // MARK: Tests Tab Items
 
@@ -2361,12 +2362,34 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             image = NSImageView.init(frame: NSMakeRect(6, hellBox.frame.origin.y, 262, 136))
             image.image = NSImage.init(named: NSImage.Name("hoh"))
         } else {
-            image = NSImageView.init(frame: NSMakeRect(6, 56, 422, 85))
-            image.image = NSImage.init(named: NSImage.Name("scroll"))
+            let roll: Int = Int(arc4random_uniform(3))
+            switch roll {
+            case 0:
+                image = NSImageView.init(frame: NSMakeRect(6, 54, 422, 88))
+                image.image = NSImage.init(named: NSImage.Name("scroll"))
+            case 1:
+                image = NSImageView.init(frame: NSMakeRect(57, 6, 320, 168))
+                image.image = NSImage.init(named: NSImage.Name("banner"))
+            default:
+                image = NSImageView.init(frame: NSMakeRect(6, 15, 422, 147))
+                image.image = NSImage.init(named: NSImage.Name("mace"))
+            }
         }
 
         statsTabView.addSubview(image)
         statsTabImage = image
+
+        // Do the combat tab image while here
+        let roll: Int = Int(arc4random_uniform(2))
+        switch roll {
+        case 0:
+            swordImage.image = NSImage.init(named: NSImage.Name("sword"))
+        case 1:
+            swordImage.image = NSImage.init(named: NSImage.Name("sword2"))
+        default:
+            swordImage.image = NSImage.init(named: NSImage.Name("sword3"))
+        }
+
     }
 
     // MARK: - Start Sheet Functions
