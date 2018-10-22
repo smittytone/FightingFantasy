@@ -187,6 +187,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 	var combatLuckMonster: Int = 0
     var combatLuckOutcome: Int = 0
     var combatLuckCheck: Bool = false
+    var gatesWeapon: Int = -1
 
 	var heldTabs: [String:NSTabViewItem] = [:]
 	var dice: [NSImage] = []
@@ -241,151 +242,151 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // a .ffc file - which will be loaded BEFORE applicationDidFinishLoading() is called
 
         // Load dice images into an array for easy access later
-        var image: NSImage? = NSImage.init(named: NSImage.Name("one"))
+        var image: NSImage? = NSImage.init(named: "one")
         self.dice.append(image!)
-        image = NSImage.init(named: NSImage.Name("two"))
+        image = NSImage.init(named: "two")
         self.dice.append(image!)
-        image = NSImage.init(named: NSImage.Name("three"))
+        image = NSImage.init(named: "three")
         self.dice.append(image!)
-        image = NSImage.init(named: NSImage.Name("four"))
+        image = NSImage.init(named: "four")
         self.dice.append(image!)
-        image = NSImage.init(named: NSImage.Name("five"))
+        image = NSImage.init(named: "five")
         self.dice.append(image!)
-        image = NSImage.init(named: NSImage.Name("six"))
+        image = NSImage.init(named: "six")
         self.dice.append(image!)
 
         // Load pack item icons into an array for easy access later
-        image = NSImage.init(named: NSImage.Name("icon_lantern"))
+        image = NSImage.init(named: "icon_lantern")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_sword"))
+        image = NSImage.init(named: "icon_sword")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_armour"))
+        image = NSImage.init(named: "icon_armour")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_rope"))
+        image = NSImage.init(named: "icon_rope")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_stick"))
+        image = NSImage.init(named: "icon_stick")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_skull"))
+        image = NSImage.init(named: "icon_skull")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_tooth"))
+        image = NSImage.init(named: "icon_tooth")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_necklace"))
+        image = NSImage.init(named: "icon_necklace")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_net"))
+        image = NSImage.init(named: "icon_net")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_whip"))
+        image = NSImage.init(named: "icon_whip")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_axe"))
+        image = NSImage.init(named: "icon_axe")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_bow"))
+        image = NSImage.init(named: "icon_bow")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_quiver"))
+        image = NSImage.init(named: "icon_quiver")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_hammer"))
+        image = NSImage.init(named: "icon_hammer")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_dagger"))
+        image = NSImage.init(named: "icon_dagger")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_mace"))
+        image = NSImage.init(named: "icon_mace")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_spear"))
+        image = NSImage.init(named: "icon_spear")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_sling"))
+        image = NSImage.init(named: "icon_sling")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_shield"))
+        image = NSImage.init(named: "icon_shield")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_helm"))
+        image = NSImage.init(named: "icon_helm")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_chainmail"))
+        image = NSImage.init(named: "icon_chainmail")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_boots"))
+        image = NSImage.init(named: "icon_boots")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_candle"))
+        image = NSImage.init(named: "icon_candle")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_horn"))
+        image = NSImage.init(named: "icon_horn")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_sack"))
+        image = NSImage.init(named: "icon_sack")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_bell"))
+        image = NSImage.init(named: "icon_bell")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_mirror"))
+        image = NSImage.init(named: "icon_mirror")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_glass"))
+        image = NSImage.init(named: "icon_glass")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_scroll"))
+        image = NSImage.init(named: "icon_scroll")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_book"))
+        image = NSImage.init(named: "icon_book")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_staff"))
+        image = NSImage.init(named: "icon_staff")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_potion"))
+        image = NSImage.init(named: "icon_potion")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_herb"))
+        image = NSImage.init(named: "icon_herb")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_capsule"))
+        image = NSImage.init(named: "icon_capsule")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_flute"))
+        image = NSImage.init(named: "icon_flute")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_whistle"))
+        image = NSImage.init(named: "icon_whistle")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_eye"))
+        image = NSImage.init(named: "icon_eye")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_hand"))
+        image = NSImage.init(named: "icon_hand")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_chalice"))
+        image = NSImage.init(named: "icon_chalice")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_gem"))
+        image = NSImage.init(named: "icon_gem")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_ring"))
+        image = NSImage.init(named: "icon_ring")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_crown"))
+        image = NSImage.init(named: "icon_crown")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_coins"))
+        image = NSImage.init(named: "icon_coins")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_key"))
+        image = NSImage.init(named: "icon_key")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_pendant"))
+        image = NSImage.init(named: "icon_pendant")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_chest"))
+        image = NSImage.init(named: "icon_chest")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_amulet"))
+        image = NSImage.init(named: "icon_amulet")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_orb"))
+        image = NSImage.init(named: "icon_orb")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_bracelet"))
+        image = NSImage.init(named: "icon_bracelet")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_stone"))
+        image = NSImage.init(named: "icon_stone")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_bottle"))
+        image = NSImage.init(named: "icon_bottle")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_food"))
+        image = NSImage.init(named: "icon_food")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_tankard"))
+        image = NSImage.init(named: "icon_tankard")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_fruit"))
+        image = NSImage.init(named: "icon_fruit")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_fungus"))
+        image = NSImage.init(named: "icon_fungus")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_salt"))
+        image = NSImage.init(named: "icon_salt")
         self.icons.add(image!)
 
         // House of Hell specific icons
-        image = NSImage.init(named: NSImage.Name("icon_gun"))
+        image = NSImage.init(named: "icon_gun")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_torch"))
+        image = NSImage.init(named: "icon_torch")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_box"))
+        image = NSImage.init(named: "icon_box")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_bucket"))
+        image = NSImage.init(named: "icon_bucket")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_flask"))
+        image = NSImage.init(named: "icon_flask")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_robe"))
+        image = NSImage.init(named: "icon_robe")
         self.icons.add(image!)
-        image = NSImage.init(named: NSImage.Name("icon_duck"))
+        image = NSImage.init(named: "icon_duck")
         self.icons.add(image!)
 
         // This should always come last
-        image = NSImage.init(named: NSImage.Name("icon_generic"))
+        image = NSImage.init(named: "icon_generic")
         self.icons.add(image!)
 
         // Set up the File menu
@@ -550,7 +551,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.citadelBox.isHidden = true
 
         let image: NSImageView = NSImageView.init(frame: NSMakeRect(10, 56, 416, 85))
-        image.image = NSImage.init(named: NSImage.Name("scroll"))
+        image.image = NSImage.init(named: "scroll")
         self.statsTabView.addSubview(image)
         self.statsTabImage = image
     }
@@ -631,7 +632,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     func initUINotes() {
 
         let font = NSFont(name: "Apple Chancery", size: 16)
-        let attributes = [NSAttributedStringKey.font : font!]
+        let attributes = [NSAttributedString.Key.font : font!]
 
         self.notesTextView.typingAttributes = attributes
         self.notesTextView.string = "Make notes about your adventure here…"
@@ -642,7 +643,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Called regularly to update the UI with the player's current stats
         // As such, it's also where we check for death or madness
-        var colour: NSColor = NSColor.black
+        var colour: NSColor = NSColor.labelColor
 
         // Set up a centred text for stats displayed using NSAtttributedStrings
         // ie. Luck and Stamina
@@ -650,27 +651,47 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         tps.alignment = .center
 
         if let zplayer = self.player {
-            // Stats Tab
-            self.skillValue.stringValue = "\(zplayer.skill)"
-            self.testSkillValue.stringValue = zplayer.gamekind == kGameHouseHell ? "\(zplayer.initialSkill)" : "\(zplayer.skill)"
+            // Ensure Skill readout goes red below a score of 5
+            // Covers Stats and Test tabs
+            colour = zplayer.skill < 5 ? NSColor.red : NSColor.labelColor
+            var astring = NSAttributedString.init(string: "\(zplayer.skill)",
+                attributes: [ NSAttributedString.Key.foregroundColor : colour,
+                              NSAttributedString.Key.paragraphStyle : tps ])
+            self.skillValue.attributedStringValue = astring
             self.initSkillValue.stringValue = "\(zplayer.initialSkill)"
 
+            if zplayer.gamekind == kGameHouseHell {
+                astring = NSAttributedString.init(string: "\(zplayer.skill)",
+                    attributes: [ NSAttributedString.Key.foregroundColor : colour,
+                                  NSAttributedString.Key.paragraphStyle : tps ])
+            }
+
+            self.testSkillValue.attributedStringValue = astring
+
             // Ensure Luck readout goes red below a score of 5
-            colour = zplayer.luck < 5 ? NSColor.red : NSColor.black
-            var astring = NSAttributedString.init(string: "\(zplayer.luck)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
+            // Covers Stats and Test tabs
+            colour = zplayer.luck < 5 ? NSColor.red : NSColor.labelColor
+            astring = NSAttributedString.init(string: "\(zplayer.luck)",
+                attributes: [ NSAttributedString.Key.foregroundColor : colour,
+                              NSAttributedString.Key.paragraphStyle : tps ])
             self.luckValue.attributedStringValue = astring
             self.testLuckValue.attributedStringValue = astring
             self.initLuckValue.stringValue = "\(zplayer.initialLuck)"
 
             // Ensure Stamina readout goes red below a score of 5
-            colour = zplayer.stamina < 5 ? NSColor.red : NSColor.black
-            astring = NSAttributedString.init(string: "\(zplayer.stamina)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
+            // Covers Stats tab
+            colour = zplayer.stamina < 5 ? NSColor.red : NSColor.labelColor
+            astring = NSAttributedString.init(string: "\(zplayer.stamina)",
+                attributes: [ NSAttributedString.Key.foregroundColor : colour,
+                              NSAttributedString.Key.paragraphStyle : tps ])
             self.staminaValue.attributedStringValue = astring
             self.initStaminaValue.stringValue = "\(zplayer.initialStamina)"
 
             // Ensure Fear readout goes red 4 below maxFear
-            colour = zplayer.fear > zplayer.maxFear - 5 ? NSColor.red : NSColor.black
-            astring = NSAttributedString.init(string: "\(zplayer.fear)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
+            colour = zplayer.fear > zplayer.maxFear - 5 ? NSColor.red : NSColor.labelColor
+            astring = NSAttributedString.init(string: "\(zplayer.fear)",
+                attributes: [ NSAttributedString.Key.foregroundColor : colour,
+                              NSAttributedString.Key.paragraphStyle : tps ])
             self.fearValue.attributedStringValue = astring
             self.maxFearValue.stringValue = "\(zplayer.maxFear)"
 
@@ -980,7 +1001,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Clear the result readout
         self.combatReadoutOne.stringValue = " "
         self.combatReadoutTwo.stringValue = " "
-
+        
         // Some housekeeping: if any monster's Stamina is zero, they can't be a target or in the fight
         // We have to apply this in case the user changes it mid-fight
         if self.monsterOneStamField.integerValue < 1 {
@@ -1002,10 +1023,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         let playerRollOne = Int(arc4random_uniform(6))
         let playerRollTwo = Int(arc4random_uniform(6))
         var playerAttackStrength : Int = self.player!.skill + playerRollOne + playerRollTwo + 2
-
+        
         // Add in modifier
         playerAttackStrength = playerAttackStrength + 6 - self.playerMod.indexOfSelectedItem
-
+        
         // Select target. Note these are controlled elsewhere to ensure only one
         // or no targets are selected
         var target: Int = 0
@@ -1480,7 +1501,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
 
         // This NSControl delegate method is used to trap when ending ends in a table row's NSTextField
         if let zobj = obj.userInfo {
@@ -1623,9 +1644,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             let magicTotal: Int = zplayer.magic
             var points: Int = 0
 
-            points = self.creatureCopyField.integerValue + self.espField.integerValue + self.fireField.integerValue + self.illusionField.integerValue +
-                self.levitationField.integerValue + self.luckField.integerValue + self.shieldingField.integerValue + self.skillField.integerValue +
-                self.staminaField.integerValue + self.strengthField.integerValue + self.weaknessField.integerValue
+            // NOTE The following is on multiple lines to appease the compiler!
+            points = self.creatureCopyField.integerValue + self.espField.integerValue + self.fireField.integerValue + self.illusionField.integerValue
+            points = points + self.levitationField.integerValue + self.luckField.integerValue + self.shieldingField.integerValue + self.skillField.integerValue
+            points = points + self.staminaField.integerValue + self.strengthField.integerValue + self.weaknessField.integerValue
 
             if points > magicTotal {
                 // Zero the points just entered
@@ -1717,14 +1739,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     func playerDead() {
 
         // Perform the death routine
-        let image = NSImage.init(named: NSImage.Name("death_banner"))
+        let image = NSImage.init(named: "death_banner")
         if image != nil { showDeathWindow(image!) }
     }
 
     func playerMad() {
 
         // Perform the death-by-madness routine
-        let image = NSImage.init(named: NSImage.Name("madness_banner"))
+        let image = NSImage.init(named: "madness_banner")
         if image != nil { showDeathWindow(image!) }
     }
 
@@ -2146,7 +2168,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // remove them if the user has selected one
 
         var gameType: Int = self.startGamePopup.indexOfSelectedItem
-        if gameType > kGamePortPeril { gameType = gameType + 6 }
+        if gameType > kGameGatesDeath { gameType = gameType + 5 }
         self.player!.gamekind = gameType
 
         // The following are 'standard' games with no special load-out
@@ -2245,6 +2267,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.player!.gold = 0
             self.player!.drinks = 1
             self.player!.gameName = "Port of Peril"
+        }
+        
+        if gameType == kGameGatesDeath {
+            self.player!.potion = kPotionNone
+            self.player!.provisions = 0
+            self.player!.gold = 0
+            self.player!.gameName = "Gates of Death"
+            self.player!.skill = self.player!.skill
         }
 
         // Sorcery! games - always the last two in the menu
@@ -2358,23 +2388,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameType == kGameCitadel {
             // Place an image in the gap to the right of the stats panel
             image = NSImageView.init(frame: NSMakeRect(self.citadelBox.frame.origin.x + 160, self.citadelBox.frame.origin.y, 258, 140))
-            image.image = NSImage.init(named: NSImage.Name("coc"))
+            image.image = NSImage.init(named: "coc")
         } else if gameType == kGameHouseHell {
             // Place an image in the gap to the left of the stats panel
             image = NSImageView.init(frame: NSMakeRect(6, self.hellBox.frame.origin.y, 262, 136))
-            image.image = NSImage.init(named: NSImage.Name("hoh"))
+            image.image = NSImage.init(named: "hoh")
         } else {
             let roll: Int = Int(arc4random_uniform(3))
             switch roll {
             case 0:
                 image = NSImageView.init(frame: NSMakeRect(6, 54, 422, 88))
-                image.image = NSImage.init(named: NSImage.Name("scroll"))
+                image.image = NSImage.init(named: "scroll")
             case 1:
                 image = NSImageView.init(frame: NSMakeRect(57, 6, 320, 168))
-                image.image = NSImage.init(named: NSImage.Name("banner"))
+                image.image = NSImage.init(named: "banner")
             default:
                 image = NSImageView.init(frame: NSMakeRect(6, 15, 422, 147))
-                image.image = NSImage.init(named: NSImage.Name("mace"))
+                image.image = NSImage.init(named: "mace")
             }
         }
 
@@ -2385,11 +2415,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         let roll: Int = Int(arc4random_uniform(2))
         switch roll {
         case 0:
-            self.swordImage.image = NSImage.init(named: NSImage.Name("sword"))
+            self.swordImage.image = NSImage.init(named: "sword")
         case 1:
-            self.swordImage.image = NSImage.init(named: NSImage.Name("sword2"))
+            self.swordImage.image = NSImage.init(named: "sword2")
         default:
-            self.swordImage.image = NSImage.init(named: NSImage.Name("sword3"))
+            self.swordImage.image = NSImage.init(named: "sword3")
         }
 
     }
@@ -2544,6 +2574,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if (gameType == kGamePortPeril) { setPortPerilGameMenu() }
         if (gameType == kGameCavernsSnow) { setCavernsGameMenu() }
         if (gameType == kGameTempleTerror) { setTempleGameMenu() }
+        if (gameType == kGameGatesDeath) { setGatesGameMenu() }
     }
 
     // MARK: Port of Peril
@@ -2593,6 +2624,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Set up the Game Menu for Port of Peril
         if let gmm = self.gameMenu.submenu {
             if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.title = "Port of Peril"
             gmm.addItem(withTitle: "Take Yaztromo's Aid...", action: #selector(yazMagic), keyEquivalent: "y")
             let ym: NSMenuItem? = gmm.item(at: 0)
             if ym != nil { ym!.isEnabled = true }
@@ -2600,7 +2632,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         self.gameMenu.isEnabled = true
         self.gameMenu.isHidden = false
-        self.gameMenu.title = "Port of Peril"
     }
 
     // MARK: Caverns of the Snow Witch
@@ -2612,15 +2643,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Set up the Game Menu
         if let gmm = self.gameMenu.submenu {
             if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.title = "Caverns of the Snow Witch"
             gmm.addItem(withTitle: "White Dragon Extra Attack", action: #selector(dragonExtraAttack), keyEquivalent: "")
             gmm.addItem(withTitle: "Ice Demon Extra Attack", action: #selector(demonExtraAttack), keyEquivalent: "")
-            let ym: NSMenuItem? = gmm.item(at: 0)
-            if ym != nil { ym!.isEnabled = true }
         }
 
         self.gameMenu.isEnabled = true
         self.gameMenu.isHidden = false
-        self.gameMenu.title = "Caverns of the Snow Witch"
     }
 
     @objc func dragonExtraAttack() {
@@ -2679,6 +2708,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if let gmm = self.gameMenu.submenu {
             if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.title = "Temple of Terror"
             gmm.addItem(withTitle: "Firefly Extra Attack", action: #selector(fireflyExtraAttack), keyEquivalent: "")
             let ym: NSMenuItem? = gmm.item(at: 0)
             if ym != nil { ym!.isEnabled = true }
@@ -2686,7 +2716,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         self.gameMenu.isEnabled = true
         self.gameMenu.isHidden = false
-        self.gameMenu.title = "Temple of Terror"
     }
 
     @objc func fireflyExtraAttack() {
@@ -2706,6 +2735,60 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             showExtraAttackResult("Firefly", 0)
         }
     }
+    
+    // MARK: Gates of Death
+    
+    func setGatesGameMenu() {
+        
+        // Set up the Game Menu for Gates of Death
+        if let gmm = self.gameMenu.submenu {
+            if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.title = "Gates of Death"
+            gmm.autoenablesItems = false
+            
+            // Add the weapons listed in the game
+            gmm.addItem(withTitle: "None", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Rusty Breadknife", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Fireiron", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Pitchfork", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Cudgel", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Cleaver", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Harpoon", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Sneaky Sword", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Assassin’s Stiletto", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Woodman’s Axe", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Temple Guard’s Axe", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Jewelled Warhammer", action: #selector(setGatesWeapon), keyEquivalent: "")
+            gmm.addItem(withTitle: "Khopesh", action: #selector(setGatesWeapon), keyEquivalent: "")
+                    
+            // Select the first weapon on the list
+            for i in 0..<gmm.items.count {
+                let imi: NSMenuItem? = gmm.item(at: i)
+                imi!.state = i == 0 ? NSControl.StateValue.on : NSControl.StateValue.off
+                imi!.isEnabled = true
+            }
+        }
+        
+        self.gameMenu.isEnabled = true
+        self.gameMenu.isHidden = false
+    }
+    
+    @objc @IBAction func setGatesWeapon(_ sender: Any) {
+        
+        let asender = sender as! NSMenuItem
+        if let gmm = self.gameMenu.submenu {
+            for i in 0..<gmm.items.count {
+                if let imi: NSMenuItem = gmm.item(at: i) {
+                    if imi == asender {
+                        imi.state = NSControl.StateValue.on
+                        self.gatesWeapon = i
+                    } else {
+                        imi.state = NSControl.StateValue.off
+                    }
+                }
+            }
+        }
+    }
 
     // MARK: Sorcery!
 
@@ -2715,6 +2798,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if let gmm = self.gameMenu.submenu {
             if (gmm.items.count > 0) { gmm.removeAllItems() }
+            gmm.title = "Sorcery!"
             gmm.addItem(withTitle: "Ask Libra to Revitalise You", action: #selector(libraRestore), keyEquivalent: "")
             let ym: NSMenuItem? = gmm.item(at: 0)
             if ym != nil { ym!.isEnabled = true }
@@ -2722,7 +2806,6 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         self.gameMenu.isEnabled = true
         self.gameMenu.isHidden = false
-        self.gameMenu.title = "Sorcery!"
     }
 
     @objc func libraRestore() {

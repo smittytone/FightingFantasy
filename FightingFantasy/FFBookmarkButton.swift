@@ -1,7 +1,7 @@
 
 //  FightingFantasy
 //  Created by Tony Smith on 02/11/2017.
-//  Software © 2017 Tony Smith. All rights reserved.
+//  Software © 2017-18 Tony Smith. All rights reserved.
 //  Software ONLY issued under MIT Licence
 //  Fighting Fantasy © 2016 Steve Jackson and Ian Livingstone
 
@@ -24,7 +24,10 @@ class FFBookmarkButton: NSButton {
         }
 
         let options: NSTrackingArea.Options = [.mouseEnteredAndExited, .activeAlways]
-        let trackingArea = NSTrackingArea(rect: self.bounds, options: options, owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea(rect: self.bounds,
+                                          options: options,
+                                          owner: self,
+                                          userInfo: nil)
         self.addTrackingArea(trackingArea)
     }
 
@@ -34,9 +37,9 @@ class FFBookmarkButton: NSButton {
         // whether the bookmark is showing (+ to show bookmark, - to hide it).
         // 'bookmarkState' says which is which: true for bookmark showing
         if !bookmarkState {
-            self.image = NSImage.init(named: NSImage.Name("button_blue_on"))
+            self.image = NSImage.init(named: "button_blue_on")
         } else {
-            self.image = NSImage.init(named: NSImage.Name("button_blue_off"))
+            self.image = NSImage.init(named: "button_blue_off")
         }
 
         super.mouseEntered(with: event)
@@ -45,7 +48,7 @@ class FFBookmarkButton: NSButton {
     override func mouseExited(with event: NSEvent) {
 
         // Mouse moves away from the button, so set the image to a plain circle
-        self.image = NSImage.init(named: NSImage.Name("button_blue"))
+        self.image = NSImage.init(named: "button_blue")
         super.mouseExited(with: event)
     }
 

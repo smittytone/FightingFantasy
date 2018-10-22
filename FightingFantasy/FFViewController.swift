@@ -1,7 +1,7 @@
 
 //  FightingFantasy
 //  Created by Tony Smith on 02/11/2017.
-//  Software © 2017 Tony Smith. All rights reserved.
+//  Software © 2017-18 Tony Smith. All rights reserved.
 //  Software ONLY issued under MIT Licence
 //  Fighting Fantasy © 2016 Steve Jackson and Ian Livingstone
 
@@ -98,19 +98,24 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         // the button the user has clicked on
         collectionView.deselectAll(self)
         let set: Set<IndexPath> = [IndexPath.init(item: button.index, section: 0)]
-        collectionView.selectItems(at: set, scrollPosition: NSCollectionView.ScrollPosition.top)
+        collectionView.selectItems(at: set,
+                                   scrollPosition: NSCollectionView.ScrollPosition.top)
     }
 
     func configureCollectionView() {
 
         // Configure the collection view's flow layout manager
         let flowLayout = NSCollectionViewFlowLayout()
-        flowLayout.itemSize = NSSize(width: 32.0, height: 32.0)
-        flowLayout.sectionInset = NSEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
+        flowLayout.itemSize = NSSize(width: 32.0,
+                                     height: 32.0)
+        flowLayout.sectionInset = NSEdgeInsets(top: 2.0,
+                                               left: 2.0,
+                                               bottom: 2.0,
+                                               right: 2.0)
         flowLayout.minimumInteritemSpacing = 2.0
         flowLayout.minimumLineSpacing = 2.0
         collectionView.collectionViewLayout = flowLayout
-        collectionView.layer?.backgroundColor = NSColor.white.cgColor
+        collectionView.layer?.backgroundColor = NSColor.textBackgroundColor.cgColor
         collectionView.isSelectable = true
         collectionView.allowsEmptySelection = true
         view.wantsLayer = true

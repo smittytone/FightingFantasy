@@ -86,9 +86,9 @@
 				3BE789E41FC1E1A500F2A3AD /* FFBookmarkView.swift */,
 				3B7375A61FC23DE2000C4F88 /* FFBookmarkButton.swift */,
 				3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */,
-				3BFE93051FA29615003DF79F /* Assets.xcassets */,
 				3BFE93071FA29615003DF79F /* MainMenu.xib */,
 				3BF1933A1FA66A2300337EE8 /* FFCollectionViewItem.xib */,
+				3BFE93051FA29615003DF79F /* Assets.xcassets */,
 				3B1DFF931FC0D3C300E8E22B /* helptext.txt */,
 				3BFE930A1FA29615003DF79F /* Info.plist */,
 				3BFE930B1FA29615003DF79F /* FightingFantasy.entitlements */,
@@ -128,6 +128,7 @@
 				TargetAttributes = {
 					3BFE92FF1FA29615003DF79F = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -324,7 +325,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.blackpyramid.FightingFantasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -340,7 +341,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.blackpyramid.FightingFantasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
