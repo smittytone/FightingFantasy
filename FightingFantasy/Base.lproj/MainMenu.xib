@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -1455,7 +1455,7 @@ DQ
                                             <rect key="frame" x="17" y="49" width="400" height="471"/>
                                             <clipView key="contentView" id="nV5-Ea-Vfg">
                                                 <rect key="frame" x="1" y="1" width="398" height="469"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" viewBased="YES" id="6yi-V8-ZeC">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="469"/>
@@ -2604,14 +2604,14 @@ DQ
             </connections>
         </popover>
         <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="B4c-2k-Wvc">
-            <rect key="frame" x="0.0" y="0.0" width="278" height="276"/>
+            <rect key="frame" x="0.0" y="0.0" width="333" height="345"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
-                <rect key="frame" x="1" y="1" width="276" height="274"/>
+                <rect key="frame" x="1" y="1" width="331" height="343"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
-                        <rect key="frame" x="0.0" y="0.0" width="276" height="274"/>
+                        <rect key="frame" x="0.0" y="0.0" width="331" height="343"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="rN9-mo-Xtc">
                             <size key="itemSize" width="32" height="32"/>
@@ -2630,10 +2630,10 @@ DQ
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="wWu-fW-OO0">
-                <rect key="frame" x="234" y="1" width="15" height="143"/>
+                <rect key="frame" x="334" y="1" width="16" height="333"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
-            <point key="canvasLocation" x="575" y="820"/>
+            <point key="canvasLocation" x="602.5" y="854.5"/>
         </scrollView>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SxQ-xQ-kTY">
             <windowStyleMask key="styleMask" titled="YES"/>
@@ -3093,7 +3093,7 @@ Gw
         <image name="button_new" width="256" height="256"/>
         <image name="death_banner" width="460" height="588"/>
         <image name="ff_logo_lg" width="480" height="480"/>
-        <image name="icon_sword" width="64" height="64"/>
+        <image name="icon_sword" width="32" height="32"/>
         <image name="one" width="96" height="96"/>
         <image name="sword3" width="422" height="58.5"/>
         <image name="test" width="208" height="141"/>

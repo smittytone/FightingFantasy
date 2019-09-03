@@ -1353,7 +1353,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Show the icon matrix
         if let iconButton = (sender as? FFIconButton) {
             // Make sure the matrix controller knows which button was clicked on
-            iconPopoverController.button = iconButton
+            self.iconPopoverController.button = iconButton
 
             // Show the popover
             iconPopover!.show(relativeTo: iconButton.bounds, of: iconButton, preferredEdge: NSRectEdge.maxY)
