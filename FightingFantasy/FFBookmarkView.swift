@@ -16,14 +16,14 @@ class FFBookmarkView: NSImageView {
 
     override func awakeFromNib() {
 
-        place = -1
+        self.place = -1
     }
 
     override func draw(_ dirtyRect: NSRect) {
 
         super.draw(dirtyRect)
 
-        if place != -1 {
+        if self.place != -1 {
             // A bookmark has been set and passed to the view via the 'place' property
             // NOTE A value of -1 indicates no bookmark has been set
             var stringOrigin: NSPoint = NSMakePoint(0, 0)
@@ -34,7 +34,7 @@ class FFBookmarkView: NSImageView {
                 NSAttributedString.Key.font: NSFont.init(name: "Apple Chancery", size: 20)! ]
 
             // Convert the value of place to an attrributed string
-            let lString = "\(place)" as NSString
+            let lString = "\(self.place)" as NSString
             let stringSize = lString.size(withAttributes: stringAttributes)
 
             // Draw the string over the background ribbon image

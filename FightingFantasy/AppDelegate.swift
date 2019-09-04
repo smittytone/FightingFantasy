@@ -176,7 +176,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
         set {
             self.mustSave = newValue
-            window.isDocumentEdited = newValue
+            self.window.isDocumentEdited = newValue
         }
     }
 
@@ -474,13 +474,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
 
         // Do we need to save the current character before quitting?
-        if gameInProgress && needToSave && player != nil {
+        if self.gameInProgress && self.needToSave && self.player != nil {
             let alert = NSAlert.init()
             alert.messageText = "You have a game in progress with unsaved changes"
             alert.informativeText = "If you quit now, unsaved changes will be lost"
             alert.addButton(withTitle: "Cancel")
             alert.addButton(withTitle: "Quit")
-            alert.beginSheetModal(for: window, completionHandler: { (response) in
+            alert.beginSheetModal(for: self.window, completionHandler: { (response) in
                 if response == NSApplication.ModalResponse.alertFirstButtonReturn {
                     self.savePlayer(self)
                 } else {
@@ -543,8 +543,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.foodAmountField.stringValue = ""
         self.potionTypeLabel.stringValue = "None"
 
-        self.goldAmountField.formatter = onlyIntFormatter
-        self.foodAmountField.formatter = onlyIntFormatter
+        self.goldAmountField.formatter = self.onlyIntFormatter
+        self.foodAmountField.formatter = self.onlyIntFormatter
 
         // Hide the game-specific panels
         self.hellBox.isHidden = true
@@ -565,12 +565,12 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.monsterThreeStamField.stringValue = ""
         self.monsterThreeSkillField.stringValue = ""
 
-        self.monsterOneStamField.formatter = onlyIntFormatter
-        self.monsterOneSkillField.formatter = onlyIntFormatter
-        self.monsterTwoStamField.formatter = onlyIntFormatter
-        self.monsterTwoSkillField.formatter = onlyIntFormatter
-        self.monsterThreeStamField.formatter = onlyIntFormatter
-        self.monsterThreeSkillField.formatter = onlyIntFormatter
+        self.monsterOneStamField.formatter = self.onlyIntFormatter
+        self.monsterOneSkillField.formatter = self.onlyIntFormatter
+        self.monsterTwoStamField.formatter = self.onlyIntFormatter
+        self.monsterTwoSkillField.formatter = self.onlyIntFormatter
+        self.monsterThreeStamField.formatter = self.onlyIntFormatter
+        self.monsterThreeSkillField.formatter = self.onlyIntFormatter
 
         self.playerMod.selectItem(at: 6)
         self.monsterMod.selectItem(at: 6)
@@ -585,8 +585,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.testSkillValue.stringValue = ""
         self.testLuckValue.stringValue = ""
 
-        self.dieOne.image = dice[Int(arc4random_uniform(6))]
-        self.dieTwo.image = dice[Int(arc4random_uniform(6))]
+        self.dieOne.image = self.dice[Int(arc4random_uniform(6))]
+        self.dieTwo.image = self.dice[Int(arc4random_uniform(6))]
     }
 
     func initUIPack() {
@@ -609,17 +609,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.strengthField.stringValue = ""
         self.weaknessField.stringValue = ""
 
-        self.creatureCopyField.formatter = onlyIntFormatter
-        self.espField.formatter = onlyIntFormatter
-        self.fireField.formatter = onlyIntFormatter
-        self.illusionField.formatter = onlyIntFormatter
-        self.levitationField.formatter = onlyIntFormatter
-        self.luckField.formatter = onlyIntFormatter
-        self.shieldingField.formatter = onlyIntFormatter
-        self.skillField.formatter = onlyIntFormatter
-        self.staminaField.formatter = onlyIntFormatter
-        self.strengthField.formatter = onlyIntFormatter
-        self.weaknessField.formatter = onlyIntFormatter
+        self.creatureCopyField.formatter = self.onlyIntFormatter
+        self.espField.formatter = self.onlyIntFormatter
+        self.fireField.formatter = self.onlyIntFormatter
+        self.illusionField.formatter = self.onlyIntFormatter
+        self.levitationField.formatter = self.onlyIntFormatter
+        self.luckField.formatter = self.onlyIntFormatter
+        self.shieldingField.formatter = self.onlyIntFormatter
+        self.skillField.formatter = self.onlyIntFormatter
+        self.staminaField.formatter = self.onlyIntFormatter
+        self.strengthField.formatter = self.onlyIntFormatter
+        self.weaknessField.formatter = self.onlyIntFormatter
 
         self.magicSpellsValue.stringValue = "0"
 
@@ -842,9 +842,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if let button = (sender as? NSButton) {
             if button == self.foodEatButton {
                 if self.player!.provisions > 0 {
-                    self.player!.provisions = self.player!.provisions - 1
+                    self.player!.provisions -= 1
                     self.foodAmountField.stringValue = "\(self.player!.provisions)"
-                    self.player!.stamina = self.player!.stamina + 4
+                    self.player!.stamina += 4
                     if self.player!.stamina > self.player!.initialStamina { self.player!.stamina = self.player!.initialStamina }
                     self.needToSave = true
                     updateStats()
@@ -872,21 +872,21 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if self.player!.drinks > 0 {
             switch (self.player!.potion) {
-            case kPotionDexterity:
-                // Potion of Dexterity - skill returned to initial value
-                self.player!.skill = self.player!.initialSkill
-            case kPotionStrength:
-                // Potion of strength - stamina returned to initial value
-                self.player!.stamina = self.player!.initialStamina
-            case kPotionFortune:
-                // Potion of fortune - Initial luck increased by 1, luck set to new initial
-                self.player!.initialLuck = self.player!.initialLuck + 1
-                self.player!.luck = self.player!.initialLuck
-            default:
-                self.player!.luck = self.player!.luck
+                case kPotionDexterity:
+                    // Potion of Dexterity - skill returned to initial value
+                    self.player!.skill = self.player!.initialSkill
+                case kPotionStrength:
+                    // Potion of strength - stamina returned to initial value
+                    self.player!.stamina = self.player!.initialStamina
+                case kPotionFortune:
+                    // Potion of fortune - Initial luck increased by 1, luck set to new initial
+                    self.player!.initialLuck += 1
+                    self.player!.luck = self.player!.initialLuck
+                default:
+                    self.player!.luck = self.player!.luck
             }
 
-            self.player!.drinks = self.player!.drinks - 1
+            self.player!.drinks -= 1
             if self.player!.drinks == 0 { self.player!.potion = kPotionNone }
             self.needToSave = true
             updateStats()
@@ -901,7 +901,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if let stepper = (sender as? NSStepper) {
             if stepper == self.goldStepper {
                 if self.player!.gold == 0 && stepper.integerValue == -1 { return }
-                self.player!.gold = self.player!.gold + stepper.integerValue
+                self.player!.gold += stepper.integerValue
                 stepper.integerValue = 0
                 self.needToSave = true;
                 updateStats()
@@ -1054,7 +1054,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.combatReadoutTwo.stringValue = "You didn't select a target..."
         }
 
-        monsterAttackStrength = monsterAttackStrength + 6 - self.monsterMod.indexOfSelectedItem
+        monsterAttackStrength += (6 - self.monsterMod.indexOfSelectedItem)
 
         // Are we playing Creature of Havoc? A double throw means instant opponent death
         if self.player!.gamekind == kGameCreatureHavoc && playerRollOne == playerRollTwo {
@@ -1075,7 +1075,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.monsterThreeCombatCheck.state == NSControl.StateValue.on {
             if playerAttackStrength > monsterAttackStrength {
                 combatReadoutOne.stringValue = (self.player!.gamekind == kGameCreatureHavoc ? "Your claws strikes home..." : "Your weapon strikes home...")
-                monsterStrength = monsterStrength - 2
+                monsterStrength -= 2
                 self.combatLuckOutcome = 1
             } else if monsterAttackStrength > playerAttackStrength {
                 self.player!.stamina = self.player!.stamina - (self.player!.gamekind == kGameCreatureHavoc ? 1 : 2)
@@ -1097,8 +1097,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
-                    self.player!.stamina = self.player!.stamina - 2
-                    hits = hits + 1
+                    self.player!.stamina -= 2
+                    hits += 1
                 }
 
                 if hits == -1 { hits = 0 }
@@ -1110,8 +1110,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
-                    self.player!.stamina = self.player!.stamina - 2
-                    hits = hits + 1
+                    self.player!.stamina -= 2
+                    hits += 1
                 }
 
                 if hits == -1 { hits = 0 }
@@ -1123,8 +1123,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
                 // Only care if it hits the character
                 if monsterAttackStrength > playerAttackStrength {
-                    self.player!.stamina = self.player!.stamina - 2
-                    hits = hits + 1
+                    self.player!.stamina -= 2
+                    hits += 1
                 }
 
                 if hits == -1 { hits = 0 }
@@ -1286,9 +1286,9 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !self.gameInProgress || self.player == nil { return }
 
         var roll: Int = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
-        roll = roll + 3 - self.testLuckMod.indexOfSelectedItem
+        roll += (3 - self.testLuckMod.indexOfSelectedItem)
         showAlert((roll <= self.player!.luck ? "Destiny smiles upon you..." : "You are ill-favoured..."), "", true)
-        self.player!.luck = self.player!.luck - 1
+        self.player!.luck -= 1
         self.needToSave = true
     }
 
@@ -1297,7 +1297,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !self.gameInProgress || self.player == nil { return }
 
         var roll: Int = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 2
-        roll = roll + 3 - self.testSkillMod.indexOfSelectedItem
+        roll += (3 - self.testSkillMod.indexOfSelectedItem)
         var sk = self.player!.skill
 
         if self.player!.gamekind == kGameHouseHell {
@@ -1356,19 +1356,21 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.iconPopoverController.button = iconButton
 
             // Show the popover
-            iconPopover!.show(relativeTo: iconButton.bounds, of: iconButton, preferredEdge: NSRectEdge.maxY)
+            self.iconPopover!.show(relativeTo: iconButton.bounds,
+                                   of: iconButton,
+                                   preferredEdge: NSRectEdge.maxY)
         }
     }
 
     func makeIconMatrix() {
 
         // Assemble the popover if it hasn't been assembled yet
-        if iconPopover == nil {
-            iconPopover = NSPopover.init()
-            iconPopover!.contentViewController = iconPopoverController
-            iconPopover!.delegate = self
-            iconPopover!.behavior = NSPopover.Behavior.transient
-            iconPopoverController.icons = icons
+        if self.iconPopover == nil {
+            self.iconPopover = NSPopover.init()
+            self.iconPopover!.contentViewController = self.iconPopoverController
+            self.iconPopover!.delegate = self
+            self.iconPopover!.behavior = NSPopover.Behavior.transient
+            self.iconPopoverController.icons = self.icons
         }
     }
 
@@ -1378,16 +1380,16 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 		if let zplayer = player {
             let itemName = "New pack item"
 			let item: [String:Any] = [ "name" : itemName,
-								       "icon" : NSNumber.init(value: icons.count - 1) ]
+								       "icon" : NSNumber.init(value: self.icons.count - 1) ]
 
             zplayer.pack.append(item)
 
             // Update the table
-            packTable.reloadData()
-            packTable.needsDisplay = true
-            packTable.scrollRowToVisible(zplayer.pack.count - 1)
+            self.packTable.reloadData()
+            self.packTable.needsDisplay = true
+            self.packTable.scrollRowToVisible(zplayer.pack.count - 1)
 
-            needToSave = true
+            self.needToSave = true
             updateStats()
         }
     }
@@ -1397,7 +1399,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 		// The player has selected a pack item and clicked the 'Use' button to use and remove it
 
 		// Nothing selected? Bail
-		if packTable.selectedRow == -1 { return }
+		if self.packTable.selectedRow == -1 { return }
 
 		// Otherwise...
 		if let zplayer = player {
@@ -1405,10 +1407,10 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 			zplayer.pack.remove(at: zplayer.packSelectedItem)
 
             // Update the table
-			packTable.reloadData()
-			packTable.needsDisplay = true
+			self.packTable.reloadData()
+			self.packTable.needsDisplay = true
 
-			needToSave = true
+			self.needToSave = true
 			updateStats()
         }
     }
@@ -1464,7 +1466,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 let n = dict["icon"] as! NSNumber
                 cell.button?.index = n.intValue
                 if let image = self.icons.object(at: n.intValue) as? NSImage { cell.button?.image = image }
-                cell.button?.icons = icons
+                cell.button?.icons = self.icons
                 cell.button?.action = #selector(self.showIcons)
                 return cell
             }
@@ -1667,7 +1669,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         alert.messageText = title
         if message.count > 0 { alert.informativeText = message }
 
-        alert.beginSheetModal(for: window, completionHandler: { (modalResponse) in
+        alert.beginSheetModal(for: self.window, completionHandler: { (modalResponse) in
             if update { self.updateStats() }
         })
     }
@@ -1701,13 +1703,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.bookmarkCurrentField.formatter = onlyIntFormatter
 
         // Show the sheet
-        window.beginSheet(self.bookmarkWindow, completionHandler:  { (response) in })
+        self.window.beginSheet(self.bookmarkWindow,
+                               completionHandler: nil)
     }
 
     @IBAction func cancelBookmarker(_ sender: Any) {
 
         // Close the sheet
-        window.endSheet(self.bookmarkWindow)
+       self.window.endSheet(self.bookmarkWindow)
     }
 
     @IBAction func setBookmarker(_ sender: Any) {
@@ -1731,7 +1734,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
 
         // Close the sheet
-        window.endSheet(self.bookmarkWindow)
+        self.window.endSheet(self.bookmarkWindow)
     }
 
     // MARK: - Player Management Functions
@@ -1760,13 +1763,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.reanimateButton.isEnabled = firstRun ? true : false
         self.reanimateButton.isHidden = firstRun ? false : true
 
-        window.beginSheet(self.deathWindow, completionHandler:  { (response) in })
+        self.window.beginSheet(self.deathWindow, completionHandler:  { (response) in })
     }
 
     @IBAction func reanimate(_ sender: Any) {
 
         // Player chooses to try again on reduced stats
-        window.endSheet(self.deathWindow)
+        self.window.endSheet(self.deathWindow)
 
         if let zplayer = self.player {
             zplayer.isDead = false
@@ -1785,7 +1788,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBAction func quitter(_ sender: Any) {
 
         // Player calls it quits
-        window.endSheet(self.deathWindow)
+        self.window.endSheet(self.deathWindow)
 
         self.gameInProgress = false
         self.needToSave = false
@@ -1900,7 +1903,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             alert.addButton(withTitle: "No")
             alert.addButton(withTitle: "Yes")
 
-            alert.beginSheetModal(for: window) { (response) in
+            alert.beginSheetModal(for: self.window) { (response) in
                 if response == NSApplication.ModalResponse.alertSecondButtonReturn {
                     // Player clicked 'Continue', so display the New Player UI
                     self.needToSave = false
@@ -1914,7 +1917,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         let openPanel: NSOpenPanel = NSOpenPanel.init()
         openPanel.allowedFileTypes = ["ffc"]
         openPanel.allowsMultipleSelection = false
-        openPanel.beginSheetModal(for: window, completionHandler: { (response) in
+        openPanel.beginSheetModal(for: self.window, completionHandler: { (response) in
             if response == NSApplication.ModalResponse.OK {
                 let path:String = openPanel.urls[0].path
                 _ = self.openFileHander(path)
@@ -2021,7 +2024,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             alert.informativeText = self.needToSave ? "If you close the character now, unsaved changes will be lost" : "Are you sure?"
             alert.addButton(withTitle: "No")
             alert.addButton(withTitle: "Yes")
-            alert.beginSheetModal(for: window, completionHandler: { (response) in
+            alert.beginSheetModal(for: self.window, completionHandler: { (response) in
                 if response == NSApplication.ModalResponse.alertSecondButtonReturn { self.doClose() }
             })
 
@@ -2055,7 +2058,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             alert.addButton(withTitle: "No")
             alert.addButton(withTitle: "Yes")
 
-            alert.beginSheetModal(for: window) { (response) in
+            alert.beginSheetModal(for: self.window) { (response) in
                 if response == NSApplication.ModalResponse.alertSecondButtonReturn {
                     // Player clicked 'Continue', so display the New Player UI
                     self.showPlayerCreate()
@@ -2083,7 +2086,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Present the New Player sheet
         // NOTE There's no completion handler used here, as we send the buttons' actions
         // to functions within this App Delegate (see below)
-        window.beginSheet(self.createSheet, completionHandler: nil)
+        self.window.beginSheet(self.createSheet, completionHandler: nil)
 
         self.tabs.selectTabViewItem(at: 0)
 	}
@@ -2136,7 +2139,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     @IBAction func cancelSheet(_ sender: Any) {
 
         // Just hide the New Player UI without doing anything else
-        window.endSheet(self.createSheet)
+        self.window.endSheet(self.createSheet)
     }
 
     @IBAction func setPlayer(_ sender: Any) {
@@ -2661,7 +2664,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if roll < 3 {
             if self.player != nil {
-                self.player!.stamina = self.player!.stamina - 2
+                self.player!.stamina -= 2
                 if self.player!.stamina < 0 { self.player!.stamina = 0 }
                 showExtraAttackResult("White Dragon", 2)
             }
@@ -2679,7 +2682,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if roll < 4 {
             if self.player != nil {
-                self.player!.stamina = self.player!.stamina - 1
+                self.player!.stamina -= 1
                 if self.player!.stamina < 0 { self.player!.stamina = 0 }
                 showExtraAttackResult("White Dragon", 1)
             }
@@ -2727,7 +2730,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if roll < 4 {
             if self.player != nil {
-                self.player!.stamina = self.player!.stamina - 2
+                self.player!.stamina -= 2
                 if self.player!.stamina < 0 { self.player!.stamina = 0 }
                 showExtraAttackResult("Firefly", 2)
             }

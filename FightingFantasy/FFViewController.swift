@@ -24,70 +24,70 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         // Configure the collection view
         configureCollectionView()
 
-        tooltips.append("Lantern")
-        tooltips.append("Sword")
-        tooltips.append("Leather Armour")
-        tooltips.append("Rope")
-        tooltips.append("Stick")
-        tooltips.append("Skull")
-        tooltips.append("Monster Tooth")
-        tooltips.append("Caveman Necklace")
-        tooltips.append("Net")
-        tooltips.append("Whip")
-        tooltips.append("Axe")
-        tooltips.append("Bow")
-        tooltips.append("Arrows")
-        tooltips.append("Hammer")
-        tooltips.append("Dagger")
-        tooltips.append("Mace")
-        tooltips.append("Spear")
-        tooltips.append("Slingshot")
-        tooltips.append("Shield")
-        tooltips.append("Helm")
-        tooltips.append("Chainail Armour")
-        tooltips.append("Boots")
-        tooltips.append("Candle")
-        tooltips.append("Horn")
-        tooltips.append("Sack")
-        tooltips.append("Bell")
-        tooltips.append("Mirror")
-        tooltips.append("Magnifying Glass")
-        tooltips.append("Scroll")
-        tooltips.append("Book of Spells")
-        tooltips.append("Wizard's Staff")
-        tooltips.append("Magic Potion")
-        tooltips.append("Herbal Mixture")
-        tooltips.append("Capsules")
-        tooltips.append("Flute")
-        tooltips.append("Whistle")
-        tooltips.append("Eyeball")
-        tooltips.append("Hand")
-        tooltips.append("Golden Chalice")
-        tooltips.append("Rare Gem")
-        tooltips.append("Ring of Power")
-        tooltips.append("Regal Crown")
-        tooltips.append("Hoard of Coins")
-        tooltips.append("Key")
-        tooltips.append("Eldritch Pendant")
-        tooltips.append("Chest")
-        tooltips.append("Amulet")
-        tooltips.append("Orb of Seeing")
-        tooltips.append("Precious Bracelet")
-        tooltips.append("Stone")
-        tooltips.append("Grog Bottle")
-        tooltips.append("Meat")
-        tooltips.append("Tankard of Ale")
-        tooltips.append("Fruit")
-        tooltips.append("Mushroom")
-        tooltips.append("Salt")
-        tooltips.append("Revolver")
-        tooltips.append("Torch")
-        tooltips.append("Cardboard Box")
-        tooltips.append("Bucket")
-        tooltips.append("Flask of Fluid")
-        tooltips.append("Ceremonial Robe")
-        tooltips.append("Rubber Duck")
-        tooltips.append("Other")
+        self.tooltips.append("Lantern")
+        self.tooltips.append("Sword")
+        self.tooltips.append("Leather Armour")
+        self.tooltips.append("Rope")
+        self.tooltips.append("Stick")
+        self.tooltips.append("Skull")
+        self.tooltips.append("Monster Tooth")
+        self.tooltips.append("Caveman Necklace")
+        self.tooltips.append("Net")
+        self.tooltips.append("Whip")
+        self.tooltips.append("Axe")
+        self.tooltips.append("Bow")
+        self.tooltips.append("Arrows")
+        self.tooltips.append("Hammer")
+        self.tooltips.append("Dagger")
+        self.tooltips.append("Mace")
+        self.tooltips.append("Spear")
+        self.tooltips.append("Slingshot")
+        self.tooltips.append("Shield")
+        self.tooltips.append("Helm")
+        self.tooltips.append("Chainail Armour")
+        self.tooltips.append("Boots")
+        self.tooltips.append("Candle")
+        self.tooltips.append("Horn")
+        self.tooltips.append("Sack")
+        self.tooltips.append("Bell")
+        self.tooltips.append("Mirror")
+        self.tooltips.append("Magnifying Glass")
+        self.tooltips.append("Scroll")
+        self.tooltips.append("Book of Spells")
+        self.tooltips.append("Wizard's Staff")
+        self.tooltips.append("Magic Potion")
+        self.tooltips.append("Herbal Mixture")
+        self.tooltips.append("Capsules")
+        self.tooltips.append("Flute")
+        self.tooltips.append("Whistle")
+        self.tooltips.append("Eyeball")
+        self.tooltips.append("Hand")
+        self.tooltips.append("Golden Chalice")
+        self.tooltips.append("Rare Gem")
+        self.tooltips.append("Ring of Power")
+        self.tooltips.append("Regal Crown")
+        self.tooltips.append("Hoard of Coins")
+        self.tooltips.append("Key")
+        self.tooltips.append("Eldritch Pendant")
+        self.tooltips.append("Chest")
+        self.tooltips.append("Amulet")
+        self.tooltips.append("Orb of Seeing")
+        self.tooltips.append("Precious Bracelet")
+        self.tooltips.append("Stone")
+        self.tooltips.append("Grog Bottle")
+        self.tooltips.append("Meat")
+        self.tooltips.append("Tankard of Ale")
+        self.tooltips.append("Fruit")
+        self.tooltips.append("Mushroom")
+        self.tooltips.append("Salt")
+        self.tooltips.append("Revolver")
+        self.tooltips.append("Torch")
+        self.tooltips.append("Cardboard Box")
+        self.tooltips.append("Bucket")
+        self.tooltips.append("Flask of Fluid")
+        self.tooltips.append("Ceremonial Robe")
+        self.tooltips.append("Rubber Duck")
+        self.tooltips.append("Other")
     }
 
     override func viewDidAppear() {
@@ -96,10 +96,10 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
 
         // Clear the current selection and set it to the icon of
         // the button the user has clicked on
-        collectionView.deselectAll(self)
-        let set: Set<IndexPath> = [IndexPath.init(item: button.index, section: 0)]
-        collectionView.selectItems(at: set,
-                                   scrollPosition: NSCollectionView.ScrollPosition.top)
+        self.collectionView.deselectAll(self)
+        let set: Set<IndexPath> = [IndexPath.init(item: self.button.index, section: 0)]
+        self.collectionView.selectItems(at: set,
+                                        scrollPosition: NSCollectionView.ScrollPosition.top)
     }
 
     func configureCollectionView() {
@@ -114,28 +114,29 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
                                                right: 2.0)
         flowLayout.minimumInteritemSpacing = 2.0
         flowLayout.minimumLineSpacing = 2.0
-        collectionView.collectionViewLayout = flowLayout
-        collectionView.layer?.backgroundColor = NSColor.textBackgroundColor.cgColor
-        collectionView.isSelectable = true
-        collectionView.allowsEmptySelection = true
+        
+        self.collectionView.collectionViewLayout = flowLayout
+        self.collectionView.layer?.backgroundColor = NSColor.textBackgroundColor.cgColor
+        self.collectionView.isSelectable = true
+        self.collectionView.allowsEmptySelection = true
         view.wantsLayer = true
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
 
         // Just return the number of icons we have
-        return icons.count
+        return self.icons.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
 
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "FFCollectionViewItem"), for: indexPath)
         guard let collectionViewItem = item as? FFCollectionViewItem else { return item }
-        collectionViewItem.image = icons.object(at: count) as? NSImage
-        collectionViewItem.index = count
-        collectionViewItem.view.toolTip = tooltips[count]
-        count = count + 1
-        if count == icons.count { count = 0 }
+        collectionViewItem.image = self.icons.object(at: self.count) as? NSImage
+        collectionViewItem.index = self.count
+        collectionViewItem.view.toolTip = self.tooltips[self.count]
+        self.count += 1
+        if self.count == self.icons.count { self.count = 0 }
         return item
     }
 
@@ -153,7 +154,7 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
                 let array: NSMutableArray = NSMutableArray.init()
                 let item = obj as! FFCollectionViewItem
                 array.add(item)
-                array.add(button)
+                array.add(self.button)
 
                 // Send the selected item to the buttons via a notifications
                 let nc = NotificationCenter.default

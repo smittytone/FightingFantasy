@@ -42,7 +42,7 @@ class FFIconButton: NSButton {
             // Only change the icon of the button that was actually clicked on
             if sender == self {
                 let item = array.object(at: 0) as! FFCollectionViewItem
-                if let image = icons.object(at: item.index) as? NSImage { self.image = image }
+                if let image = self.icons.object(at: item.index) as? NSImage { self.image = image }
                 self.index = item.index
 
                 // Add the index of the image in 'icons' back to the array
