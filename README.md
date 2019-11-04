@@ -16,7 +16,7 @@ You can find out more about the gamebooks at [FightingFantasy.com](http://www.fi
 
 Fighting Fantasy is &copy; 2016, Steve Jackson and Ian Livingstone, and reference to it here and in the code is on a notionally fair-use basis. Although my version includes imagery from the books, it is not included in this archive. Quite apart from any legal reasons, I owe it to Jackson, Livingstone and all the artists whose work gave me so much pleasure in the mid-1980s and again in the 2000s and 2010s, not to treat their work as a commodity to be downloaded. And as a published Fighting Fantasy writer...
 
-<p align="center"><img src="https://smittytone.github.io/images/warlock.jpg" width="800"></p>
+<p align="center"><img src="https://smittytone.github.io/images/fightingfantasy/warlock.jpg" width="800"></p>
 
 ### Why? ###
 
