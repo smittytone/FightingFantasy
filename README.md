@@ -8,7 +8,7 @@ This is a Swift port (for macOS) of a much older Objective-C version written cir
 
 Coding up the Swift version was solely about me learning Swift, and the recent, third revival of the gamebooks &mdash; this time by Scholastic &mdash; is entirely coincidental &mdash; but certainly not unwelcome. There's even a new one out, [*Port of Peril*](https://www.amazon.co.uk/Fighting-Fantasy-Peril-Ian-Livingstone/dp/1407181297/). I'll support it in the game manager if it makes use of new rules or features.
 
-<p align="center"><img src="https://smittytone.github.io/images/gfx/stats.png" width="400" style="border: 1px solid #555555">&nbsp;&nbsp;<img src="https://smittytone.github.io/images/gfx/combat.png" width="400" style="border: 1px solid #555555"><br />&nbsp;</p>
+<p align="center"><img src="https://smittytone.github.io/images/fightingfantasy/stats.png" width="400" style="border: 1px solid #555555">&nbsp;&nbsp;<img src="https://smittytone.github.io/images/fightingfantasy/combat.png" width="400" style="border: 1px solid #555555"><br>&nbsp;</p>
 
 Incidentally, not all of the gamebooks *are* supported, I'm afraid, only those I have played or plan to. So if you have a favourite that's not included, consider it a tutorial exercise: an opportunity to expand on the code included in this repo.
 
@@ -22,7 +22,7 @@ Fighting Fantasy is &copy; 2016, Steve Jackson and Ian Livingstone, and referenc
 
 As I say, the Swift version was written to help me learn Swift. It's quite good for this task because the application makes use of many macOS interface elements and their source objects &mdash; NSWindow, NSButton, NSTextField, NSImageView, NSImage, NSAttributedString, NSColor, NSViewController, NSCollectionView, NSCollectionViewItem, NSPopover, NSPopUpButton, NSStepper, NSTabView, NSTextView, etc. &mdash; plus saving and loading files, dealing with the application lifecycle, presenting and dismissing modal sheets, and more. This is primarily why I've shared the code: I hope it'll be used by other programmers taking their first steps with Swift.
 
-<p align="center"><img src="https://smittytone.github.io/images/gfx/tests.png" width="400" style="border: 1px solid #555555">&nbsp;&nbsp;<img src="https://smittytone.github.io/images/gfx/pack.png" width="400" style="border: 1px solid #555555"><br />&nbsp;</p>
+<p align="center"><img src="https://smittytone.github.io/images/fightingfantasy/tests.png" width="400" style="border: 1px solid #555555">&nbsp;&nbsp;<img src="https://smittytone.github.io/images/fightingfantasy/pack.png" width="400" style="border: 1px solid #555555"><br>&nbsp;</p>
 
 The previous version was quite naïve; this is slightly better and introduces a couple of UI improvements, in particular icons for backpack items and a pop-up panel from which icons can be selected, because I wanted to figure out how to do this. Hopefully, it will help others understand how Swift can be applied to their own macOS (and iOS/tvOS) projects too.
 
