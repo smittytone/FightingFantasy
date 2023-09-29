@@ -29,9 +29,9 @@ class FFBookmarkView: NSImageView {
             var stringOrigin: NSPoint = NSMakePoint(0, 0)
 
             // Set up an attributed string that's grey text, Bold and 20pt
-            let stringAttributes: [NSAttributedStringKey : Any] = [
-                NSAttributedStringKey.foregroundColor :  NSColor.init(white: 0.9, alpha: 0.9),
-                NSAttributedStringKey.font: NSFont.init(name: "Apple Chancery", size: 20)! ]
+            let stringAttributes: [NSAttributedString.Key : Any] = [
+                NSAttributedString.Key.foregroundColor :  NSColor.init(white: 0.9, alpha: 0.9),
+                NSAttributedString.Key.font: NSFont.init(name: "Apple Chancery", size: 20)! ]
 
             // Convert the value of place to an attrributed string
             let lString = "\(place)" as NSString

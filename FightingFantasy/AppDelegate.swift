@@ -628,7 +628,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
     func initUINotes() {
 
         let font = NSFont(name: "Apple Chancery", size: 16)
-        let attributes = [NSAttributedStringKey.font : font!]
+        let attributes = [NSAttributedString.Key.font : font!]
 
         notesTextView.typingAttributes = attributes
         notesTextView.string = "Make notes about your adventure here…"
@@ -640,7 +640,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Called regularly to update the UI with the player's current stats
         // As such, it's also where we check for death or madness
-        var colour: NSColor = NSColor.black
+        var colour: NSColor = NSColor.labelColor
 
         // Set up a centred text for stats displayed using NSAtttributedStrings
         // ie. Luck and Stamina
@@ -654,21 +654,21 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             initSkillValue.stringValue = "\(zplayer.initialSkill)"
 
             // Ensure Luck readout goes red below a score of 5
-            colour = zplayer.luck < 5 ? NSColor.red : NSColor.black
-            var astring = NSAttributedString.init(string: "\(zplayer.luck)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
+            colour = zplayer.luck < 5 ? NSColor.red : NSColor.labelColor
+            var astring = NSAttributedString.init(string: "\(zplayer.luck)", attributes: [ NSAttributedString.Key.foregroundColor : colour, NSAttributedString.Key.paragraphStyle : tps ])
             luckValue.attributedStringValue = astring
             testLuckValue.attributedStringValue = astring
             initLuckValue.stringValue = "\(zplayer.initialLuck)"
 
             // Ensure Stamina readout goes red below a score of 5
-            colour = zplayer.stamina < 5 ? NSColor.red : NSColor.black
-            astring = NSAttributedString.init(string: "\(zplayer.stamina)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
+            colour = zplayer.stamina < 5 ? NSColor.red : NSColor.labelColor
+            astring = NSAttributedString.init(string: "\(zplayer.stamina)", attributes: [ NSAttributedString.Key.foregroundColor : colour, NSAttributedString.Key.paragraphStyle : tps ])
             staminaValue.attributedStringValue = astring
             initStaminaValue.stringValue = "\(zplayer.initialStamina)"
 
             // Ensure Fear readout goes red 4 below maxFear
-            colour = zplayer.fear > zplayer.maxFear - 5 ? NSColor.red : NSColor.black
-            astring = NSAttributedString.init(string: "\(zplayer.fear)", attributes: [ NSAttributedStringKey.foregroundColor : colour, NSAttributedStringKey.paragraphStyle : tps ])
+            colour = zplayer.fear > zplayer.maxFear - 5 ? NSColor.red : NSColor.labelColor
+            astring = NSAttributedString.init(string: "\(zplayer.fear)", attributes: [ NSAttributedString.Key.foregroundColor : colour, NSAttributedString.Key.paragraphStyle : tps ])
             fearValue.attributedStringValue = astring
             maxFearValue.stringValue = "\(zplayer.maxFear)"
 
@@ -1478,7 +1478,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
     }
 
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    @objc func controlTextDidEndEditing(_ obj: Notification) {
 
         // This NSControl delegate method is used to trap when ending ends in a table row's NSTextField
         if let zobj = obj.userInfo {
@@ -1803,6 +1803,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 panel.nameFieldLabel = "Character name"
                 panel.isExtensionHidden = true
                 panel.allowedFileTypes = ["ffc"]
+                //panel.allowedContentTypes = []
                 panel.beginSheetModal(for: window, completionHandler: { (response) in
 
                     var name: String = ""
