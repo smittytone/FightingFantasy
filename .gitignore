@@ -4,3 +4,4 @@ FightingFantasy/Assets.xcassets/*
 *.entitlements
 *.pem
 .DS_Store
+xcuserdata/
