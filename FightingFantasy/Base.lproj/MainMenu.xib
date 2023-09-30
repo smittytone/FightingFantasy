@@ -509,7 +509,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="480" height="600"/>
             <value key="maxSize" type="size" width="480" height="600"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
@@ -546,13 +546,13 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9h-ZP-3kq">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q9h-ZP-3kq">
                                                         <rect key="frame" x="35" y="42" width="76" height="55"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" id="Jwt-no-HOQ">
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" id="Jwt-no-HOQ">
                                                             <font key="font" metaFont="system" size="52"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hSu-cj-jRG">
@@ -570,7 +570,7 @@
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" id="nml-02-p8C">
                                                             <font key="font" metaFont="system" size="52"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xT1-AQ-Gna">
@@ -585,10 +585,10 @@
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UwK-1d-iHu">
                                                         <rect key="frame" x="307" y="42" width="76" height="55"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" allowsEditingTextAttributes="YES" id="IfU-P3-gRx">
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" allowsEditingTextAttributes="YES" id="IfU-P3-gRx">
                                                             <font key="font" metaFont="system" size="52"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1cT-CK-8U1">
@@ -1273,10 +1273,10 @@ DQ
                                                             <action selector="testSkill:" target="Voe-Tx-rLC" id="Ihb-Ke-rgm"/>
                                                         </connections>
                                                     </button>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsj-hm-Xg3">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dsj-hm-Xg3">
                                                         <rect key="frame" x="26" y="78" width="122" height="62"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" allowsEditingTextAttributes="YES" id="JUz-ZT-8C6">
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" id="JUz-ZT-8C6">
                                                             <font key="font" metaFont="system" size="52"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1329,10 +1329,10 @@ DQ
                                                             <action selector="testLuck:" target="Voe-Tx-rLC" id="C9n-gU-p8K"/>
                                                         </connections>
                                                     </button>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNp-Vn-11N">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qNp-Vn-11N">
                                                         <rect key="frame" x="266" y="78" width="122" height="62"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" allowsEditingTextAttributes="YES" id="zLd-zO-CAF">
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="0" id="zLd-zO-CAF">
                                                             <font key="font" metaFont="system" size="52"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -2031,7 +2031,7 @@ CA
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>
-                                                        <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="insertionPointColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.71365642547607422" green="0.71377545595169067" blue="0.71363109350204468" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2073,7 +2073,7 @@ CA
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="dVq-pw-4cK">
@@ -2495,7 +2495,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="335"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="460" height="335"/>
             <value key="maxSize" type="size" width="460" height="335"/>
             <value key="minFullScreenContentSize" type="size" width="460" height="335"/>
@@ -2509,9 +2509,9 @@ Gw
                         <constraints>
                             <constraint firstAttribute="height" constant="34" id="Tr0-At-GGD"/>
                         </constraints>
-                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Fighting Fantasy Game Manager 3.0" id="nLk-gQ-Oet">
+                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Fighting Fantasy Game Manager 3.1" id="nLk-gQ-Oet">
                             <font key="font" metaFont="system" size="22"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
@@ -2522,7 +2522,7 @@ Gw
                         </constraints>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="HcU-oX-S65">
                             <font key="font" metaFont="system"/>
-                            <string key="title">Written by Tony Smith in Swift 4 in Autumn 2017, converted from an Objective C version circa 2012 and a Real Basic version circa 2003. Fighting Fantasy © Steve Jackson and Ian Livingstone</string>
+                            <string key="title">Written by Tony Smith in Swift 2017, 2023, converted from an Objective C version circa 2012 and a Real Basic version circa 2003. Fighting Fantasy © Steve Jackson and Ian Livingstone</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -2600,7 +2600,7 @@ DQ
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="yom-kC-EJ0">
                 <rect key="frame" x="1" y="1" width="276" height="274"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <collectionView selectable="YES" id="Gyr-eG-h3B">
                         <rect key="frame" x="0.0" y="0.0" width="276" height="274"/>
@@ -2631,7 +2631,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" id="AZq-7e-vdl">
@@ -2681,7 +2681,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="588"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="460" height="588"/>
             <value key="maxSize" type="size" width="460" height="588"/>
             <view key="contentView" wantsLayer="YES" id="Ill-a5-dM0">
@@ -2709,7 +2709,7 @@ DQ
                         <rect key="frame" x="5" y="61" width="450" height="528"/>
                         <clipView key="contentView" drawsBackground="NO" id="bhV-tb-b2H">
                             <rect key="frame" x="0.0" y="0.0" width="450" height="528"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" quoteSubstitution="YES" dashSubstitution="YES" textCompletion="NO" id="J9v-3s-gTH">
                                     <rect key="frame" x="0.0" y="-1" width="450" height="528"/>
@@ -2757,7 +2757,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="154"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="460" height="154"/>
             <value key="maxSize" type="size" width="460" height="154"/>
             <view key="contentView" id="LGe-p2-Kxd">
@@ -2841,7 +2841,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="392" height="168"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="392" height="168"/>
             <value key="maxSize" type="size" width="392" height="168"/>
             <value key="minFullScreenContentSize" type="size" width="392" height="168"/>
@@ -2959,7 +2959,7 @@ Gw
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SeV-0M-C0q">
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="480" height="480"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="480" height="480"/>
             <value key="maxSize" type="size" width="480" height="480"/>
             <view key="contentView" id="Z2x-5M-WuY">
@@ -2979,7 +2979,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="460" height="590"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="460" height="590"/>
             <value key="maxSize" type="size" width="460" height="590"/>
             <value key="minFullScreenContentSize" type="size" width="460" height="590"/>
@@ -3044,8 +3044,8 @@ Gw
         <image name="ff_logo_lg" width="480" height="480"/>
         <image name="icon_sword" width="32" height="32"/>
         <image name="one" width="96" height="96"/>
-        <image name="sword3" width="422" height="59"/>
+        <image name="sword3" width="422" height="58.5"/>
         <image name="test" width="208" height="141"/>
-        <image name="text_logo" width="460" height="67"/>
+        <image name="text_logo" width="460" height="66.5"/>
     </resources>
 </document>

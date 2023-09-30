@@ -1,7 +1,7 @@
 
 //  FightingFantasy
 //  Created by Tony Smith on 02/11/2017.
-//  Software © 2017 Tony Smith. All rights reserved.
+//  Software © 2023 Tony Smith. All rights reserved.
 //  Software ONLY issued under MIT Licence
 //  Fighting Fantasy © 2016 Steve Jackson and Ian Livingstone
 
@@ -24,8 +24,12 @@ class FFBookmarkButton: NSButton {
         }
 
         let options: NSTrackingArea.Options = [.mouseEnteredAndExited, .activeAlways]
-        let trackingArea = NSTrackingArea(rect: self.bounds, options: options, owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea(rect: self.bounds, 
+                                          options: options,
+                                          owner: self,
+                                          userInfo: nil)
         self.addTrackingArea(trackingArea)
+        self.trackingArea = trackingArea
     }
 
     override func mouseEntered(with event: NSEvent) {

@@ -1,7 +1,7 @@
 
 //  FightingFantasy
 //  Created by Tony Smith on 02/11/2017.
-//  Software © 2017 Tony Smith. All rights reserved.
+//  Software © 2023 Tony Smith. All rights reserved.
 //  Software ONLY issued under MIT Licence
 //  Fighting Fantasy © 2016 Steve Jackson and Ian Livingstone
 
@@ -9,6 +9,9 @@
 import Cocoa
 
 class FFPlayer: NSObject, NSCoding {
+
+    // TODO -- Support NSSecureCoding, but this appears to have issues de-archiving
+    //         the Swift arrays-of-dictionaries, and possibly arrays too.
 
     // MARK: Player properties
 
@@ -51,43 +54,44 @@ class FFPlayer: NSObject, NSCoding {
         super.init()
 
         // This matrix records the Citadel of Chaos spells the player can use
-        for _ in 0...10 { citadelSpellMatrix.append(0) }
+        for _ in 0...10 { self.citadelSpellMatrix.append(0) }
 
         // This matrix records the game combat and test modifiers
-        for _ in 0...3 { modMatrix.append(0) }
+        for _ in 0...3 { self.modMatrix.append(0) }
 
         // This matrix records the Temple of Terror spells the player can use
-        for _ in 0...3 { templeSpellMatrix.append(0) }
+        for _ in 0...3 { self.templeSpellMatrix.append(0) }
     }
 
     // MARK: NSCoding Functions
 
     func encode(with aCoder: NSCoder) {
         // Called to archive the properties of the player instance
-        aCoder.encode(pack, forKey:"ff.pack")
-        aCoder.encode(citadelSpellMatrix, forKey:"ff.cspellmatrix")
-        aCoder.encode(templeSpellMatrix, forKey: "ff.tspellmatrix")
-        aCoder.encode(modMatrix, forKey: "ff.modmatrix")
-        aCoder.encode(gameName, forKey: "ff.gamename")
-        aCoder.encode(name, forKey: "ff.name")
-        aCoder.encode(notes, forKey: "ff.notes")
-        aCoder.encode(NSNumber(value: gamekind), forKey: "ff.gamekind")
-        aCoder.encode(NSNumber(value: skill), forKey: "ff.skill")
-        aCoder.encode(NSNumber(value: initialSkill), forKey: "ff.iskill")
-        aCoder.encode(NSNumber(value: stamina), forKey: "ff.stamina")
-        aCoder.encode(NSNumber(value: initialStamina), forKey: "ff.istamina")
-        aCoder.encode(NSNumber(value: luck), forKey: "ff.luck")
-        aCoder.encode(NSNumber(value: initialLuck), forKey: "ff.iluck")
-        aCoder.encode(NSNumber(value: fear), forKey: "ff.fear")
-        aCoder.encode(NSNumber(value: maxFear), forKey: "ff.mfear")
-        aCoder.encode(NSNumber(value: magic), forKey: "ff.magic")
-        aCoder.encode(NSNumber(value: initialMagic), forKey: "ff.imagic")
-        aCoder.encode(NSNumber(value: provisions), forKey: "ff.provisions")
-        aCoder.encode(NSNumber(value: gold), forKey: "ff.gold")
-        aCoder.encode(NSNumber(value: potion), forKey: "ff.potion")
-        aCoder.encode(NSNumber(value: drinks), forKey: "ff.drinks")
-        aCoder.encode(NSNumber(value: bookmark), forKey: "ff.bookmark")
-        aCoder.encode(NSNumber(value: packSelectedItem), forKey: "ff.psm")
+        //aCoder.encode(self.pack, forKey:"ff.pack")
+        aCoder.encode(self.pack, forKey:"ff.pack")
+        aCoder.encode(self.citadelSpellMatrix, forKey:"ff.cspellmatrix")
+        aCoder.encode(self.templeSpellMatrix, forKey: "ff.tspellmatrix")
+        aCoder.encode(self.modMatrix, forKey: "ff.modmatrix")
+        aCoder.encode(self.gameName, forKey: "ff.gamename")
+        aCoder.encode(self.name, forKey: "ff.name")
+        aCoder.encode(self.notes, forKey: "ff.notes")
+        aCoder.encode(NSNumber(value: self.gamekind), forKey: "ff.gamekind")
+        aCoder.encode(NSNumber(value: self.skill), forKey: "ff.skill")
+        aCoder.encode(NSNumber(value: self.initialSkill), forKey: "ff.iskill")
+        aCoder.encode(NSNumber(value: self.stamina), forKey: "ff.stamina")
+        aCoder.encode(NSNumber(value: self.initialStamina), forKey: "ff.istamina")
+        aCoder.encode(NSNumber(value: self.luck), forKey: "ff.luck")
+        aCoder.encode(NSNumber(value: self.initialLuck), forKey: "ff.iluck")
+        aCoder.encode(NSNumber(value: self.fear), forKey: "ff.fear")
+        aCoder.encode(NSNumber(value: self.maxFear), forKey: "ff.mfear")
+        aCoder.encode(NSNumber(value: self.magic), forKey: "ff.magic")
+        aCoder.encode(NSNumber(value: self.initialMagic), forKey: "ff.imagic")
+        aCoder.encode(NSNumber(value: self.provisions), forKey: "ff.provisions")
+        aCoder.encode(NSNumber(value: self.gold), forKey: "ff.gold")
+        aCoder.encode(NSNumber(value: self.potion), forKey: "ff.potion")
+        aCoder.encode(NSNumber(value: self.drinks), forKey: "ff.drinks")
+        aCoder.encode(NSNumber(value: self.bookmark), forKey: "ff.bookmark")
+        aCoder.encode(NSNumber(value: self.packSelectedItem), forKey: "ff.psm")
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -122,10 +126,12 @@ class FFPlayer: NSObject, NSCoding {
         }
 
         var csm = aDecoder.decodeObject(forKey: "ff.cspellmatrix") as! [NSNumber]
-        for i in 0...10 { citadelSpellMatrix.append(csm[i].intValue) }
+        for i in 0...10 { self.citadelSpellMatrix.append(csm[i].intValue) }
         csm = aDecoder.decodeObject(forKey: "ff.tspellmatrix") as! [NSNumber]
-        for i in 0...3 { templeSpellMatrix.append(csm[i].intValue) }
+        for i in 0...3 { self.templeSpellMatrix.append(csm[i].intValue) }
         csm = aDecoder.decodeObject(forKey: "ff.modmatrix") as! [NSNumber]
-        for i in 0...3 { modMatrix.append(csm[i].intValue) }
+        for i in 0...3 { self.modMatrix.append(csm[i].intValue) }
     }
+
+
 }

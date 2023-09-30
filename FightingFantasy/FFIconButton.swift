@@ -1,7 +1,7 @@
 
 //  FightingFantasy
 //  Created by Tony Smith on 02/11/2017.
-//  Software © 2017 Tony Smith. All rights reserved.
+//  Software © 2023 Tony Smith. All rights reserved.
 //  Software ONLY issued under MIT Licence
 //  Fighting Fantasy © 2016 Steve Jackson and Ian Livingstone
 
@@ -23,7 +23,10 @@ class FFIconButton: NSButton {
         // Set up notifications
         // 'select.image' is sent by the popover controller (FFViewController) when an icon is selected
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(setButton), name: NSNotification.Name(rawValue: "select.image"), object: nil)
+        nc.addObserver(self, 
+                       selector: #selector(setButton),
+                       name: NSNotification.Name(rawValue: "select.image"),
+                       object: nil)
     }
 
     @objc func setButton(_ note: Notification) {
@@ -48,7 +51,8 @@ class FFIconButton: NSButton {
                 // Send the array on to the App Delegate so that the pack item's icon record can
                 // also be changed (see AppDelegate.updatePack() )
                 let nc = NotificationCenter.default
-                nc.post(name: NSNotification.Name(rawValue: "set.pack.item.index") , object: array)
+                nc.post(name: NSNotification.Name(rawValue: "set.pack.item.index"), 
+                        object: array)
             }
         }
     }
