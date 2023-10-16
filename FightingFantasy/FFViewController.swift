@@ -110,7 +110,7 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         flowLayout.minimumInteritemSpacing = 2.0
         flowLayout.minimumLineSpacing = 2.0
         self.collectionView.collectionViewLayout = flowLayout
-        self.collectionView.layer?.backgroundColor = NSColor.white.cgColor
+        self.collectionView.layer?.backgroundColor = NSColor.textBackgroundColor.cgColor
         self.collectionView.isSelectable = true
         self.collectionView.allowsEmptySelection = true
         view.wantsLayer = true
@@ -129,7 +129,7 @@ class FFViewController: NSViewController, NSCollectionViewDataSource, NSCollecti
         collectionViewItem.image = self.icons.object(at: self.count) as? NSImage
         collectionViewItem.index = self.count
         collectionViewItem.view.toolTip = self.tooltips[self.count]
-        self.count +=  1
+        self.count += 1
         if self.count == self.icons.count { self.count = 0 }
         return item
     }
