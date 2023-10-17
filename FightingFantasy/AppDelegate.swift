@@ -1857,17 +1857,14 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             zplayer.notes = notesTextView.string
 
             // Save theCharacter object
-
-            result = NSKeyedArchiver.archiveRootObject(zplayer, toFile: path)
-            /*
             do {
-                let fileData: Data = try NSKeyedArchiver.archivedData(withRootObject: zplayer, requiringSecureCoding: true)
+                let fileData: Data = try NSKeyedArchiver.archivedData(withRootObject: zplayer, requiringSecureCoding: false)
                 try fileData.write(to: URL.init(fileURLWithPath: path))
                 result = true
             } catch {
                 // NOP
             }
-             */
+
         }
 
         return result
@@ -1909,15 +1906,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     func openFileHander(_ path: String) -> Bool {
 
-        self.player = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? FFPlayer
-        /*
         do {
             let fileData: Data = try Data.init(contentsOf: URL.init(fileURLWithPath: path))
-            self.player = try NSKeyedUnarchiver.unarchivedObject(ofClass: FFPlayer.self, from: fileData)
+            let kuav: NSKeyedUnarchiver = try NSKeyedUnarchiver.init(forReadingFrom: fileData)
+            kuav.requiresSecureCoding = false
+            if let decoded = kuav.decodeObject(of: FFPlayer.self, forKey: NSKeyedArchiveRootObjectKey) {
+                self.player = decoded as FFPlayer?
+            }
         } catch {
             return false
         }
-         */
+
         if let zplayer = self.player {
             // Update the Citadel of Chaos magic spell matrix
             if zplayer.gamekind == kGameCitadel {
