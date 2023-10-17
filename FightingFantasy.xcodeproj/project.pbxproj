@@ -26,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFImageView.swift; sourceTree = "<group>"; };
+		3B0BE13E2ADE96DF0093812A /* FightingFantasy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FightingFantasy.entitlements; sourceTree = "<group>"; };
 		3B1DFF911FC069D900E8E22B /* FFTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTableCellView.swift; sourceTree = "<group>"; };
 		3B1DFF931FC0D3C300E8E22B /* helptext.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helptext.txt; sourceTree = SOURCE_ROOT; };
 		3B7375A61FC23DE2000C4F88 /* FFBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFBookmarkButton.swift; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 		3BFE93021FA29615003DF79F /* FightingFantasy */ = {
 			isa = PBXGroup;
 			children = (
+				3B0BE13E2ADE96DF0093812A /* FightingFantasy.entitlements */,
 				3BB5B25F1FABC81200D0B499 /* Constants.swift */,
 				3BFE93031FA29615003DF79F /* AppDelegate.swift */,
 				3BFE93111FA29A8D003DF79F /* FFPlayer.swift */,
@@ -323,12 +325,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FightingFantasy/FightingFantasy.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 41;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = FightingFantasy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -346,12 +350,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FightingFantasy/FightingFantasy.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 41;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = FightingFantasy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
