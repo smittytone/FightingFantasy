@@ -17,10 +17,14 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_icon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>Fighting Fantasy Character</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.blackpyramid.fightingfantasy</string>
