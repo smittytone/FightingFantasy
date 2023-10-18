@@ -227,8 +227,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.splashWindow.backgroundColor = NSColor.clear
         self.splashWindow.alphaValue = 1.0
         self.splashWindow.isOpaque = true
-        self.splashWindow.hasShadow = true;
-        self.splashWindow.makeKeyAndOrderFront(self)
+        self.splashWindow.hasShadow = true
+        self.splashWindow.orderFrontRegardless()
 
         // Stop modal sheets from blocking app termination
         self.self.startSheet.preventsApplicationTerminationWhenModal = false
@@ -678,15 +678,15 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.goldAmountField.stringValue = "\(zplayer.gold)"
 
             var ps: String = ""
-            switch (zplayer.potion) {
-            case kPotionDexterity:
-                ps = "Potion of Dexterity"
-            case kPotionStrength:
-                ps = "Potion of Strength"
-            case kPotionFortune:
-                ps = "Potion of Fortune"
-            default:
-                ps = "None"
+            switch (zplayer.potionType) {
+                case .kPotionDexterity:
+                    ps = "Potion of Dexterity"
+                case .kPotionStrength:
+                    ps = "Potion of Strength"
+                case .kPotionFortune:
+                    ps = "Potion of Fortune"
+                default:
+                    ps = "None"
             }
 
             ps += (zplayer.drinks > 0 ? " x \(zplayer.drinks)" : "")
@@ -847,23 +847,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if !self.gameInProgress || self.player == nil { return }
 
         if self.player!.drinks > 0 {
-            switch (self.player!.potion) {
-            case kPotionDexterity:
-                // Potion of Dexterity - skill returned to initial value
-                self.player!.skill = self.player!.initialSkill
-            case kPotionStrength:
-                // Potion of strength - stamina returned to initial value
-                self.player!.stamina = self.player!.initialStamina
-            case kPotionFortune:
-                // Potion of fortune - Initial luck increased by 1, luck set to new initial
-                self.player!.initialLuck += 1
-                self.player!.luck = self.player!.initialLuck
-            default:
-                self.player!.luck = self.player!.luck
+            switch (self.player!.potionType) {
+                case .kPotionDexterity:
+                    // Potion of Dexterity - skill returned to initial value
+                    self.player!.skill = self.player!.initialSkill
+                case .kPotionStrength:
+                    // Potion of strength - stamina returned to initial value
+                    self.player!.stamina = self.player!.initialStamina
+                case .kPotionFortune:
+                    // Potion of fortune - Initial luck increased by 1, luck set to new initial
+                    self.player!.initialLuck += 1
+                    self.player!.luck = self.player!.initialLuck
+                default:
+                    self.player!.luck = self.player!.luck
             }
 
             self.player!.drinks -= 1
-            if self.player!.drinks == 0 { self.player!.potion = kPotionNone }
+            if self.player!.drinks == 0 { self.player!.potionType = .kPotionNone }
             self.needToSave = true
             updateStats()
         }
@@ -2093,19 +2093,19 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Pre-fill certain fields in the New Character panel according
         // to the type of game selected to save the player adding it in
-        var type = self.startGamePopup.indexOfSelectedItem;
-        if type > 13 { type += 5 }
+        let type: FFGameType = FFGameType.init(rawValue: self.startGamePopup.indexOfSelectedItem) ?? .kGameNone
+        //if type > 13 { type += 5 }
 
-        if type == kGameCitadel || type == kGameHouseHell
-            || type == kGameReturnFiretop || type == kGameTrialChampions || type == kGameCreatureHavoc {
+        if type == .kGameCitadel || type == .kGameHouseHell
+            || type == .kGameReturnFiretop || type == .kGameTrialChampions || type == .kGameCreatureHavoc {
             self.startPotionPopup.isEnabled = false
             self.startFoodField.stringValue = "0"
             self.startGoldField.stringValue = "0"
-        } else if type == kGameTempleTerror || type == kGameEyeDragon {
+        } else if type == .kGameTempleTerror || type == .kGameEyeDragon {
             self.startPotionPopup.isEnabled = false
             self.startFoodField.stringValue = "10"
             self.startGoldField.stringValue = "0"
-        } else if type == kGameSorceryWizard || type == kGameSorceryFighter {
+        } else if type == .kGameSorceryWizard || type == .kGameSorceryFighter {
             self.startPotionPopup.isEnabled = false
             self.startFoodField.stringValue = "2"
             self.startGoldField.stringValue = "20"
@@ -2180,7 +2180,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if gameKind == .kGameCitadel {
             player!.magic = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 8
             self.player!.initialMagic = self.player!.magic
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.gold = 0
             self.player!.gameName = "Citadel of Chaos"
             self.citadelBox.isHidden = false
@@ -2193,7 +2193,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.player!.initialSkill = self.player!.skill + 3
             self.player!.maxFear = Int(arc4random_uniform(6)) + 7
             self.player!.fear = 0
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.gold = 0
             self.player!.provisions = 0
             self.player!.gameName = "House of Hell"
@@ -2212,34 +2212,34 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
 
         if gameKind == .kGameReturnFiretop {
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.gold = 0
             self.player!.provisions = 0
             self.player!.gameName = "Return to Firetop Mountain"
         }
 
         if gameKind == .kGameTempleTerror {
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.gold = 25
             self.player!.gameName = "Temple of Terror"
         }
 
         if gameKind == .kGameEyeDragon {
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.provisions = 10
             self.player!.gold = 0
             self.player!.gameName = "Eye of the Dragon"
         }
 
         if gameKind == .kGameTrialChampions {
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.provisions = 0
             self.player!.gold = 0
             self.player!.gameName = "Trial of Champions"
         }
 
         if gameKind == .kGameCreatureHavoc {
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.provisions = 0
             self.player!.gold = 0
             self.player!.gameName = "Creature of Havoc"
@@ -2256,7 +2256,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if gameKind == .kGameSorceryWizard {
             self.player!.skill = self.player!.skill - 2
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.gold = 20
             self.player!.provisions = 2
             self.player!.gameName = "Sorcery! Wizard"
@@ -2264,13 +2264,13 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
 
         if gameKind == .kGameSorceryFighter {
-            self.player!.potion = kPotionNone
+            self.player!.potionType = .kPotionNone
             self.player!.gold = 20
             self.player!.provisions = 2
             self.player!.gameName = "Sorcery! Fighter"
         }
 
-        if self.player!.potion == kPotionNone { self.player!.drinks = 0 }
+        if self.player!.potionType == .kPotionNone { self.player!.drinks = 0 }
 
         // Initialise the backpack
         if self.player!.pack.count > 0 { self.player!.pack.removeAll() }

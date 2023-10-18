@@ -50,7 +50,7 @@ class FFPlayer: NSObject, NSCoding {
     // Version 2 properties
     var gameType: FFGameType = .kGameNone
     var potionType: FFPotionType = .kPotionNone
-    var classVersion: Int = 2
+    var classVersion: Int = CURRENT_FILE_VERSION
 
 
     // MARK: Functions
@@ -146,18 +146,18 @@ class FFPlayer: NSObject, NSCoding {
 
         // Version 2 elements
         if let vs = aDecoder.decodeObject(forKey: "ff.version") {
-            let vn = vs as! NSNumber
-            if vn == 2 {
-                let gk = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
-                let pt = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
+            let vn: Int = (vs as! NSNumber).intValue
+            if vn > CURRENT_FILE_VERSION - 1 {
+                let gk: Int = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
+                let pt: Int = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
                 self.potionType = FFPotionType(rawValue: pt) ?? .kPotionNone
                 self.gameType = FFGameType(rawValue: gk) ?? .kGameWarlock
             }
         } else {
             // Version 1 load: update to version 2 for next save
-            self.classVersion = 2
-            let gk = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
-            let pt = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
+            self.classVersion = CURRENT_FILE_VERSION
+            let gk: Int = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
+            let pt: Int = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
             self.potionType = FFPotionType(rawValue: pt) ?? .kPotionNone
             self.gameType = FFGameType(rawValue: gk) ?? .kGameWarlock
         }
