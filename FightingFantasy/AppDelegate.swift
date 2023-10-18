@@ -649,7 +649,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if let zplayer = self.player {
             // Stats Tab
             self.skillValue.stringValue = "\(zplayer.skill)"
-            self.testSkillValue.stringValue = zplayer.gamekind == kGameHouseHell ? "\(zplayer.initialSkill)" : "\(zplayer.skill)"
+            self.testSkillValue.stringValue = zplayer.gameType == .kGameHouseHell ? "\(zplayer.initialSkill)" : "\(zplayer.skill)"
             self.initSkillValue.stringValue = "\(zplayer.initialSkill)"
 
             // Ensure Luck readout goes red below a score of 5
@@ -709,7 +709,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 return
             }
 
-            if zplayer.gamekind == kGameHouseHell {
+            if zplayer.gameType == .kGameHouseHell {
                 // Are we playing House of Hell? If not we don't need the following check
                 if zplayer.fear >= zplayer.maxFear {
                     // Death by insanity
@@ -943,7 +943,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.player!.luck = self.player!.initialLuck
 
         // Handle fear for House of Hell games
-        if self.player!.gamekind == kGameHouseHell {
+        if self.player!.gameType == .kGameHouseHell {
             self.player!.maxFear = Int(self.maxFearValue.stringValue)!
         }
 
@@ -1033,7 +1033,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         monsterAttackStrength = monsterAttackStrength + 6 - monsterMod.indexOfSelectedItem
 
         // Are we playing Creature of Havoc? A double throw means instant opponent death
-        if self.player!.gamekind == kGameCreatureHavoc && playerRollOne == playerRollTwo {
+        if self.player!.gameType == .kGameCreatureHavoc && playerRollOne == playerRollTwo {
             playerAttackStrength = monsterAttackStrength + 1
             monsterStrength = 0
         }
@@ -1050,11 +1050,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.monsterTwoCombatCheck.state == NSControl.StateValue.on ||
             self.monsterThreeCombatCheck.state == NSControl.StateValue.on {
             if playerAttackStrength > monsterAttackStrength {
-                self.combatReadoutOne.stringValue = (self.player!.gamekind == kGameCreatureHavoc ? "Your claws strikes home..." : "Your weapon strikes home...")
+                self.combatReadoutOne.stringValue = (self.player!.gameType == .kGameCreatureHavoc ? "Your claws strikes home..." : "Your weapon strikes home...")
                 monsterStrength = monsterStrength - 2
                 self.combatLuckOutcome = 1
             } else if monsterAttackStrength > playerAttackStrength {
-                self.player!.stamina = self.player!.stamina - (self.player!.gamekind == kGameCreatureHavoc ? 1 : 2)
+                self.player!.stamina = self.player!.stamina - (self.player!.gameType == .kGameCreatureHavoc ? 1 : 2)
                 self.combatReadoutOne.stringValue = "The creature strikes you..."
                 self.combatLuckOutcome = 2
                 self.needToSave = true
@@ -1276,7 +1276,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         roll = roll + 3 - self.testSkillMod.indexOfSelectedItem
         var sk = self.player!.skill
 
-        if self.player!.gamekind == kGameHouseHell {
+        if self.player!.gameType == .kGameHouseHell {
             sk = self.player!.skill + 3
             if sk > self.player!.initialSkill { sk = self.player!.initialSkill }
         }
@@ -1504,7 +1504,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         var success: Bool = false
 
-        if self.player!.gamekind != kGameCitadel {
+        if self.player!.gameType != .kGameCitadel {
             // Not a Citadel of Chaos game? Then ignore click
             showAlert("This section is only for Citadel of Chaos games", "", false)
             return
@@ -1607,7 +1607,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if let zplayer = self.player {
 
-            if zplayer.gamekind != kGameCitadel {
+            if zplayer.gameType != .kGameCitadel {
                 // Not a Citadel of Chaos game? Then ignore click
                 if let asender = (sender as? NSTextField) {
                     if asender.stringValue.count > 0 {
@@ -1919,7 +1919,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         if let zplayer = self.player {
             // Update the Citadel of Chaos magic spell matrix
-            if zplayer.gamekind == kGameCitadel {
+            if zplayer.gameType == .kGameCitadel {
                 self.creatureCopyField.stringValue = "\(zplayer.citadelSpellMatrix[0])"
                 self.espField.stringValue = "\(zplayer.citadelSpellMatrix[1])"
                 self.fireField.stringValue = "\(zplayer.citadelSpellMatrix[2])"
@@ -1934,7 +1934,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             }
 
             // Update the Temple of Terror magic spell readout
-            if zplayer.gamekind == kGameTempleTerror {
+            if zplayer.gameType == .kGameTempleTerror {
                 self.spellOnePopup.selectItem(at: zplayer.templeSpellMatrix[0])
                 self.spellTwoPopup.selectItem(at: zplayer.templeSpellMatrix[1])
                 self.spellThreePopup.selectItem(at: zplayer.templeSpellMatrix[2])
@@ -1942,7 +1942,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             }
 
             // Handle tab hiding/unhiding
-            if zplayer.gamekind == kGameTempleTerror || zplayer.gamekind == kGameCitadel {
+            if zplayer.gameType == .kGameTempleTerror || zplayer.gameType == .kGameCitadel {
                 // Add back the Magic tab if necessary
                 if !self.tabs.tabViewItems.contains(self.magicTabItem) {
                     self.tabs.insertTabViewItem(self.heldTabs["magicTabItem"]!, at: 4)
@@ -1956,8 +1956,8 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             }
 
             // Handle game-specific stats boxes
-            self.hellBox.isHidden = zplayer.gamekind == kGameHouseHell ? false : true
-            self.citadelBox.isHidden = zplayer.gamekind == kGameCitadel ? false : true
+            self.hellBox.isHidden = zplayer.gameType == .kGameHouseHell ? false : true
+            self.citadelBox.isHidden = zplayer.gameType == .kGameCitadel ? false : true
 
             // Update the modifiers
             self.testLuckMod.selectItem(at: zplayer.modMatrix[0])
@@ -1969,7 +1969,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.gameInProgress = true
 
             // Set up the Game menu
-            setGameMenu(zplayer.gamekind)
+            setGameMenu(zplayer.gameType)
 
             // Set up the bookmark
             if zplayer.bookmark != -1 {
@@ -1977,23 +1977,23 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
                 self.bookmark.needsDisplay = true
                 self.bookmark.isHidden = true
                 self.bookmarkButtonButton.bookmarkState = false
-                self.showBookmark(self)
+                showBookmark(self)
             }
 
             // Drop in the notes the player made last game
             self.notesTextView.string = zplayer.notes
 
             // Set the Stats View image
-            self.setStatsViewImage(zplayer.gamekind)
+            setStatsViewImage(zplayer.gameType)
 
             // Update the window title
             self.window.title = zplayer.gameName
 
             // Show the player's stats
-            self.updateStats()
+            updateStats()
 
             // Show the extra information as a reminder
-            self.showExtraInfo(zplayer.gamekind)
+            showExtraInfo(zplayer.gameType)
 
             return true
         } else {
@@ -2150,17 +2150,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Note that all of these 'non-default' game types do not use potions, so
         // remove them if the user has selected one
 
-        var gameType: Int = self.startGamePopup.indexOfSelectedItem
-        if gameType > kGamePortPeril { gameType = gameType + 6 }
-        self.player!.gamekind = gameType
+        var gameKind: FFGameType = FFGameType(rawValue: self.startGamePopup.indexOfSelectedItem) ?? .kGameWarlock
+        //if gameType > kGamePortPeril { gameType = gameType + 6 }
+        self.player!.gameType = gameKind
 
         // The following are 'standard' games with no special load-out
-        if gameType == kGameWarlock { self.player!.gameName = "The Warlock of Firetop Mountain" }
-        if gameType == kGameDeathtrap { self.player!.gameName = "Deathtrap Dungeon" }
-        if gameType == kGameCityThieves { self.player!.gameName = "City of Thieves" }
+        if gameKind == .kGameWarlock { self.player!.gameName = "The Warlock of Firetop Mountain" }
+        if gameKind == .kGameDeathtrap { self.player!.gameName = "Deathtrap Dungeon" }
+        if gameKind == .kGameCityThieves { self.player!.gameName = "City of Thieves" }
 
         // Manage the Magic tab — it's only present for certain games
-        if gameType != kGameCitadel && gameType != kGameTempleTerror {
+        if gameKind != .kGameCitadel && gameKind != .kGameTempleTerror {
             // Remove the Magic tab for all but Citadel of Chaos and Temple of Terror
             self.heldTabs["magicTabItem"] = self.magicTabItem!
             if self.tabs.tabViewItems.contains(self.magicTabItem) { self.tabs.removeTabViewItem(self.magicTabItem) }
@@ -2177,7 +2177,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.citadelBox.isHidden = true
         self.hellBox.isHidden = true
 
-        if gameType == kGameCitadel {
+        if gameKind == .kGameCitadel {
             player!.magic = Int(arc4random_uniform(6) + arc4random_uniform(6)) + 8
             self.player!.initialMagic = self.player!.magic
             self.player!.potion = kPotionNone
@@ -2188,7 +2188,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.magicSpellsValue.stringValue = "\(self.player!.magic)"
         }
 
-        if gameType == kGameHouseHell {
+        if gameKind == .kGameHouseHell {
             self.player!.skill = self.player!.skill - 3
             self.player!.initialSkill = self.player!.skill + 3
             self.player!.maxFear = Int(arc4random_uniform(6)) + 7
@@ -2200,52 +2200,52 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             self.hellBox.isHidden = false
         }
 
-        if gameType == kGameForestDoom {
+        if gameKind == .kGameForestDoom {
             self.player!.gold = 30
             self.player!.gameName = "Forest of Doom"
         }
 
-        if gameType == kGameCavernsSnow {
+        if gameKind == .kGameCavernsSnow {
             self.player!.drinks = 1
             self.player!.gold = 0
             self.player!.gameName = "Caverns of the Snow Witch"
         }
 
-        if gameType == kGameReturnFiretop {
+        if gameKind == .kGameReturnFiretop {
             self.player!.potion = kPotionNone
             self.player!.gold = 0
             self.player!.provisions = 0
             self.player!.gameName = "Return to Firetop Mountain"
         }
 
-        if gameType == kGameTempleTerror {
+        if gameKind == .kGameTempleTerror {
             self.player!.potion = kPotionNone
             self.player!.gold = 25
             self.player!.gameName = "Temple of Terror"
         }
 
-        if gameType == kGameEyeDragon {
+        if gameKind == .kGameEyeDragon {
             self.player!.potion = kPotionNone
             self.player!.provisions = 10
             self.player!.gold = 0
             self.player!.gameName = "Eye of the Dragon"
         }
 
-        if gameType == kGameTrialChampions {
+        if gameKind == .kGameTrialChampions {
             self.player!.potion = kPotionNone
             self.player!.provisions = 0
             self.player!.gold = 0
             self.player!.gameName = "Trial of Champions"
         }
 
-        if gameType == kGameCreatureHavoc {
+        if gameKind == .kGameCreatureHavoc {
             self.player!.potion = kPotionNone
             self.player!.provisions = 0
             self.player!.gold = 0
             self.player!.gameName = "Creature of Havoc"
         }
 
-        if gameType == kGamePortPeril {
+        if gameKind == .kGamePortPeril {
             self.player!.provisions = 10
             self.player!.gold = 0
             self.player!.drinks = 1
@@ -2254,7 +2254,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Sorcery! games - always the last two in the menu
 
-        if gameType == kGameSorceryWizard {
+        if gameKind == .kGameSorceryWizard {
             self.player!.skill = self.player!.skill - 2
             self.player!.potion = kPotionNone
             self.player!.gold = 20
@@ -2263,7 +2263,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         }
 
-        if gameType == kGameSorceryFighter {
+        if gameKind == .kGameSorceryFighter {
             self.player!.potion = kPotionNone
             self.player!.gold = 20
             self.player!.provisions = 2
@@ -2276,7 +2276,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         if self.player!.pack.count > 0 { self.player!.pack.removeAll() }
 
         // Only House of Hell starts you out with no kit
-        if gameType != kGameHouseHell && gameType != kGameCreatureHavoc {
+        if gameKind != .kGameHouseHell && gameKind != .kGameCreatureHavoc {
 			// Add items to the pack as dictionaries with the keys 'name' and 'icon'
 			// 'name' is the item as a string, 'icon' is the index of its icon in
 			// the 'icons' array of images. The index is stored here as an NSNumber
@@ -2285,17 +2285,17 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             dict = [ "name" : "Leather armour", "icon" : NSNumber.init(value: 2) ]
             self.player!.pack.append(dict)
 
-            if gameType != kGameCavernsSnow {
+            if gameKind != .kGameCavernsSnow {
                 dict = [ "name" : "Lantern", "icon" : NSNumber.init(value: 0) ]
                 self.player!.pack.append(dict)
             }
         }
 
         // Set the Stats View image
-        setStatsViewImage(gameType)
+        setStatsViewImage(gameKind)
 
         // Set the Game menu
-        setGameMenu(gameType)
+        setGameMenu(gameKind)
 
         // Update the UI with the new stats
         updateStats()
@@ -2311,45 +2311,45 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         self.window.endSheet(self.createSheet)
 
         // Pop up game-specific info
-        showExtraInfo(gameType)
+        showExtraInfo(gameKind)
     }
 
-    func showExtraInfo(_ gameType: Int) {
+    func showExtraInfo(_ gameType: FFGameType) {
 
         // Present alerts containing useful info for specific game types,
         // immediately before play actually begins
-        if gameType == kGamePortPeril {
+        if gameType == .kGamePortPeril {
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Use the Game menu to gain Yaztromo’s aid when instructed in the game book."
             alert.beginSheetModal(for: self.window, completionHandler: nil)
         }
 
-        if gameType == kGameCavernsSnow || gameType == kGameTempleTerror {
+        if gameType == .kGameCavernsSnow || gameType == .kGameTempleTerror {
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Use the Game menu for certain monsters’ extra attacks when instructed in the game book."
             alert.beginSheetModal(for: self.window, completionHandler: nil)
         }
 
-        if gameType == kGameTempleTerror || gameType == kGameCitadel {
+        if gameType == .kGameTempleTerror || gameType == .kGameCitadel {
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Don’t forget to selet your magic spells in the Magic tab."
             alert.beginSheetModal(for: self.window, completionHandler: nil)
         }
 
-        if gameType == kGameHouseHell {
+        if gameType == .kGameHouseHell {
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Don’t forget you start the game with reduced Skill — take care!"
             alert.beginSheetModal(for: self.window, completionHandler: nil)
         }
 
-        if gameType == kGameSorceryWizard || gameType == kGameSorceryFighter {
+        if gameType == .kGameSorceryWizard || gameType == .kGameSorceryFighter {
             let alert: NSAlert = NSAlert.init()
             alert.messageText = "Use the Game menu to ask Libra to revitalise you once during each book in the Sorcery! series."
             alert.beginSheetModal(for: self.window, completionHandler: nil)
         }
     }
 
-    func setStatsViewImage(_ gameType:Int) {
+    func setStatsViewImage(_ gameType: FFGameType) {
 
         let image: NSImageView
 
@@ -2360,11 +2360,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         }
 
         // Add game-specific image
-        if gameType == kGameCitadel {
+        if gameType == .kGameCitadel {
             // Place an image in the gap to the right of the stats panel
             image = NSImageView.init(frame: NSMakeRect(citadelBox.frame.origin.x + 160, citadelBox.frame.origin.y, 258, 140))
             image.image = NSImage.init(named: NSImage.Name("coc"))
-        } else if gameType == kGameHouseHell {
+        } else if gameType == .kGameHouseHell {
             // Place an image in the gap to the left of the stats panel
             image = NSImageView.init(frame: NSMakeRect(6, hellBox.frame.origin.y, 262, 136))
             image.image = NSImage.init(named: NSImage.Name("hoh"))
@@ -2544,11 +2544,11 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
     // MARK: - Game-specific Functions
 
-    func setGameMenu(_ gameType: Int) {
+    func setGameMenu(_ gameType: FFGameType) {
 
-        if (gameType == kGamePortPeril) { setPortPerilGameMenu() }
-        if (gameType == kGameCavernsSnow) { setCavernsGameMenu() }
-        if (gameType == kGameTempleTerror) { setTempleGameMenu() }
+        if (gameType == .kGamePortPeril) { setPortPerilGameMenu() }
+        if (gameType == .kGameCavernsSnow) { setCavernsGameMenu() }
+        if (gameType == .kGameTempleTerror) { setTempleGameMenu() }
     }
 
     // MARK: Port of Peril
@@ -2557,7 +2557,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
 
         // Only show the Yaztromo aid window if the player is playing Port of Peril
         if let zplayer = self.player {
-            if zplayer.gamekind == kGamePortPeril {
+            if zplayer.gameType == .kGamePortPeril {
                 self.window.beginSheet(self.yazWindow, completionHandler:nil)
             }
         }

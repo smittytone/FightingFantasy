@@ -46,6 +46,12 @@ class FFPlayer: NSObject, NSCoding {
 
     var isDead: Bool = false
     var bookmark: Int = -1
+    
+    // Version 2 properties
+    var gameType: FFGameType = .kGameNone
+    var potionType: FFPotionType = .kPotionNone
+    var classVersion: Int = 2
+
 
     // MARK: Functions
 
@@ -63,6 +69,7 @@ class FFPlayer: NSObject, NSCoding {
         for _ in 0...3 { self.templeSpellMatrix.append(0) }
     }
 
+    
     // MARK: NSCoding Functions
 
     func encode(with aCoder: NSCoder) {
@@ -75,7 +82,7 @@ class FFPlayer: NSObject, NSCoding {
         aCoder.encode(self.gameName, forKey: "ff.gamename")
         aCoder.encode(self.name, forKey: "ff.name")
         aCoder.encode(self.notes, forKey: "ff.notes")
-        aCoder.encode(NSNumber(value: self.gamekind), forKey: "ff.gamekind")
+        //aCoder.encode(NSNumber(value: self.gamekind), forKey: "ff.gamekind")
         aCoder.encode(NSNumber(value: self.skill), forKey: "ff.skill")
         aCoder.encode(NSNumber(value: self.initialSkill), forKey: "ff.iskill")
         aCoder.encode(NSNumber(value: self.stamina), forKey: "ff.stamina")
@@ -88,11 +95,16 @@ class FFPlayer: NSObject, NSCoding {
         aCoder.encode(NSNumber(value: self.initialMagic), forKey: "ff.imagic")
         aCoder.encode(NSNumber(value: self.provisions), forKey: "ff.provisions")
         aCoder.encode(NSNumber(value: self.gold), forKey: "ff.gold")
-        aCoder.encode(NSNumber(value: self.potion), forKey: "ff.potion")
+        //aCoder.encode(NSNumber(value: self.potion), forKey: "ff.potion")
         aCoder.encode(NSNumber(value: self.drinks), forKey: "ff.drinks")
         aCoder.encode(NSNumber(value: self.bookmark), forKey: "ff.bookmark")
         aCoder.encode(NSNumber(value: self.packSelectedItem), forKey: "ff.psm")
+        // Version 2 fields
+        aCoder.encode(NSNumber(value: self.potionType.rawValue), forKey: "ff.potion")
+        aCoder.encode(NSNumber(value: self.gameType.rawValue), forKey: "ff.gamekind")
+        aCoder.encode(NSNumber(value: self.classVersion), forKey: "ff.version")
     }
+
 
     required init(coder aDecoder: NSCoder) {
 
@@ -100,7 +112,7 @@ class FFPlayer: NSObject, NSCoding {
         self.pack = aDecoder.decodeObject(forKey: "ff.pack") as! [[String:Any]]
         self.gameName = aDecoder.decodeObject(forKey: "ff.gamename") as! String
         self.name = aDecoder.decodeObject(forKey: "ff.name") as! String
-        self.gamekind = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
+        //self.gamekind = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
         self.skill = (aDecoder.decodeObject(forKey: "ff.skill") as! NSNumber).intValue
         self.initialSkill = (aDecoder.decodeObject(forKey: "ff.iskill") as! NSNumber).intValue
         self.initialStamina = (aDecoder.decodeObject(forKey: "ff.istamina") as! NSNumber).intValue
@@ -113,7 +125,7 @@ class FFPlayer: NSObject, NSCoding {
         self.initialMagic = (aDecoder.decodeObject(forKey: "ff.imagic") as! NSNumber).intValue
         self.provisions = (aDecoder.decodeObject(forKey: "ff.provisions") as! NSNumber).intValue
         self.gold = (aDecoder.decodeObject(forKey: "ff.gold") as! NSNumber).intValue
-        self.potion = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
+        //self.potion = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
         self.drinks = (aDecoder.decodeObject(forKey: "ff.drinks") as! NSNumber).intValue
         self.bookmark = (aDecoder.decodeObject(forKey: "ff.bookmark") as! NSNumber).intValue
         self.packSelectedItem = (aDecoder.decodeObject(forKey: "ff.psm") as! NSNumber).intValue
@@ -131,6 +143,24 @@ class FFPlayer: NSObject, NSCoding {
         for i in 0...3 { self.templeSpellMatrix.append(csm[i].intValue) }
         csm = aDecoder.decodeObject(forKey: "ff.modmatrix") as! [NSNumber]
         for i in 0...3 { self.modMatrix.append(csm[i].intValue) }
+
+        // Version 2 elements
+        if let vs = aDecoder.decodeObject(forKey: "ff.version") {
+            let vn = vs as! NSNumber
+            if vn == 2 {
+                let gk = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
+                let pt = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
+                self.potionType = FFPotionType(rawValue: pt) ?? .kPotionNone
+                self.gameType = FFGameType(rawValue: gk) ?? .kGameWarlock
+            }
+        } else {
+            // Version 1 load: update to version 2 for next save
+            self.classVersion = 2
+            let gk = (aDecoder.decodeObject(forKey: "ff.gamekind") as! NSNumber).intValue
+            let pt = (aDecoder.decodeObject(forKey: "ff.potion") as! NSNumber).intValue
+            self.potionType = FFPotionType(rawValue: pt) ?? .kPotionNone
+            self.gameType = FFGameType(rawValue: gk) ?? .kGameWarlock
+        }
     }
 
 
