@@ -26,9 +26,9 @@
 
 /* Begin PBXFileReference section */
 		3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFImageView.swift; sourceTree = "<group>"; };
-		3B0BE13E2ADE96DF0093812A /* FightingFantasy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FightingFantasy.entitlements; sourceTree = "<group>"; };
 		3B1DFF911FC069D900E8E22B /* FFTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTableCellView.swift; sourceTree = "<group>"; };
 		3B1DFF931FC0D3C300E8E22B /* helptext.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helptext.txt; sourceTree = SOURCE_ROOT; };
+		3B3AAA3C2AE0502E009228AB /* FightingFantasy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FightingFantasy.entitlements; sourceTree = "<group>"; };
 		3B7375A61FC23DE2000C4F88 /* FFBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFBookmarkButton.swift; sourceTree = "<group>"; };
 		3BB5B25F1FABC81200D0B499 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BC840A51FA749F000691F92 /* FFTextFieldFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTextFieldFormatter.swift; sourceTree = "<group>"; };
@@ -75,7 +75,6 @@
 		3BFE93021FA29615003DF79F /* FightingFantasy */ = {
 			isa = PBXGroup;
 			children = (
-				3B0BE13E2ADE96DF0093812A /* FightingFantasy.entitlements */,
 				3BB5B25F1FABC81200D0B499 /* Constants.swift */,
 				3BFE93031FA29615003DF79F /* AppDelegate.swift */,
 				3BFE93111FA29A8D003DF79F /* FFPlayer.swift */,
@@ -92,6 +91,7 @@
 				3BF1933A1FA66A2300337EE8 /* FFCollectionViewItem.xib */,
 				3B1DFF931FC0D3C300E8E22B /* helptext.txt */,
 				3BFE930A1FA29615003DF79F /* Info.plist */,
+				3B3AAA3C2AE0502E009228AB /* FightingFantasy.entitlements */,
 			);
 			path = FightingFantasy;
 			sourceTree = "<group>";
@@ -140,7 +140,7 @@
 				};
 			};
 			buildConfigurationList = 3BFE92FB1FA29614003DF79F /* Build configuration list for PBXProject "FightingFantasy" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -329,7 +329,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -354,7 +354,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y5J3K52DNA;
 				ENABLE_HARDENED_RUNTIME = YES;

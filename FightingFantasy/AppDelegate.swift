@@ -2150,7 +2150,7 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
         // Note that all of these 'non-default' game types do not use potions, so
         // remove them if the user has selected one
 
-        var gameKind: FFGameType = FFGameType(rawValue: self.startGamePopup.indexOfSelectedItem) ?? .kGameWarlock
+        let gameKind: FFGameType = FFGameType(rawValue: self.startGamePopup.indexOfSelectedItem) ?? .kGameWarlock
         //if gameType > kGamePortPeril { gameType = gameType + 6 }
         self.player!.gameType = gameKind
 
