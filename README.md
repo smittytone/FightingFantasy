@@ -27,3 +27,11 @@ As I say, the Swift version was written to help me learn Swift. It's quite good 
 The previous version was quite naïve; this is slightly better and introduces a couple of UI improvements, in particular icons for backpack items and a pop-up panel from which icons can be selected, because I wanted to figure out how to do this. Hopefully, it will help others understand how Swift can be applied to their own macOS (and iOS/tvOS) projects too.
 
 Tony Smith,<br />@smittytone
+
+### Ownership ###
+
+From version 3.1.0, I have included in the repo the graphical assets used by the code. I did not do so in the past becase this would be a violation of other content owners’ copyrights. However, as the code is free, and I would like to encourage its use, I have decided to release the assests in any case.
+
+The Fighting Fantasy name and logo are owned by Steve Jackson and Ian Livingstone. The images are owned by their respective artists: I have used material by Iain McCaig, Russ Nicholson and Tim Sell. The item icons were collated from numerous sources on the Internet more than a decade ago and were modified by me. I’m afraid I can no longer recall the sources. All other images are mine.
+
+If you are a copyright holder and object to the use of your material in this free, open source software, please raise an issue to bring your concerns to my attention. Thank you.

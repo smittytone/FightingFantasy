@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3B0930B31FBF9D9E0078FAC0 /* FFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */; };
+		3B1777262B04C14F00420F56 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 3B1777242B04C14F00420F56 /* LICENSE.md */; };
+		3B1777272B04C14F00420F56 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3B1777252B04C14F00420F56 /* README.md */; };
 		3B1DFF921FC069D900E8E22B /* FFTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1DFF911FC069D900E8E22B /* FFTableCellView.swift */; };
 		3B1DFF941FC0D3C300E8E22B /* helptext.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B1DFF931FC0D3C300E8E22B /* helptext.txt */; };
 		3B7375A71FC23DE2000C4F88 /* FFBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7375A61FC23DE2000C4F88 /* FFBookmarkButton.swift */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		3B0930B21FBF9D9E0078FAC0 /* FFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFImageView.swift; sourceTree = "<group>"; };
+		3B1777242B04C14F00420F56 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		3B1777252B04C14F00420F56 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3B1DFF911FC069D900E8E22B /* FFTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTableCellView.swift; sourceTree = "<group>"; };
 		3B1DFF931FC0D3C300E8E22B /* helptext.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helptext.txt; sourceTree = SOURCE_ROOT; };
 		3B3AAA3C2AE0502E009228AB /* FightingFantasy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FightingFantasy.entitlements; sourceTree = "<group>"; };
@@ -39,7 +43,7 @@
 		3BF1933D1FA67F0F00337EE8 /* FFIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFIconButton.swift; sourceTree = "<group>"; };
 		3BFE93001FA29615003DF79F /* FightingFantasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightingFantasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFE93031FA29615003DF79F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
-		3BFE93051FA29615003DF79F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../Library/CloudStorage/OneDrive-Personal/Programming/FightingFantasy/Assets.xcassets"; sourceTree = "<group>"; };
+		3BFE93051FA29615003DF79F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BFE93081FA29615003DF79F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3BFE930A1FA29615003DF79F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFE93111FA29A8D003DF79F /* FFPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFPlayer.swift; sourceTree = "<group>"; };
@@ -56,10 +60,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B1777232B04C13700420F56 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				3B1777242B04C14F00420F56 /* LICENSE.md */,
+				3B1777252B04C14F00420F56 /* README.md */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
 		3BFE92F71FA29614003DF79F = {
 			isa = PBXGroup;
 			children = (
 				3BFE93021FA29615003DF79F /* FightingFantasy */,
+				3B1777232B04C13700420F56 /* Misc */,
 				3BFE93011FA29615003DF79F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -162,6 +176,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B1777272B04C14F00420F56 /* README.md in Resources */,
+				3B1777262B04C14F00420F56 /* LICENSE.md in Resources */,
 				3B1DFF941FC0D3C300E8E22B /* helptext.txt in Resources */,
 				3BF1933C1FA66A2300337EE8 /* FFCollectionViewItem.xib in Resources */,
 				3BFE93061FA29615003DF79F /* Assets.xcassets in Resources */,
@@ -339,7 +355,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.blackpyramid.FightingFantasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -364,7 +380,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bps.blackpyramid.FightingFantasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
