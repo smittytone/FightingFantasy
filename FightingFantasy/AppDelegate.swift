@@ -2369,14 +2369,18 @@ class AppDelegate:  NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTabl
             image = NSImageView.init(frame: NSMakeRect(6, hellBox.frame.origin.y, 262, 136))
             image.image = NSImage.init(named: NSImage.Name("hoh"))
         } else {
-            let roll: Int = Int(arc4random_uniform(3))
+            let roll: Int = Int(arc4random_uniform(4))
             switch roll {
             case 0:
                 image = NSImageView.init(frame: NSMakeRect(6, 54, 422, 88))
                 image.image = NSImage.init(named: NSImage.Name("scroll"))
             case 1:
-                image = NSImageView.init(frame: NSMakeRect(57, 6, 320, 168))
-                image.image = NSImage.init(named: NSImage.Name("banner"))
+                //image = NSImageView.init(frame: NSMakeRect(57, 6, 320, 168))
+                //image.image = NSImage.init(named: NSImage.Name("banner"))
+                fallthrough
+            case 2:
+                image = NSImageView.init(frame: NSMakeRect(6, 15, 422, 127))
+                image.image = NSImage.init(named: NSImage.Name("crossedswords"))
             default:
                 image = NSImageView.init(frame: NSMakeRect(6, 15, 422, 147))
                 image.image = NSImage.init(named: NSImage.Name("mace"))
